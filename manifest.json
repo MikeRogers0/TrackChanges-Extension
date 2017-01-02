@@ -1,0 +1,34 @@
+{
+  "name": "__MSG_name__",
+  "short_name": "__MSG_short_name__",
+  "version": "0.1.0",
+  "manifest_version": 2,
+  "description": "__MSG_description__",
+  "default_locale": "en",
+  "background": {
+    "scripts": [
+      "lib/background/scripts/tabs.js"
+    ]
+  },
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  },
+  "default_locale": "en",
+  "permissions": [
+    "tabs", "pageCapture", "webNavigation"
+  ],
+  "browser_action": {
+    "default_title": "__MSG_browser_action__",
+    "default_icon": "images/meetup-logo.png"
+  },
+  "icons": {
+    "16": "images/meetup-logo.png",
+    "48": "images/meetup-logo.png",
+    "128": "images/meetup-logo.png"
+  },
+  "minimum_chrome_version": "55",
+  "offline_enabled": true,
+  "author": "Mike Rogers",
+  "homepage_url": "https://mikerogers.io/changes-diff"
+}

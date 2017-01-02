@@ -1,0 +1,22 @@
+{
+  "name": "ChangesDiff",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test": "grunt test",
+    "watch": "npm run watch-js & npm run watch-scss",
+    "watch-js": "rollup -f iife -i src/background/scripts/tabs.js -o lib/background/scripts/tabs.js -c -w",
+    "watch-scss": "sass -w src/styles/popup.scss:lib/styles/popup.css",
+    "build": "npm run build-js & npm run build-scss",
+    "build-js": "rollup -f iife -i src/background/scripts/tabs.js -o lib/background/scripts/tabs.js -c",
+    "build-scss": "sass src/styles/popup.scss:lib/styles/popup.css"
+  },
+  "devDependencies": {
+    "diff": "^3.2.0",
+    "mhtml-parser": "^1.0.2",
+    "rollup": "^0.38.1",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-watch": "^2.5.0",
+    "sass": "^0.5.0"
+  }
+}

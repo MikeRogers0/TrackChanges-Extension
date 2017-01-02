@@ -1,0 +1,24 @@
+{
+  "name": {
+    "message": "ChangesDiff",
+    "description": "Extension name"
+  },
+  "short_name": {
+    "message": "ChangesDiff",
+    "description": "Short Extension name"
+  },
+  "description": {
+    "message": "",
+    "description": "Extension description"
+  },
+  "browser_action": {
+    "message": "",
+    "description": "The default tooltip on the icon"
+  },
+
+
+  "@random_message": {
+    "message": "Adhoc hello",
+    "description": ""
+  }
+}
