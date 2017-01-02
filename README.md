@@ -1,6 +1,6 @@
-# Meetup MapView
+# Change Diff
 
-Adds the map view to meetup.com.
+See the differences made to a page.
 
 ### Handy scripts for local development
 
