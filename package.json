@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "test": "grunt test",
-    "build-background-js": "rollup -f iife -i src/background/scripts/background.js -o lib/background/scripts/background.js -c",
-    "build-popup-js": "rollup -f iife -i src/browser_action/popup.js -o lib/browser_action/popup.js -c",
+    "build-background-js": "rollup -i src/background/scripts/background.js -o lib/background/scripts/background.js -c",
+    "build-popup-js": "rollup -i src/browser_action/popup.js -o lib/browser_action/popup.js -c",
     "build-popup-html": "cp src/browser_action/popup.html lib/browser_action/popup.html",
     "build-scss": "sass src/styles/popup.scss:lib/styles/popup.css",
     "build": "npm run build-background-js & npm run build-popup-js & npm run build-popup-html & npm run build-scss"
