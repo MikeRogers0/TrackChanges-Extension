@@ -7,7 +7,7 @@
   "default_locale": "en",
   "background": {
     "scripts": [
-      "lib/background/scripts/tabs.js"
+      "lib/background/scripts/background.js"
     ]
   },
   "options_ui": {
@@ -16,11 +16,12 @@
   },
   "default_locale": "en",
   "permissions": [
-    "tabs", "pageCapture", "clipboardWrite"
+    "tabs", "pageCapture", "clipboardWrite", "activeTab"
   ],
   "browser_action": {
     "default_title": "__MSG_browser_action__",
-    "default_icon": "images/meetup-logo.png"
+    "default_icon": "images/meetup-logo.png",
+    "default_popup": "lib/browser_action/popup.html"
   },
   "icons": {
     "16": "images/meetup-logo.png",
