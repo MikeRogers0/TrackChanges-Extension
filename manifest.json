@@ -16,7 +16,7 @@
   },
   "default_locale": "en",
   "permissions": [
-    "tabs", "pageCapture", "webNavigation"
+    "tabs", "pageCapture", "clipboardWrite"
   ],
   "browser_action": {
     "default_title": "__MSG_browser_action__",
