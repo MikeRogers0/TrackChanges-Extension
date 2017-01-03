@@ -1,10 +1,10 @@
 "use strict";
 
 // https://github.com/kpdecker/jsdiff
-import JsDiff from 'diff';
+import { JsDiff } from 'diff';
 
 // https://github.com/zsxsoft/mhtml-parser
-import parseByString from 'mhtml-parser';
+import { parseByString } from 'mhtml-parser';
 
 var background = chrome.extension.getBackgroundPage();
 var tab = null;
