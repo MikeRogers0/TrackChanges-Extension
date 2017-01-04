@@ -4,5 +4,9 @@ export default {
   plugins: [ 
     babel() 
   ],
-  format: 'iife'
+  format: 'iife',
+  external: [
+    'diff',
+    'mhtml-parser'
+  ]
 };

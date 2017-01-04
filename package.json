@@ -7,8 +7,9 @@
     "build-background-js": "rollup -i src/background/scripts/background.js -o lib/background/scripts/background.js -c",
     "build-popup-js": "rollup -i src/browser_action/popup.js -o lib/browser_action/popup.js -c",
     "build-popup-html": "cp src/browser_action/popup.html lib/browser_action/popup.html",
+    "build-npm-module-diff": "cp node_modules/diff/dist/diff.min.js lib/browser_action/",
     "build-scss": "sass src/styles/popup.scss:lib/styles/popup.css",
-    "build": "npm run build-background-js & npm run build-popup-js & npm run build-popup-html & npm run build-scss"
+    "build": "npm run build-background-js & npm run build-popup-js & npm run build-popup-html & build-npm-module-diff & npm run build-scss"
   },
   "devDependencies": {
     "diff": "^3.2.0",
