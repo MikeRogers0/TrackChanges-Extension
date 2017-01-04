@@ -1,8 +1,8 @@
 "use strict";
 
 // https://github.com/kpdecker/jsdiff
-var diff = require("diff");
-window.diff = diff;
+var JsDiff = require("diff");
+window.diff = JsDiff;
 
 // https://github.com/zsxsoft/mhtml-parser
 import { MHTMLParser } from './mhtml-parser';
@@ -12,8 +12,8 @@ var background = chrome.extension.getBackgroundPage();
 var tab = null;
 var diffElm = document.querySelector(".diffs");
 
-var original_mhtmlData = null;
-var new_mhtmlData = null;
+var original_files = {};
+var changed_files = {};
 
 function runTheDiff(){
 
@@ -23,51 +23,56 @@ function runTheDiff(){
     // Now save that mhtmlData as a string
     var reader = new window.FileReader();
     reader.onload = function() {
-      new_mhtmlData = reader.result;
-      loadOriginalmHTMLData();
+      changed_files = MHTMLParser().parseString(reader.result);
+      window.changed_data = reader.result;
+      window.changed_files = changed_files;
+      
+      loadOriginalFiles();
     };
-    reader.readAsBinaryString(mhtmlData);
+    reader.readAsText(mhtmlData);
 
   });
 };
 
-function loadOriginalmHTMLData(){
+function loadOriginalFiles(){
   var reader = new window.FileReader();
   reader.onload = function() {
-    original_mhtmlData = reader.result;
-    window.original_mhtmlData = original_mhtmlData;
+    original_files = MHTMLParser().parseString(reader.result);
+    window.original_files = original_files;
+
     buildDiff();
   };
-  reader.readAsBinaryString(background.tabsMHTML[tab.id]);
+  reader.readAsText(background.tabsMHTML[tab.id]);
 };
 
 function buildDiff(){
   // background.tabsMHTML[tab.id] vs  new_mhtmlData
   
-  var MultipartBoundaryLine = original_mhtmlData.split("\n")[6]
-  window.MultipartBoundary = MultipartBoundaryLine.replace('	boundary="', '').replace('"', '');
+  diffElm.innerHTML = "<p>Building the diff</p>";
 
-  window.data = MHTMLParser().parseString(original_mhtmlData);
-  //window.data = window.parser().parseString(window.original_mhtmlData);
-  console.log(window.data);
+  // Compare the diff.
 
-  // These will be parsed into files I think, only looking at HTML/CSS/JS.
-  //var diff = JsDiff.diffLines(original_mhtmlData, new_mhtmlData);
+  for(var i in original_files){
+   compareVersionsOfFile(i);
+  }
+}
 
-  //window.diff = diff;
+function compareVersionsOfFile(file){
+  var diffs = null;
+  var containerDivElm = document.createElement('div');
+  var codeElm = document.createElement('code');
 
-  //[diff[0], diff[1], diff[2], diff[3], diff[4]].forEach(function(part){
-    //// green for additions, red for deletions
-    //// grey for common parts
-    //var color = part.added ? 'green' : part.removed ? 'red' : 'grey';
-    //var span = document.createElement('div');
-    //span.style.color = color;
-    //span.appendChild(document.createTextNode(part.value));
-    //diffElm.appendChild(span);
-  //});
+  containerDivElm.innerHTML = "<p>" + file + "</p>"
+  diffElm.appendChild(containerDivElm);
+  containerDivElm.appendChild(codeElm);
 
-  //diffElm.innerHTML = '<p><a href="' + window.URL.createObjectURL(background.tabsMHTML[tab.id]) + '">Original</a></p>';
-  //diffElm.innerHTML += '<p><a href="' + window.URL.createObjectURL(new_mhtmlData) + '">Updated</a></p>';
+  JsDiff.diffLines(original_files[file].data, changed_files[file].data).forEach(function(part){
+    var color = part.added ? 'green' : part.removed ? 'red' : 'grey';
+    var div = document.createElement('div');
+    div.style.color = color;
+    div.appendChild(document.createTextNode(part.value));
+    codeElm.appendChild(div);
+  });
 }
 
 chrome.tabs.query({ active: true, currentWindow: true }, function(tabs){

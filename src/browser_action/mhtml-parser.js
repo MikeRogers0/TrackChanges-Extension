@@ -50,14 +50,16 @@ export function MHTMLParser() {
     fileData.filename = fileData["Content-Location"];
 
     // Skip any files that are massive.
-    if( fileData["Content-Transfer-Encoding"] !== "base64" ) {
-      
-      // Rejoin the actual content
-      fileData.data = MHTMLFileLines.slice(line, MHTMLFileLines.length).join("\n");
-
-      // Save the parsed file to the data;
-      data[fileData.filename] = fileData;
+    if( fileData["Content-Transfer-Encoding"] === "base64" ) {
+      return;
     }
+      
+    // Rejoin the actual content
+    debugger;
+    fileData.data = MHTMLFileLines.slice(line, MHTMLFileLines.length).join("\n");
+
+    // Save the parsed file to the data;
+    data[fileData.filename] = fileData;
   };
 
   var parseHeaderLine = function(line, fileData){
@@ -67,7 +69,7 @@ export function MHTMLParser() {
 
       // If we find a header, then update the file data
       if( line.indexOf(header) !== -1 ){
-        fileData[header] = line.replace(header + ": ", "");
+        fileData[header] = line.replace(header + ": ", "").trim();
 
         return fileData;
       }
