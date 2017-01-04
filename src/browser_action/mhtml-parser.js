@@ -1,3 +1,5 @@
+var quotedPrintable = require('quoted-printable');
+
 export function MHTMLParser() {
 
   var headers = [
@@ -13,11 +15,12 @@ export function MHTMLParser() {
 
   var setMultipartBoundary = function(){
     var MultipartBoundaryLine = MHTMLString.split("\n")[6]
-    MultipartBoundary += MultipartBoundaryLine.replace('	boundary="', '').replace('"', '');
+    var MultipartBoundaryToken =  "" + MultipartBoundaryLine.replace('boundary="----', '').replace('----"', '').trim();
+    MultipartBoundary = "------" + MultipartBoundaryToken + "----";
   }
 
   var splitMHTMLStringIntoFiles = function(){
-    MHTMLFiles = MHTMLString.split(MultipartBoundary);
+    MHTMLFiles = MHTMLString.replace(MultipartBoundary + "--", "").split(MultipartBoundary);
   }
 
   var parseFiles = function(){
@@ -49,14 +52,22 @@ export function MHTMLParser() {
     // Assign the filename.
     fileData.filename = fileData["Content-Location"];
 
+    // If it already exists (chrome returns the page twice), skip it
+    if( data[fileData.filename] != undefined ) {
+      return;
+    }
+
     // Skip any files that are massive.
     if( fileData["Content-Transfer-Encoding"] === "base64" ) {
       return;
     }
       
     // Rejoin the actual content
-    debugger;
     fileData.data = MHTMLFileLines.slice(line, MHTMLFileLines.length).join("\n");
+
+    if( fileData["Content-Transfer-Encoding"] === "quoted-printable" ) {
+      fileData.data = quotedPrintable.decode(fileData.data)
+    }
 
     // Save the parsed file to the data;
     data[fileData.filename] = fileData;
@@ -89,6 +100,7 @@ export function MHTMLParser() {
 
       setMultipartBoundary();
       splitMHTMLStringIntoFiles();
+
       parseFiles();
 
       return data;

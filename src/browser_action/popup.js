@@ -13,25 +13,20 @@ var tab = null;
 var diffElm = document.querySelector(".diffs");
 
 var original_files = {};
-var changed_files = {};
+var latest_files = {};
 
 function runTheDiff(){
 
-  // Get the MHTMl first
-  chrome.pageCapture.saveAsMHTML({tabId: tab.id}, function(mhtmlData){
+  // Now save that mhtmlData as a string
+  var reader = new window.FileReader();
+  reader.onload = function() {
+    latest_files = MHTMLParser().parseString(reader.result);
+    window.latest_files = latest_files;
 
-    // Now save that mhtmlData as a string
-    var reader = new window.FileReader();
-    reader.onload = function() {
-      changed_files = MHTMLParser().parseString(reader.result);
-      window.changed_data = reader.result;
-      window.changed_files = changed_files;
-      
-      loadOriginalFiles();
-    };
-    reader.readAsText(mhtmlData);
+    loadOriginalFiles();
+  };
+  reader.readAsText(background.latest_tabsMHTML[tab.id]);
 
-  });
 };
 
 function loadOriginalFiles(){
@@ -42,7 +37,7 @@ function loadOriginalFiles(){
 
     buildDiff();
   };
-  reader.readAsText(background.tabsMHTML[tab.id]);
+  reader.readAsText(background.original_tabsMHTML[tab.id][tab.url]);
 };
 
 function buildDiff(){
@@ -66,10 +61,12 @@ function compareVersionsOfFile(file){
   diffElm.appendChild(containerDivElm);
   containerDivElm.appendChild(codeElm);
 
-  JsDiff.diffLines(original_files[file].data, changed_files[file].data).forEach(function(part){
+  JsDiff.diffLines(original_files[file].data, latest_files[file].data).forEach(function(part){
     var color = part.added ? 'green' : part.removed ? 'red' : 'grey';
     var div = document.createElement('div');
     div.style.color = color;
+    //console.log("New Line Is:");
+    //console.log(part.value);
     div.appendChild(document.createTextNode(part.value));
     codeElm.appendChild(div);
   });

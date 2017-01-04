@@ -13,6 +13,9 @@
   "devDependencies": {
     "browserify": "^13.1.1",
     "diff": "^3.2.0",
+    "install": "^0.8.4",
+    "npm": "^4.0.5",
+    "quoted-printable": "^1.0.1",
     "rollup": "^0.38.1",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-watch": "^2.5.0",
