@@ -1,10 +1,12 @@
 "use strict";
 
 // https://github.com/kpdecker/jsdiff
-import { JsDiff } from 'diff';
+var diff = require("diff");
+window.diff = diff;
 
 // https://github.com/zsxsoft/mhtml-parser
-import { parseByString } from 'mhtml-parser';
+import { MHTMLParser } from './mhtml-parser';
+window.parser = MHTMLParser;
 
 var background = chrome.extension.getBackgroundPage();
 var tab = null;
@@ -33,6 +35,7 @@ function loadOriginalmHTMLData(){
   var reader = new window.FileReader();
   reader.onload = function() {
     original_mhtmlData = reader.result;
+    window.original_mhtmlData = original_mhtmlData;
     buildDiff();
   };
   reader.readAsBinaryString(background.tabsMHTML[tab.id]);
@@ -41,7 +44,11 @@ function loadOriginalmHTMLData(){
 function buildDiff(){
   // background.tabsMHTML[tab.id] vs  new_mhtmlData
   
-  window.data = parser.parse(original_mhtmlData);
+  var MultipartBoundaryLine = original_mhtmlData.split("\n")[6]
+  window.MultipartBoundary = MultipartBoundaryLine.replace('	boundary="', '').replace('"', '');
+
+  window.data = MHTMLParser().parseString(original_mhtmlData);
+  //window.data = window.parser().parseString(window.original_mhtmlData);
   console.log(window.data);
 
   // These will be parsed into files I think, only looking at HTML/CSS/JS.
@@ -65,6 +72,7 @@ function buildDiff(){
 
 chrome.tabs.query({ active: true, currentWindow: true }, function(tabs){
   tab = tabs[0];
+  window.tab = tab;
 
   runTheDiff();
 });
