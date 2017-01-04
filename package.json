@@ -8,10 +8,12 @@
     "build-popup-js": "rollup -i src/browser_action/popup.js -o lib/browser_action/popup.js -c",
     "build-popup-html": "cp src/browser_action/popup.html lib/browser_action/popup.html",
     "build-npm-module-diff": "cp node_modules/diff/dist/diff.min.js lib/browser_action/",
+    "build-npm-module-mhtml-parser": "browserify node_modules/mhtml-parser/parser.js > lib/browser_action/parser.js",
     "build-scss": "sass src/styles/popup.scss:lib/styles/popup.css",
-    "build": "npm run build-background-js & npm run build-popup-js & npm run build-popup-html & build-npm-module-diff & npm run build-scss"
+    "build": "npm run build-background-js & npm run build-popup-js & npm run build-popup-html & npm run build-npm-module-diff & npm run build-npm-module-mhtml-parser & npm run build-scss"
   },
   "devDependencies": {
+    "browserify": "^13.1.1",
     "diff": "^3.2.0",
     "mhtml-parser": "^1.0.2",
     "rollup": "^0.38.1",
