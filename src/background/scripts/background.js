@@ -24,6 +24,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   }
 
   // We need a quick delay otherwise chrome throws a shitty error.
+  // TODO: Make sure we don't hammer this command somehow.
   setTimeout(function(){
     cacheMHTML(tab.id)
   }, 250);

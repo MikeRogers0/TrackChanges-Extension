@@ -1,3 +1,34 @@
 body {
-  width: 80%;
+  width: 400px;
+}
+
+.clickables {
+  ul {
+    list-style: none;
+    padding: 0;
+    overflow: hidden;
+  }
+  li {
+    float: left;
+    width: 50%;
+  }
+  a {
+    margin: 0 auto;
+    width: 80%;
+    text-align: center;
+    display: block;
+  }
+}
+
+.diffs {
+  width: 90%;
+  margin: 0 auto;
+  overflow: hidden; 
+
+  > p {
+    text-align: center;
+  }
+
+  code {
+  }
 }

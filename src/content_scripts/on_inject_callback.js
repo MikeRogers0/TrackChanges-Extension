@@ -4,3 +4,18 @@ document.onreadystatechange = function () {
     chrome.runtime.sendMessage( { action: "injected" } );
   }
 };
+
+// Also listen for a handful of other loading events.
+document.addEventListener('DOMContentLoaded', function(){
+  chrome.runtime.sendMessage( { action: "injected" } );
+}, false);
+
+// Turbolinks 5
+document.addEventListener('turbolinks:load', function(){
+  chrome.runtime.sendMessage( { action: "injected" } );
+}, false);
+
+// Turbolinks clasic
+document.addEventListener('page:change', function(){
+  chrome.runtime.sendMessage( { action: "injected" } );
+}, false);
