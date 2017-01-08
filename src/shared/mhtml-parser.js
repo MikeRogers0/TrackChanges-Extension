@@ -45,8 +45,14 @@ export function MHTMLParser() {
     // Start cycling through the lines until we reach the end of the headers.
     var line = 0;
     while(!fileData.headerParsed){
-      fileData = parseHeaderLine(MHTMLFileLines[line], fileData);
-      line++;
+      console.log( MHTMLFileLines[line] );
+      console.log( typeof MHTMLFileLines[line] );
+      if( typeof MHTMLFileLines[line] !== "undefined" ) {
+        fileData = parseHeaderLine(MHTMLFileLines[line], fileData);
+        line++;
+      } else {
+        fileData.headerParsed = true;
+      }
     }
 
     // Assign the filename.
@@ -67,6 +73,11 @@ export function MHTMLParser() {
 
     if( fileData["Content-Transfer-Encoding"] === "quoted-printable" ) {
       fileData.data = quotedPrintable.decode(fileData.data)
+    }
+
+    // Remove "cid:frame-1007-078dc205-110a-4a99-8c03-53a3a256e7ef@mhtml.blink" Kind of stuff from the HTML source
+    if( fileData["Content-Type"] === "text/html" ) {
+      fileData.data = fileData.data.replace( /cid:([a-z0-9\-]+)@mhtml\.blink/g, '' );
     }
 
     // Save the parsed file to the data;

@@ -10,6 +10,12 @@
       "lib/background/scripts/background.js"
     ]
   },
+    "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["lib/content_scripts/on_inject_callback.js"]
+    }
+  ],
   "options_ui": {
     "page": "options.html",
     "chrome_style": true

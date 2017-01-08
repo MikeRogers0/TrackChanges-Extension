@@ -2,11 +2,10 @@
 
 // https://github.com/kpdecker/jsdiff
 var JsDiff = require("diff");
-window.diff = JsDiff;
+//window.diff = JsDiff;
 
-// https://github.com/zsxsoft/mhtml-parser
-import { MHTMLParser } from './mhtml-parser';
-window.parser = MHTMLParser;
+import { MHTMLParser } from '../shared/mhtml-parser';
+//window.parser = MHTMLParser;
 
 var background = chrome.extension.getBackgroundPage();
 var tab = null;
@@ -16,28 +15,21 @@ var original_files = {};
 var latest_files = {};
 
 function runTheDiff(){
+  original_files = background.original_tabs[tab.id];
+  latest_files = original_files;
 
-  // Now save that mhtmlData as a string
-  var reader = new window.FileReader();
-  reader.onload = function() {
-    latest_files = MHTMLParser().parseString(reader.result);
-    window.latest_files = latest_files;
-
-    loadOriginalFiles();
-  };
-  reader.readAsText(background.latest_tabsMHTML[tab.id]);
-
+  loadLatestFiles()
 };
 
-function loadOriginalFiles(){
-  var reader = new window.FileReader();
-  reader.onload = function() {
-    original_files = MHTMLParser().parseString(reader.result);
-    window.original_files = original_files;
-
-    buildDiff();
-  };
-  reader.readAsText(background.original_tabsMHTML[tab.id][tab.url]);
+function loadLatestFiles(){
+  chrome.pageCapture.saveAsMHTML({tabId: tab.id}, function(mhtmlData){
+    var reader = new window.FileReader();
+    reader.onload = function() {
+      latest_files = MHTMLParser().parseString(reader.result);
+      buildDiff();
+    };
+    reader.readAsText(mhtmlData);
+  });
 };
 
 function buildDiff(){
@@ -46,7 +38,6 @@ function buildDiff(){
   diffElm.innerHTML = "<p>Building the diff</p>";
 
   // Compare the diff.
-
   for(var i in original_files){
    compareVersionsOfFile(i);
   }
@@ -64,11 +55,12 @@ function compareVersionsOfFile(file){
   JsDiff.diffLines(original_files[file].data, latest_files[file].data).forEach(function(part){
     var color = part.added ? 'green' : part.removed ? 'red' : 'grey';
     var div = document.createElement('div');
-    div.style.color = color;
-    //console.log("New Line Is:");
-    //console.log(part.value);
-    div.appendChild(document.createTextNode(part.value));
-    codeElm.appendChild(div);
+
+    if(part.added || part.removed){
+      div.style.color = color;
+      div.appendChild(document.createTextNode(part.value));
+      codeElm.appendChild(div);
+    }
   });
 }
 

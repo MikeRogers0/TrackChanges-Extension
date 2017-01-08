@@ -1,44 +1,35 @@
-'use strict';
+import { MHTMLParser } from '../../shared/mhtml-parser';
 
 // Saves the tabs MHTML on page load, clear the store on tab close.
-window.original_tabsMHTML = {};
-window.latest_tabsMHTML = {};
+window.original_tabs = {};
 
 // Cache the HTML to memory.
-function cacheMHTML(tabId, tabUrl){
+function cacheMHTML(tabId){
   chrome.pageCapture.saveAsMHTML({tabId: tabId}, function(mhtmlData){
-    window.latest_tabsMHTML[tabId] = mhtmlData;
-
-    // If it's the first time the user has hit the page
-    // TODO: Maybe update original on document ready or something?
-    if( typeof(window.original_tabsMHTML[tabId]) == "undefined" || typeof(window.original_tabsMHTML[tabId][tabUrl]) == "undefined" ){
-      window.original_tabsMHTML[tabId] = {};
-      window.original_tabsMHTML[tabId][tabUrl] = mhtmlData;
-    }
+    var reader = new window.FileReader();
+    reader.onload = function() {
+      window.original_tabs[tabId] = MHTMLParser().parseString(reader.result);
+    };
+    reader.readAsText(mhtmlData);
   });
 }
 
-// When the tab changes, we save a copy of the HTML.
-chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab){
-  if (changeInfo.status === 'loading'){
+// When a page tell us it has has loaded successfully, we grab a snapshot of the page.
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
+  var tab = sender.tab;
+
+  // If it's some other message, ignore it.
+  if(request.action !== "injected"){
     return;
   }
 
   // We need a quick delay otherwise chrome throws a shitty error.
   setTimeout(function(){
-    cacheMHTML(tabId, tab.url)
-  }, 50);
+    cacheMHTML(tab.id)
+  }, 250);
 });
-
-// TODO: On moving to this tab.
-//chrome.tabs.onActivated.addListener(function(activeInfo){
-  //var tabId = activeInfo.tabId;
-
-  //cacheMHTML(tabId)
-//});
 
 // Clear up the memory on tab close.
 chrome.tabs.onRemoved.addListener(function(tabId, removeInfo){
   delete original_tabsMHTML[tabId];
-  delete latest_tabsMHTML[tabId];
 });
