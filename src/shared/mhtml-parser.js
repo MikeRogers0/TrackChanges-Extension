@@ -5,7 +5,8 @@ export function MHTMLParser() {
   var headers = [
     "Content-Type",
     "Content-Transfer-Encoding",
-    "Content-Location"
+    "Content-ID",
+    "Content-Location",
   ]
 
   var MHTMLString = "";
@@ -45,8 +46,6 @@ export function MHTMLParser() {
     // Start cycling through the lines until we reach the end of the headers.
     var line = 0;
     while(!fileData.headerParsed){
-      console.log( MHTMLFileLines[line] );
-      console.log( typeof MHTMLFileLines[line] );
       if( typeof MHTMLFileLines[line] !== "undefined" ) {
         fileData = parseHeaderLine(MHTMLFileLines[line], fileData);
         line++;
@@ -97,13 +96,38 @@ export function MHTMLParser() {
       }
     }
 
-    // If it's a blank line, then we're at the end of the headers
+    // The "Content-Location" is the last header, so we can assume the headers are done.
     if(fileData["Content-Location"] != ""){
       fileData.headerParsed = true
     }
 
     return fileData;
   }
+
+  var injectContentIDs = function(){
+    return;
+
+    // Make a map of the contentIDs
+    //var contentIDs = {};
+
+    //for(var i in data){
+      //var file = data[i];
+
+      //if(typeof file["Content-ID"] !== "undefined"){
+        //var contentID = file["Content-ID"].replace("<", "").replace(">", "")
+        //contentIDs[contentID] = file["Content-Location"];
+      //}
+    //}
+
+    //// Now find and replace in the other documents.
+    //for(var i in data){
+      //if( data[i]["Content-Type"] == "text/html" ){
+        //for(var contentID in contentIDs){
+          //data[i].data = data[i].data.replace( "cid:" + contentID, contentIDs[contentID] );
+        //}
+      //}
+    //}
+  };
 
   return {
     parseString: function(string){
@@ -113,6 +137,8 @@ export function MHTMLParser() {
       splitMHTMLStringIntoFiles();
 
       parseFiles();
+
+      injectContentIDs();
 
       return data;
     }
