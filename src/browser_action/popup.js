@@ -10,6 +10,7 @@ import { MHTMLParser } from '../shared/mhtml-parser';
 var background = chrome.extension.getBackgroundPage();
 var tab = null;
 var diffElm = document.querySelector(".diffs");
+var bodyElm = document.querySelector("body");
 
 var original_files = {};
 var latest_files = {};
@@ -62,6 +63,8 @@ function compareVersionsOfFile(file){
       codeElm.appendChild(div);
     }
   });
+
+  bodyElm.className = "diffs-loaded";
 }
 
 chrome.tabs.query({ active: true, currentWindow: true }, function(tabs){
