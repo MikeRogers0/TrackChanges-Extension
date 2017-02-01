@@ -19,6 +19,8 @@ function runTheDiff(){
   original_files = background.original_tabs[tab.id];
   latest_files = original_files;
 
+  //window.original_files = original_files;
+
   loadLatestFiles()
 };
 
@@ -27,6 +29,8 @@ function loadLatestFiles(){
     var reader = new window.FileReader();
     reader.onload = function() {
       latest_files = MHTMLParser().parseString(reader.result);
+
+      //window.latest_files = latest_files;
       buildDiff();
     };
     reader.readAsText(mhtmlData);
@@ -35,22 +39,30 @@ function loadLatestFiles(){
 
 function buildDiff(){
   // background.tabsMHTML[tab.id] vs  new_mhtmlData
-  
-  diffElm.innerHTML = "<p>Building the diff</p>";
+  diffElm.innerHTML = "";
 
   // Compare the diff.
   for(var i in original_files){
    compareVersionsOfFile(i);
   }
+
+  bodyElm.className = "diffs-loaded";
+
+  // When nothing, show message.
 }
 
+// Compare the two version of the file.
 function compareVersionsOfFile(file){
   var diffs = null;
   var containerDivElm = document.createElement('div');
   var codeElm = document.createElement('code');
 
+  // If they're the same, skip this file.
+  if(original_files[file].data === latest_files[file].data) {
+    return;
+  }
+
   containerDivElm.innerHTML = "<p>" + file + "</p>"
-  diffElm.appendChild(containerDivElm);
   containerDivElm.appendChild(codeElm);
 
   JsDiff.diffLines(original_files[file].data, latest_files[file].data).forEach(function(part){
@@ -64,7 +76,7 @@ function compareVersionsOfFile(file){
     }
   });
 
-  bodyElm.className = "diffs-loaded";
+  diffElm.appendChild(containerDivElm);
 }
 
 chrome.tabs.query({ active: true, currentWindow: true }, function(tabs){

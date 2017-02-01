@@ -11,3 +11,8 @@ See the differences made to a page.
 Or if your want to watch
 
     npm run watch
+
+## TODO
+
+ - Copy to markdown
+ - Save / restore changes 

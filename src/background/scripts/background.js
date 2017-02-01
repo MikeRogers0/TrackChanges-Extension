@@ -32,5 +32,5 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 
 // Clear up the memory on tab close.
 chrome.tabs.onRemoved.addListener(function(tabId, removeInfo){
-  delete original_tabsMHTML[tabId];
+  delete original_tabs[tabId];
 });
