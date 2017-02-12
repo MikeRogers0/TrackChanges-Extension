@@ -1,11 +1,7 @@
 "use strict";
 
-// https://github.com/kpdecker/jsdiff
-var JsDiff = require("diff");
-//window.diff = JsDiff;
-
+import { HTMLDiff } from '../shared/html-diff';
 import { MHTMLParser } from '../shared/mhtml-parser';
-//window.parser = MHTMLParser;
 
 var background = chrome.extension.getBackgroundPage();
 var tab = null;
@@ -19,18 +15,16 @@ function runTheDiff(){
   original_files = background.original_tabs[tab.id];
   latest_files = original_files;
 
-  //window.original_files = original_files;
-
   loadLatestFiles()
 };
+
+window.runTheDiff = runTheDiff;
 
 function loadLatestFiles(){
   chrome.pageCapture.saveAsMHTML({tabId: tab.id}, function(mhtmlData){
     var reader = new window.FileReader();
     reader.onload = function() {
       latest_files = MHTMLParser().parseString(reader.result);
-
-      //window.latest_files = latest_files;
       buildDiff();
     };
     reader.readAsText(mhtmlData);
@@ -46,7 +40,7 @@ function buildDiff(){
    compareVersionsOfFile(i);
   }
 
-  bodyElm.className = "diffs-loaded";
+  bodyElm.className += " diffs-loaded";
 
   // When nothing, show message.
 }
@@ -62,19 +56,15 @@ function compareVersionsOfFile(file){
     return;
   }
 
+  bodyElm.className = "has-diffs";
+
   containerDivElm.innerHTML = "<p>" + file + "</p>"
+
+  //if(file.indexOf(".css") !== -1){ // It's a CSS file
+  
+  codeElm = HTMLDiff().diffLines(original_files[file].data, latest_files[file].data, codeElm);
+
   containerDivElm.appendChild(codeElm);
-
-  JsDiff.diffLines(original_files[file].data, latest_files[file].data).forEach(function(part){
-    var color = part.added ? 'green' : part.removed ? 'red' : 'grey';
-    var div = document.createElement('div');
-
-    if(part.added || part.removed){
-      div.style.color = color;
-      div.appendChild(document.createTextNode(part.value));
-      codeElm.appendChild(div);
-    }
-  });
 
   diffElm.appendChild(containerDivElm);
 }

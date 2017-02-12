@@ -1,3 +1,5 @@
+// Parses HTML and turns it into individual files.
+
 var quotedPrintable = require('quoted-printable');
 
 export function MHTMLParser() {
