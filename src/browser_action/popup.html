@@ -4,21 +4,27 @@
   </head>
   <body>
 
-    <div class="clickables">
-      <ul>
-        <li><a>Copy as text</a></li>
-        <li><a>Copy as markdown</a></li>
-      </ul>
-    </div>
+    <h1>TrackChanges</h1>
+
+    <hr />
 
     <div class="current-summary">
-      <p><a>Save Snapshot</a> <span class="added">+11,915</span> <span class="removed">-128</span></p>
+      <p>
+        <a class="btn-save">
+          <span class="save-copy">Save Snapshot</span> <span class="separator"></span> <span class="added">+11,915</span> <span class="removed">-128</span>
+        </a>
+      </p>
       <p>No changes detected</p>
     </div>
 
+    <hr />
+
     <div class="snapshots">
+
+      <p>Recently saved snapshots</p>
+
       <div class="snapshot">
-        <img src="#" width="75" height="75" />
+        <img src="#" width="125" height="125" />
         <ul>
           <li><a>Remove</a></li>
           <li><a>Open</a></li>
@@ -27,28 +33,13 @@
       </div>
 
       <div class="snapshot">
-        <img src="#" width="75" height="75" />
+        <img src="#" width="125" height="125" />
         <ul>
           <li><a>Remove</a></li>
           <li><a>Open</a></li>
           <li><a>Download</a></li>
         </ul>
       </div>
-    </div>
-
-
-    <div class="loading">
-      <img src="/images/animal.gif" />
-      <div class="loading-status">
-        <p>Loading Changes Data</p>
-      </div>
-    </div>
-
-    <div class="no-diffs">
-      <p>No differences found on this page</p>
-    </div>
-
-    <div class="diffs">
     </div>
 
     <script src="/lib/browser_action/popup.js" defer></script>

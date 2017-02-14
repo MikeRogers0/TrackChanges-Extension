@@ -1,93 +1,54 @@
 @import "colours";
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: $body-text;
+  background-color: #fff;
+
   width: 400px;
   height: auto;
+}
 
-  &.diffs-loaded {
-    .loading {
-      display: none;
-    }
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid $separator-color;
+  margin: 1em 0;
+  padding: 0; 
+}
 
-    .no-diffs {
-      display: block;
-    }
+.added {
+  color: $added-color;
+}
 
-    .diffs {
-      display: block
-    }
-  }
+.removed {
+  color: $removed-color;
+}
 
-  &.has-diffs {
-    .no-diffs {
-      display: none;
-    }
+.separator {
+  padding: 0;
+  width: 1px;
+  height: 1em;
+  margin: 0 0.6em;
+  border-left: 1px solid $separator-color;
+}
+
+.btn-save {
+  padding: 6px;
+  border: 1px solid $border-color;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.current-summary {
+  .save-copy {
+    color: $link-color;
   }
 }
 
-.clickables {
-  border-bottom: 1px solid #eee;
-
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
-  }
-  li {
-    float: left;
-    width: 50%;
-  }
-  a {
-    margin: 0 auto;
-    width: 80%;
-    text-align: center;
-    display: block;
-    padding: 0.4rem 0 0.4rem 0;
-    background: $primary;
-    color: $button-text;
-    border: 1px solid $button-text;
-    border-radius: 2px;
-    margin-top: 3px;
-  }
-}
-
-.no-diffs {
-  display: none;
-  text-align: center;
-  margin-top: 20px;
-}
-
-.loading {
-  text-align: center;
-
-  img {
-    width: 96px;
-    height: 96px;
-  }
-
-  .loading-status {
-  }
-}
-
-.diffs {
-  width: 90%;
-  margin: 0 auto;
-  overflow: hidden; 
-  display: none;
-
-  p {
-    word-break: break-all;
-  }
-
-  code {
-    .added {
-      color: green;
-    }
-
-    .removed {
-      color: red;
-    }
-  }
+.snapshots {
+  overflow: hidden;
 }
