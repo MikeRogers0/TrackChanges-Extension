@@ -21,7 +21,7 @@ function loadSnapshotList(){
     for(var i in results){
       var result = results[i];
       if(result.isDirectory){
-        ChromeFiles().removeDirectory(result.name);
+        //ChromeFiles().removeDirectory(result.name);
         var newSnapshot = snapshotHTML;
 
         // Fill in the keys
