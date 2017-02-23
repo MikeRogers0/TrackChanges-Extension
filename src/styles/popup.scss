@@ -41,6 +41,13 @@ hr {
   border: 1px solid $border-color;
   border-radius: 3px;
   overflow: hidden;
+  text-decoration: none;
+
+  &:hover {
+    .save-copy {
+      text-decoration: underline;
+    }
+  }
 }
 
 .current-summary {
@@ -51,4 +58,10 @@ hr {
 
 .snapshots {
   overflow: hidden;
+  display: flex;
+  flex-flow: row wrap;
+
+  .snapshot {
+    flex: 0 0 50%;
+  }
 }

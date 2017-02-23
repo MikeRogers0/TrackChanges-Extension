@@ -22,8 +22,14 @@
   },
   "default_locale": "en",
   "permissions": [
-    "tabs", "pageCapture", "clipboardWrite", "activeTab"
+    "tabs", "pageCapture", "activeTab", "unlimitedStorage", "storage"
   ],
+  "file_system_provider_capabilities": {
+    "configurable": true,
+    "watchable": false,
+    "multiple_mounts": true,
+    "source": "file"
+  },
   "browser_action": {
     "default_title": "__MSG_browser_action__",
     "default_icon": "images/logo.png",

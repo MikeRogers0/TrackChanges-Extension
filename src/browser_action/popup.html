@@ -10,7 +10,7 @@
 
     <div class="current-summary">
       <p>
-        <a class="btn-save">
+        <a class="btn-save" href="#">
           <span class="save-copy">Save Snapshot</span> <span class="separator"></span> <span class="added">+11,915</span> <span class="removed">-128</span>
         </a>
       </p>
@@ -19,9 +19,29 @@
 
     <hr />
 
+    <h2>Recently saved snapshots</h2>
+
+    <script type="text/html" data-template="snapshot">
+      <div class="snapshot" data-id="#{id}">
+        <img src="#{url}/preview.png" width="125" height="125" />
+        <ul>
+          <li><a>Remove</a></li>
+          <li><a>Open</a></li>
+          <li><a>Download</a></li>
+        </ul>
+      </div>
+    </script>
+
     <div class="snapshots">
 
-      <p>Recently saved snapshots</p>
+      <div class="snapshot">
+        <img src="#" width="125" height="125" />
+        <ul>
+          <li><a>Remove</a></li>
+          <li><a>Open</a></li>
+          <li><a>Download</a></li>
+        </ul>
+      </div>
 
       <div class="snapshot">
         <img src="#" width="125" height="125" />
