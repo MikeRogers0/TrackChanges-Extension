@@ -15,6 +15,31 @@ export function ChromeFiles() {
     }, errorHandler);
   }
 
+  // From: http://stackoverflow.com/questions/20419574/saving-dataurlbase64-to-file-on-phonegap-android
+  function b64toBlob(b64Data, contentType, sliceSize) {
+    contentType = contentType || '';
+    sliceSize = sliceSize || 512;
+
+    var byteCharacters = atob(b64Data);
+    var byteArrays = [];
+
+    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+      var byteNumbers = new Array(slice.length);
+      for (var i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      var byteArray = new Uint8Array(byteNumbers);
+
+      byteArrays.push(byteArray);
+    }
+
+    var blob = new Blob(byteArrays, {type: contentType});
+    return blob;
+  }
+
   function writeFile(filename, contents, fileType, callback){
     initFileSystem(function(fs){
 
@@ -30,9 +55,7 @@ export function ChromeFiles() {
             console.log('Write failed: ' + e.toString());
           };
 
-          var blob = new Blob([window.atob[contents]], {type: fileType, encoding: 'utf-8'});
-
-          fileWriter.write(blob);
+          fileWriter.write(b64toBlob(contents, fileType));
         }, errorHandler);
 
       }, errorHandler);
@@ -66,7 +89,7 @@ export function ChromeFiles() {
 
   return {
     saveBase64AsImage: function(filename, contents, callback){
-      contents = contents.split(',')[1];
+      contents = contents.replace(/^data:image\/\w+;base64,/, "");
       // Do something with the contents.
       writeFile(filename, contents, "image/png", callback)
     },
