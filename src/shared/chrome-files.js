@@ -2,7 +2,7 @@
 // https://github.com/GoogleChrome/chrome-app-samples/blob/master/samples/storage/main.js
 
 export function ChromeFiles() {
-  
+
   var BIG_FILE = 30 * 1024 * 1024;
 
   function errorHandler(e){
@@ -40,7 +40,7 @@ export function ChromeFiles() {
     return blob;
   }
 
-  function writeFile(filename, contents, fileType, callback){
+  function writeFile(filename, contents, callback){
     initFileSystem(function(fs){
 
       fs.root.getFile(filename, {create: true}, function(fileEntry) {
@@ -55,7 +55,7 @@ export function ChromeFiles() {
             console.log('Write failed: ' + e.toString());
           };
 
-          fileWriter.write(b64toBlob(contents, fileType));
+          fileWriter.write(contents);
         }, errorHandler);
 
       }, errorHandler);
@@ -90,8 +90,14 @@ export function ChromeFiles() {
   return {
     saveBase64AsImage: function(filename, contents, callback){
       contents = contents.replace(/^data:image\/\w+;base64,/, "");
+      contents = b64toBlob(contents, "image/png");
       // Do something with the contents.
-      writeFile(filename, contents, "image/png", callback)
+      writeFile(filename, contents, callback)
+    },
+    saveMHTMLFile: function(filename, contents, callback){
+      contents = new TextEncoder("multipart/related").encode(contents);
+      contents = new Blob([contents], {type: "multipart/related"});
+      writeFile(filename, contents, callback)
     },
     createDirectory: function(folderName, callback){
       createDirectory(folderName, callback);

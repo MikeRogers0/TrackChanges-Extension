@@ -11,6 +11,7 @@ var btnSave = document.querySelector(".btn-save");
 var timeStamp = (new Date).getTime(); // Used for file directory
 var snapshotHTML = document.querySelector('[data-template="snapshot"]').innerHTML;
 var snaptshotsElm = document.querySelector(".snapshots");
+var tab = null;
 
 function loadSnapshotList(){
   // Clear current list
@@ -34,31 +35,67 @@ function loadSnapshotList(){
   });
 };
 
+// It's hard to know the current open tab. So save it.
+function setTab(callback){
+  console.log("Setting tab details global to popup");
+  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs){
+    tab = tabs[0];
+    callback();
+  });
+}
+
+function startSavingAllRelvantFiles(){
+  console.log("startSavingAllRelvantFiles");
+  console.log("Creating Directory");
+  ChromeFiles().createDirectory(timeStamp, function(){
+    saveScreenshot();
+  });
+}
+
+function saveScreenshot(){
+  console.log("Saving Screenshot");
+
+  chrome.tabs.captureVisibleTab({format: "png"}, function(dataUrl) {
+    ChromeFiles().saveBase64AsImage(timeStamp + "/preview.png", dataUrl, function(){
+      saveOriginalMHTMLFile();
+    });
+  });
+};
+
+function saveOriginalMHTMLFile(){
+  console.log("Saving Original MHTML File");
+  ChromeFiles().saveMHTMLFile(timeStamp + "/original.mhtml", background.original_tabs[tab.id]["mhtml"], function(){
+    saveLastestMHTMLFile();
+  });
+}
+
+function saveLastestMHTMLFile(){
+  console.log("Saving Latest MHTML File");
+
+  chrome.pageCapture.saveAsMHTML({tabId: tab.id}, function(mhtmlData){
+    var reader = new window.FileReader();
+    reader.onload = function() {
+      ChromeFiles().saveMHTMLFile(timeStamp + "/latest.mhtml", reader.result, function(){
+        cleaningUp();
+      });
+    };
+    reader.readAsArrayBuffer(mhtmlData);
+  });
+}
+
+function cleaningUp(){
+  console.log("Reloading Recent Snapshot list");
+  btnSave.innerHTML = "Saved"
+
+  loadSnapshotList();
+}
+
 btnSave.addEventListener("click", function(e){
   e.preventDefault();
   btnSave.disabled = true;
 
-  chrome.tabs.captureVisibleTab({format: "png"}, function(dataUrl) {
-
-    // Save the screenshot
-    // Save the original_mhtml
-    // Save the updated_mhtml
-    // Save the diff summary
-
-    // Create the directory.
-
-    console.log("Creating Directory");
-    ChromeFiles().createDirectory(timeStamp, function(){
-
-      console.log("Saving Screenshot");
-      ChromeFiles().saveBase64AsImage(timeStamp + "/preview.png", dataUrl, function(e){
-
-        console.log("Reloading Recent Snapshot list");
-        btnSave.innerHTML = "Saved"
-
-        loadSnapshotList();
-      });
-    });
+  setTab(function(){
+    startSavingAllRelvantFiles();
   });
 });
 

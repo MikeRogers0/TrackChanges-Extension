@@ -8,7 +8,10 @@ function cacheMHTML(tabId){
   chrome.pageCapture.saveAsMHTML({tabId: tabId}, function(mhtmlData){
     var reader = new window.FileReader();
     reader.onload = function() {
-      window.original_tabs[tabId] = MHTMLParser().parseString(reader.result);
+      window.original_tabs[tabId] = {
+        "mhtml": reader.result,
+        "parsed": MHTMLParser().parseString(reader.result)
+      };
     };
     reader.readAsText(mhtmlData);
   });
