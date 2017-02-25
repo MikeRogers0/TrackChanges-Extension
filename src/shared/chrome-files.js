@@ -10,7 +10,7 @@ export function ChromeFiles() {
   }
 
   function initFileSystem(callback){
-    window.webkitRequestFileSystem(TEMPORARY, BIG_FILE, function(fs) {
+    window.webkitRequestFileSystem(PERSISTENT, BIG_FILE, function(fs) {
       callback(fs);
     }, errorHandler);
   }
@@ -38,6 +38,12 @@ export function ChromeFiles() {
 
     var blob = new Blob(byteArrays, {type: contentType});
     return blob;
+  }
+
+  function getFile(filename, callback){
+    initFileSystem(function(fs){
+      fs.root.getFile(filename, {}, callback, errorHandler);
+    }, errorHandler);
   }
 
   function writeFile(filename, contents, callback){
@@ -107,6 +113,9 @@ export function ChromeFiles() {
     },
     listFoldersInRootDirectory: function(callback){
       readDirectory(callback);
+    },
+    getFile: function(filename, callback){
+      getFile(filename, callback);
     }
   }
 }

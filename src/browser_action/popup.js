@@ -23,17 +23,20 @@ function loadSnapshotList(){
       var result = results[i];
       if(result.isDirectory){
         //ChromeFiles().removeDirectory(result.name);
+        var directoryName = result.name;
         var newSnapshot = snapshotHTML;
 
         // Fill in the keys
         newSnapshot = newSnapshot.replace(/#{id}/g, result.name);
         newSnapshot = newSnapshot.replace(/#{url}/g, result.toURL());
-
+        // Append it to main list.
         snaptshotsElm.innerHTML += newSnapshot;
       }
     }
   });
 };
+
+window.loadSnapshotList = loadSnapshotList;
 
 // It's hard to know the current open tab. So save it.
 function setTab(callback){
@@ -79,7 +82,7 @@ function saveLastestMHTMLFile(){
         cleaningUp();
       });
     };
-    reader.readAsArrayBuffer(mhtmlData);
+    reader.readAsText(mhtmlData);
   });
 }
 
