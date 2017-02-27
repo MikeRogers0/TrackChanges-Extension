@@ -57,6 +57,7 @@ hr {
 }
 
 .btn-save {
+  color: $border-color;
   &:hover {
     .save-copy {
       text-decoration: underline;

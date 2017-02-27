@@ -2,7 +2,6 @@ import { ChromeFiles } from '../shared/chrome-files';
 import { MHTMLParser } from '../shared/mhtml-parser';
 import { HTMLDiff } from '../shared/html-diff';
 
-var tab = null;
 var finalCallback = function(){};
 
 export function Snapshot() {
@@ -10,7 +9,7 @@ export function Snapshot() {
   var timeStamp = (new Date).getTime(); // Used for file directory
 
   function tabID(){
-    return tab.id;
+    return window.tab.id;
   }
 
   function startSavingAllRelvantFiles(){

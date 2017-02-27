@@ -12,12 +12,17 @@ var background = chrome.extension.getBackgroundPage();
 var btnSave = document.querySelector(".btn-save");
 var btnViewMore = document.querySelector(".btn-view-more");
 var btnClearAll = document.querySelector(".btn-clear-all");
+
+var addedElm = document.querySelector(".current-summary .added");
+var removedElm = document.querySelector(".current-summary .removed");
+
 var snapshotHTML = document.querySelector('[data-template="snapshot"]').innerHTML;
 var snaptshotsElm = document.querySelector(".snapshots");
 
 var someChangesElm = document.querySelector(".some-changes");
 var noChangesElm = document.querySelector(".no-changes");
-var tab = null;
+
+window.tab = null;
 
 function loadSnapshotList(){
   // Clear current list
@@ -45,13 +50,28 @@ window.loadSnapshotList = loadSnapshotList;
 
 function loadCurrentDiffOverview(){
   noChangesElm.style = "display: block;"
+
+  setTab(function(){
+    console.log("Starting the Diff Overview");
+    DiffOverview().diffStats(function(linesAdded, linesRemoved){
+      addedElm.innerText = "+" + linesAdded;
+      removedElm.innerText = "-" + linesRemoved;
+
+      if(linesAdded > 0 || linesRemoved >  0) {
+        someChangesElm.style = "display: block;"
+        noChangesElm.style = "display: none;"
+      }
+    });
+  });
 }
+window.loadCurrentDiffOverview = loadCurrentDiffOverview;
 
 // It's hard to know the current open tab. So save it.
 function setTab(callback){
   console.log("Setting tab details global to popup");
   chrome.tabs.query({ active: true, currentWindow: true }, function(tabs){
-    callback(tabs[0]);
+    window.tab = tabs[0];
+    callback();
   });
 }
 
@@ -59,7 +79,7 @@ btnSave.addEventListener("click", function(e){
   e.preventDefault();
   btnSave.disabled = true;
 
-  setTab(function(tab){
+  setTab(function(){
     Snapshot().save(tab, function(){
       console.log("Reloading Recent Snapshot list");
       btnSave.innerHTML = "Saved"

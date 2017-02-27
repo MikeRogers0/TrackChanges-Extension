@@ -20,7 +20,6 @@ export function HTMLDiff() {
     div.setAttribute("line_numer", lineNumber);
     div.appendChild(document.createTextNode(part.value));
     codeElm.appendChild(div);
-
   }
 
   var appendContextNodes = function(part){
