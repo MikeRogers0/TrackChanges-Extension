@@ -15,7 +15,7 @@
 
     <div class="current-summary">
       <p>
-        <a class="btn-save" href="#">
+        <a class="btn btn-save" href="#">
           <span class="save-copy">Save Snapshot</span> <span class="separator"></span> <span class="added">+11,915</span> <span class="removed">-128</span>
         </a>
       </p>
@@ -33,7 +33,7 @@
         </div>
         <ul>
           <li><a>Remove</a></li>
-          <li><a href="#{url}/latest.mhtml" target="_blank" type="multipart/related">See Snapshot</a></li>
+          <li><a href="#{url}/latest.mhtml" type="multipart/related" download>See Snapshot</a></li>
           <li><a href="#{url}/diff.html" download>See Diff</a></li>
           <li><a>Download</a></li>
         </ul>
@@ -68,6 +68,14 @@
           <li><a>Download</a></li>
         </ul>
       </div>
+    </div>
+
+    <div class="view-more-snapshots">
+      <p>
+        <a class="btn btn-view-more" href="#" target="_blank">
+          View More
+        </a>
+      </p>
     </div>
 
     <script src="/lib/browser_action/popup.js" defer></script>

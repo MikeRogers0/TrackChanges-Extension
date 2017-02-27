@@ -49,18 +49,24 @@ hr {
   border-left: 1px solid $separator-color;
 }
 
-.btn-save {
+.btn {
   padding: 6px;
   border: 1px solid $border-color;
   border-radius: 3px;
   overflow: hidden;
   text-decoration: none;
+}
 
+.btn-save {
   &:hover {
     .save-copy {
       text-decoration: underline;
     }
   }
+}
+
+.btn-view-more {
+  color: $link-color;
 }
 
 .current-summary {

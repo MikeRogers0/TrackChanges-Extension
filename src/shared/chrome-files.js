@@ -105,6 +105,11 @@ export function ChromeFiles() {
       contents = new Blob([contents], {type: "multipart/related"});
       writeFile(filename, contents, callback)
     },
+    saveHTMLFile: function(filename, contents, callback){
+      contents = new TextEncoder("text/html").encode(contents);
+      contents = new Blob([contents], {type: "text/html"});
+      writeFile(filename, contents, callback)
+    },
     createDirectory: function(folderName, callback){
       createDirectory(folderName, callback);
     },
