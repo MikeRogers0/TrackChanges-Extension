@@ -1,6 +1,7 @@
 <html>
   <head>
     <link rel="stylesheet" href="/lib/styles/popup.css">
+    <link rel="stylesheet" href="/components/fortawesome/font-awesome/v4.7.0/css/font-awesome.css">
   </head>
   <body>
 
@@ -31,11 +32,11 @@
         <div class="snapshot__preview" style="background-image: url('#{url}/preview.png');">
           <!-- Image Preview Here -->
         </div>
-        <ul>
-          <li><a>Remove</a></li>
-          <li><a href="#{url}/latest.mhtml" type="multipart/related" download>See Snapshot</a></li>
+        <ul class="snapshot__actions">
+          <li><a href="#{url}/latest.mhtml" type="multipart/related" download><i class="fa fa-camera-retro" aria-hidden="true"></i></a></li>
           <li><a href="#{url}/diff.html" download>See Diff</a></li>
-          <li><a>Download</a></li>
+          <li><a><i class="fa fa-download" aria-hidden="true"></i></a></li>
+          <li class="remove"><a><i class="fa fa-trash" aria-hidden="true"></i></a></li>
         </ul>
       </div>
     </script>
@@ -43,30 +44,6 @@
     <div class="snapshots">
 
       <div class="snapshot">
-        <img src="#" width="125" height="125" />
-        <ul>
-          <li><a>Remove</a></li>
-          <li><a>Open</a></li>
-          <li><a>Download</a></li>
-        </ul>
-      </div>
-
-      <div class="snapshot">
-        <img src="#" width="125" height="125" />
-        <ul>
-          <li><a>Remove</a></li>
-          <li><a>Open</a></li>
-          <li><a>Download</a></li>
-        </ul>
-      </div>
-
-      <div class="snapshot">
-        <img src="#" width="125" height="125" />
-        <ul>
-          <li><a>Remove</a></li>
-          <li><a>Open</a></li>
-          <li><a>Download</a></li>
-        </ul>
       </div>
     </div>
 

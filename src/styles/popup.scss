@@ -8,6 +8,7 @@ body {
   background-color: #fff;
 
   width: 400px;
+  padding: 0 0 1rem 0;
 }
 
 header {
@@ -103,5 +104,20 @@ hr {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 0% 0%;
+  }
+
+  .snapshot__actions {
+    list-style: none;
+    padding: 0;
+    overflow: hidden;
+
+    li {
+      float: left;
+      padding: 0 0.5rem;
+    }
+
+    .remove {
+      float: right;
+    }
   }
 }
