@@ -28,11 +28,13 @@
 
     <script type="text/html" data-template="snapshot">
       <div class="snapshot" data-id="#{id}">
-        <img src="#{url}/preview.png" width="125" height="125" />
+        <div class="snapshot__preview" style="background-image: url('#{url}/preview.png');">
+          <!-- Image Preview Here -->
+        </div>
         <ul>
           <li><a>Remove</a></li>
-          <li><a href="#{url}/original.mhtml" download>See Original</a></li>
-          <li><a href="#{url}/latest.mhtml" download>See Snapshot</a></li>
+          <li><a href="#{url}/latest.mhtml" target="_blank" type="multipart/related">See Snapshot</a></li>
+          <li><a href="#{url}/diff.html" download>See Diff</a></li>
           <li><a>Download</a></li>
         </ul>
       </div>
