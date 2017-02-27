@@ -9,6 +9,8 @@ import { Snapshot } from '../shared/snapshot';
 
 var background = chrome.extension.getBackgroundPage();
 var btnSave = document.querySelector(".btn-save");
+var btnViewMore = document.querySelector(".btn-view-more");
+var btnClearAll = document.querySelector(".btn-clear-all");
 var snapshotHTML = document.querySelector('[data-template="snapshot"]').innerHTML;
 var snaptshotsElm = document.querySelector(".snapshots");
 var tab = null;
@@ -22,7 +24,6 @@ function loadSnapshotList(){
     for(var i in results){
       var result = results[i];
       if(result.isDirectory){
-        //ChromeFiles().removeDirectory(result.name);
         var directoryName = result.name;
         var newSnapshot = snapshotHTML;
 
@@ -61,6 +62,28 @@ btnSave.addEventListener("click", function(e){
     Snapshot().save(tab, function(){
       cleaningUp();
     });
+  });
+});
+
+btnViewMore.addEventListener("click", function(e){
+  e.preventDefault();
+  chrome.tabs.create({'url': chrome.extension.getURL('lib/launch.html'), 'selected': true});
+});
+
+btnClearAll.addEventListener("click", function(e){
+  e.preventDefault();
+
+  ChromeFiles().listFoldersInRootDirectory(function(results){
+    for(var i in results){
+      var result = results[i];
+      if(result.isDirectory){
+        ChromeFiles().removeDirectory(result.name);
+      }
+    }
+
+    setTimeout(function(){
+      loadSnapshotList();
+    }, 200);
   });
 });
 
