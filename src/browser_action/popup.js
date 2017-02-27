@@ -4,6 +4,7 @@ import { MHTMLParser } from '../shared/mhtml-parser';
 import { HTMLDiff } from '../shared/html-diff';
 import { ChromeFiles } from '../shared/chrome-files';
 import { Snapshot } from '../shared/snapshot';
+import { DiffOverview } from '../shared/diff-overview';
 //import { LineCountDiff } from '../shared/linecount-diff';
 // https://stuk.github.io/jszip/ - maybe also!
 
@@ -13,6 +14,9 @@ var btnViewMore = document.querySelector(".btn-view-more");
 var btnClearAll = document.querySelector(".btn-clear-all");
 var snapshotHTML = document.querySelector('[data-template="snapshot"]').innerHTML;
 var snaptshotsElm = document.querySelector(".snapshots");
+
+var someChangesElm = document.querySelector(".some-changes");
+var noChangesElm = document.querySelector(".no-changes");
 var tab = null;
 
 function loadSnapshotList(){
@@ -39,6 +43,10 @@ function loadSnapshotList(){
 
 window.loadSnapshotList = loadSnapshotList;
 
+function loadCurrentDiffOverview(){
+  noChangesElm.style = "display: block;"
+}
+
 // It's hard to know the current open tab. So save it.
 function setTab(callback){
   console.log("Setting tab details global to popup");
@@ -47,20 +55,16 @@ function setTab(callback){
   });
 }
 
-function cleaningUp(){
-  console.log("Reloading Recent Snapshot list");
-  btnSave.innerHTML = "Saved"
-
-  loadSnapshotList();
-}
-
 btnSave.addEventListener("click", function(e){
   e.preventDefault();
   btnSave.disabled = true;
 
   setTab(function(tab){
     Snapshot().save(tab, function(){
-      cleaningUp();
+      console.log("Reloading Recent Snapshot list");
+      btnSave.innerHTML = "Saved"
+
+      loadSnapshotList();
     });
   });
 });
@@ -87,4 +91,5 @@ btnClearAll.addEventListener("click", function(e){
   });
 });
 
+loadCurrentDiffOverview();
 loadSnapshotList();

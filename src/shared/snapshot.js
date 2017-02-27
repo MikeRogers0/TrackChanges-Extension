@@ -2,15 +2,15 @@ import { ChromeFiles } from '../shared/chrome-files';
 import { MHTMLParser } from '../shared/mhtml-parser';
 import { HTMLDiff } from '../shared/html-diff';
 
-window.tab = null;
-window.finalCallback = function(){};
+var tab = null;
+var finalCallback = function(){};
 
 export function Snapshot() {
   var background = chrome.extension.getBackgroundPage();
   var timeStamp = (new Date).getTime(); // Used for file directory
 
   function tabID(){
-    return window.tab.id;
+    return tab.id;
   }
 
   function startSavingAllRelvantFiles(){
@@ -64,8 +64,8 @@ export function Snapshot() {
 
   return {
     save: function(tab, callback){
-      window.tab = tab;
-      window.finalCallback = callback;
+      tab = tab;
+      finalCallback = callback;
 
       startSavingAllRelvantFiles();
     }
