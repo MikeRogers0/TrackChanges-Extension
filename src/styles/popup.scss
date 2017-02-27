@@ -11,6 +11,19 @@ body {
   height: auto;
 }
 
+header {
+  overflow: hidden;
+}
+
+h1 {
+  line-height: 1;
+  margin: 0.5rem 0 0rem 0;
+}
+
+.logo {
+  margin-right: 1rem;
+}
+
 hr {
   display: block;
   height: 1px;
