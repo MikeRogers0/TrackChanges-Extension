@@ -91,7 +91,7 @@ btnSave.addEventListener("click", function(e){
 
 btnViewMore.addEventListener("click", function(e){
   e.preventDefault();
-  chrome.tabs.create({'url': chrome.extension.getURL('lib/launch.html'), 'selected': true});
+  chrome.tabs.create({'url': chrome.extension.getURL('lib/view-all.html'), 'selected': true});
 });
 
 btnClearAll.addEventListener("click", function(e){

@@ -7,6 +7,7 @@ var finalCallback = function(){};
 export function Snapshot() {
   var background = chrome.extension.getBackgroundPage();
   var timeStamp = (new Date).getTime(); // Used for file directory
+  var snapshotParsedFiles = null;
 
   function tabID(){
     return window.tab.id;
@@ -44,6 +45,7 @@ export function Snapshot() {
       var reader = new window.FileReader();
       reader.onload = function() {
         ChromeFiles().saveMHTMLFile(timeStamp + "/latest.mhtml", reader.result, function(){
+          snapshotParsedFiles = MHTMLParser().parseString(reader.result);
           saveDiffFile();
         });
       };
@@ -52,6 +54,9 @@ export function Snapshot() {
   }
 
   function saveDiffFile(){
+
+    //snapshotParsedFiles, background.original_tabs[tabID()]["parsed"]
+
     ChromeFiles().saveHTMLFile(timeStamp + "/diff.html", "", function(){
       saveZipFile();
     });

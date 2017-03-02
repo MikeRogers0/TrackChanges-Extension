@@ -8,8 +8,9 @@
     "build-content-scripts-js": "rollup -i src/content_scripts/on_inject_callback.js -o lib/content_scripts/on_inject_callback.js -c",
     "build-popup-js": "browserify -t rollupify src/browser_action/popup.js > lib/browser_action/popup.js",
     "build-popup-html": "cp src/browser_action/popup.html lib/browser_action/popup.html",
+    "build-view-all-html": "cp src/view-all.html lib/view-all.html",
     "build-scss": "sass src/styles/popup.scss:lib/styles/popup.css",
-    "build": "npm run build-background-js & npm run build-content-scripts-js & npm run build-popup-js & npm run build-popup-html & npm run build-scss"
+    "build": "npm run build-background-js & npm run build-content-scripts-js & npm run build-popup-js & npm run build-popup-html & npm run build-view-all-html & npm run build-scss"
   },
   "devDependencies": {
     "browserify": "^13.1.1",

@@ -29,13 +29,18 @@
 
     <script type="text/html" data-template="snapshot">
       <div class="snapshot" data-id="#{id}">
-        <div class="snapshot__preview" style="background-image: url('#{url}/preview.png');">
-          <!-- Image Preview Here -->
-        </div>
+        <a href="#{url}/snapshot.zip" download class="snapshot__download">
+          <div class="snapshot__overlay">
+            <i class="fa fa-download" aria-hidden="true"></i>
+            <!-- OnHover Overlay -->
+          </div>
+          <div class="snapshot__preview" style="background-image: url('#{url}/preview.png');">
+            <!-- Image Preview Here -->
+          </div>
+        </a>
         <ul class="snapshot__actions">
-          <li><a href="#{url}/latest.mhtml" type="multipart/related" download><i class="fa fa-camera-retro" aria-hidden="true"></i></a></li>
-          <li><a href="#{url}/diff.html" download>See Diff</a></li>
-          <li><a><i class="fa fa-download" aria-hidden="true"></i></a></li>
+          <li><a href="#{url}/latest.mhtml" download><i class="fa fa-eye" aria-hidden="true"></i></a></li>
+          <li><a href="#{url}/diff.html" target="_blank">See Diff</a></li>
           <li class="remove"><a><i class="fa fa-trash" aria-hidden="true"></i></a></li>
         </ul>
       </div>

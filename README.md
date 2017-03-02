@@ -18,5 +18,9 @@ Or if your want to watch
 
 ## TODO
 
- - Copy to markdown
- - Save / restore changes 
+  - Limit recent snapshops in popup to lastest 4
+  - view-all.html page
+  - view.html page, a previewable 
+  - Download as .zip
+  - Give the snapshots meaningful names.
+  - 
