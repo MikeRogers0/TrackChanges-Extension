@@ -2,31 +2,24 @@ import { MHTMLParser } from '../shared/mhtml-parser';
 import { HTMLDiff } from '../shared/html-diff';
 var JsDiff = require("diff");
 
-export function DiffOverview() {
+export function DiffAsHTML() {
   var background = chrome.extension.getBackgroundPage();
 
   var linesAdded = 0;
   var linesRemoved = 0;
   var latestFiles = null;
   var originalFiles = null;
+  var finalHTML = "";
 
   function tabID(){
     return window.tab.id;
   }
 
-  function loadLatestMHTMLFile(callback){
-    console.log("Loading Latest MHTML File");
+  function buildHTMLFile(_latestFiles, _originalFiles, callback){
+    latestFiles = _latestFiles;
+    originalFiles = _originalFiles;
 
-    chrome.pageCapture.saveAsMHTML({tabId: tabID()}, function(mhtmlData){
-      var reader = new window.FileReader();
-      reader.onload = function() {
-        latestFiles = MHTMLParser().parseString(reader.result);
-        originalFiles = background.original_tabs[tabID()]["parsed"]
-
-        compareFiles(callback);
-      };
-      reader.readAsText(mhtmlData);
-    });
+    finalHTML = document.createElement("div");
   }
 
   function compareFiles(callback){
@@ -35,7 +28,7 @@ export function DiffOverview() {
       compareVersionsOfFile(file);
     }
 
-    callback(linesAdded, linesRemoved);
+    callback(finalHTML);
   }
 
   function compareVersionsOfFile(file){
@@ -50,6 +43,9 @@ export function DiffOverview() {
       return;
     }
 
+    var diffElement = document.createElement("code");
+
+
     JsDiff.diffLines(originalFiles[file].data, latestFiles[file].data, { newlineIsToken: false }).forEach(function(part){
       var linesCount = part.value.split("\n").filter(function(n){ return n.trim() != "" }).length;
 
@@ -63,8 +59,8 @@ export function DiffOverview() {
   }
 
   return {
-    diffStats: function(callback){
-      loadLatestMHTMLFile(callback);
+    buildHTML: function(latestFiles, originalFiles, callback){
+      buildHTMLFile(callback);
     }
   }
 }

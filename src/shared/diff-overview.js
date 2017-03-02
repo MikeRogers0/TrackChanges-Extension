@@ -9,17 +9,24 @@ export function DiffOverview() {
   var linesRemoved = 0;
   var latestFiles = null;
   var originalFiles = null;
-  var finalHTML = "";
 
   function tabID(){
     return window.tab.id;
   }
 
-  function buildHTMLFile(_latestFiles, _originalFiles, callback){
-    latestFiles = _latestFiles;
-    originalFiles = _originalFiles;
+  function loadLatestMHTMLFile(callback){
+    console.log("Loading Latest MHTML File");
 
-    finalHTML = document.createElement("div");
+    chrome.pageCapture.saveAsMHTML({tabId: tabID()}, function(mhtmlData){
+      var reader = new window.FileReader();
+      reader.onload = function() {
+        latestFiles = MHTMLParser().parseString(reader.result);
+        originalFiles = background.original_tabs[tabID()]["parsed"]
+
+        compareFiles(callback);
+      };
+      reader.readAsText(mhtmlData);
+    });
   }
 
   function compareFiles(callback){
@@ -28,7 +35,7 @@ export function DiffOverview() {
       compareVersionsOfFile(file);
     }
 
-    callback(finalHTML);
+    callback(linesAdded, linesRemoved);
   }
 
   function compareVersionsOfFile(file){
@@ -56,8 +63,8 @@ export function DiffOverview() {
   }
 
   return {
-    buildHTML: function(latestFiles, originalFiles, callback){
-      buildHTMLFile(callback);
+    diffStats: function(callback){
+      loadLatestMHTMLFile(callback);
     }
   }
 }
