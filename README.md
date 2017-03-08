@@ -23,4 +23,4 @@ Or if your want to watch
   - view.html page, a previewable 
   - Download as .zip
   - Give the snapshots meaningful names.
-  - 
+  - Hotkey to save!!!!!!!!!
