@@ -90,12 +90,17 @@ hr {
   min-height: 237px;
 
   .snapshot {
-    flex: 0 0 calc(50% - 1rem);
+    flex: 0 0 calc(50% - 1rem - 2px);
     margin-right: 1rem;
+    margin-bottom: 1rem;
   }
 }
 
 .snapshot {
+  border: 1px solid rgba($border-color, 0.25);
+  border-radius: 3px;
+  overflow: hidden;
+
   .snapshot__download {
     position: relative;
   }
@@ -109,20 +114,45 @@ hr {
     bottom: 0;
     right: 0;
     z-index: 5;
+
+    > * {
+      opacity: 0;
+    }
+
+    .snapshot__title, .snapshot__timestamp {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      color: $overlay-text;
+      padding: 6px 9px;
+      position: absolute;
+      left: 0;
+      right: 0;
+    }
+
+    .snapshot__title {
+      top: 0;
+    }
+
+    .snapshot__timestamp {
+      bottom: 0;
+      font-size: 0.6rem;
+    }
     
     .fa {
-      opacity: 0;
-      color: $border-color;
+      color: $overlay-text;
       /*border: 1px solid $border-color;*/
       padding: 9px;
-      background: rgba(255,255,255,0.5);
+      /*background: rgba(255,255,255,0.5);*/
       border-radius: 50%;
       font-size: 1.5rem;
       margin: calc( (125px / 2) - 1.5rem ) 0 0 calc( (184px / 2) - 1.5rem);
     }
 
     &:hover {
-      .fa {
+      background: rgba(0,0,0, 0.5);
+      > * {
         opacity: 1;
       }
     }
@@ -139,6 +169,7 @@ hr {
   }
 
   .snapshot__actions {
+    display: none;
     list-style: none;
     padding: 0;
     overflow: hidden;
