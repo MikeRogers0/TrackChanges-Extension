@@ -24,25 +24,33 @@ var noChangesElm = document.querySelector(".no-changes");
 
 window.tab = null;
 
+function renderSnapshotElement(result){
+  var directoryName = result.name;
+  var newSnapshot = snapshotHTML;
+
+  // Fill in the keys
+  newSnapshot = newSnapshot.replace(/#{id}/g, result.name);
+  newSnapshot = newSnapshot.replace(/#{url}/g, result.toURL());
+
+  return newSnapshot;
+}
+
 function loadSnapshotList(){
   // Clear current list
-  snaptshotsElm.innerHTML = "";
+  var newSnaptshotsHTML = "";
+  var snapshotCount = 0;
   
   // Populate with new stuff.
   ChromeFiles().listFoldersInRootDirectory(function(results){
     for(var i in results){
       var result = results[i];
-      if(result.isDirectory){
-        var directoryName = result.name;
-        var newSnapshot = snapshotHTML;
-
-        // Fill in the keys
-        newSnapshot = newSnapshot.replace(/#{id}/g, result.name);
-        newSnapshot = newSnapshot.replace(/#{url}/g, result.toURL());
-        // Append it to main list.
-        snaptshotsElm.innerHTML += newSnapshot;
+      if(result.isDirectory && snapshotCount < 4){
+        newSnaptshotsHTML += renderSnapshotElement(result);
+        snapshotCount++;
       }
     }
+
+    snaptshotsElm.innerHTML = newSnaptshotsHTML;
   });
 };
 
@@ -111,5 +119,8 @@ btnClearAll.addEventListener("click", function(e){
   });
 });
 
-loadCurrentDiffOverview();
-loadSnapshotList();
+document.addEventListener("DOMContentLoaded", function(e){
+  // Save local snapshot & tab ID?
+  loadCurrentDiffOverview();
+  loadSnapshotList();
+}, false);

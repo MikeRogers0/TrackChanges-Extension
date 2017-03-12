@@ -24,3 +24,6 @@ Or if your want to watch
   - Download as .zip
   - Give the snapshots meaningful names.
   - Hotkey to save!!!!!!!!!
+  - Full page screenshots - http://html2canvas.hertzen.com/documentation.html#getting-started could be the way to do this.
+  - Figure out the performance problems
+  - Keep diff button looking the same so it doesn't jump about so much.
