@@ -21,7 +21,7 @@ export function DiffOverview() {
       var reader = new window.FileReader();
       reader.onload = function() {
         latestFiles = MHTMLParser().parseString(reader.result);
-        originalFiles = background.original_tabs[tabID()]["parsed"]
+        originalFiles = background.original_tabs[tabID()]["parsed"];
 
         compareFiles(callback);
       };

@@ -1,6 +1,7 @@
 import { ChromeFiles } from '../shared/chrome-files';
 import { MHTMLParser } from '../shared/mhtml-parser';
 import { HTMLDiff } from '../shared/html-diff';
+import { DiffAsHTML } from '../shared/diff-as-html';
 
 var finalCallback = function(){};
 
@@ -54,15 +55,17 @@ export function Snapshot() {
   }
 
   function saveDiffFile(){
+    console.log("Saving Diff File");
 
-    //snapshotParsedFiles, background.original_tabs[tabID()]["parsed"]
-
-    ChromeFiles().saveHTMLFile(timeStamp + "/diff.html", "", function(){
-      saveZipFile();
+    DiffAsHTML().buildHTML(snapshotParsedFiles, function(html){
+      ChromeFiles().saveHTMLFile(timeStamp + "/diff.html", html, function(){
+        saveZipFile();
+      });
     });
   }
 
   function saveZipFile(){
+    console.log("Saving Zip File");
     finalCallback();
   }
 
