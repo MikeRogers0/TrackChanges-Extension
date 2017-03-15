@@ -9,8 +9,10 @@
     "build-popup-js": "browserify -t rollupify src/browser_action/popup.js > lib/browser_action/popup.js",
     "build-popup-html": "cp src/browser_action/popup.html lib/browser_action/popup.html",
     "build-view-all-html": "cp src/view-all.html lib/view-all.html",
+    "build-view": "cp src/view.html lib/view.html",
+    "build-view-js": "browserify -t rollupify src/pages/view.js > lib/pages/view.js",
     "build-scss": "sass src/styles/popup.scss:lib/styles/popup.css",
-    "build": "npm run build-background-js & npm run build-content-scripts-js & npm run build-popup-js & npm run build-popup-html & npm run build-view-all-html & npm run build-scss"
+    "build": "npm run build-background-js & npm run build-content-scripts-js & npm run build-popup-js & npm run build-popup-html & npm run build-view-all-html & npm run build-view & npm run build-scss"
   },
   "devDependencies": {
     "browserify": "^13.1.1",
