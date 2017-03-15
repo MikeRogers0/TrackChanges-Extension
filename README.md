@@ -27,3 +27,4 @@ Or if your want to watch
   - Full page screenshots - http://html2canvas.hertzen.com/documentation.html#getting-started could be the way to do this.
   - Figure out the performance problems
   - Keep diff button looking the same so it doesn't jump about so much.
+  - Ignore Intercom
