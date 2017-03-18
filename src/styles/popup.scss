@@ -7,8 +7,11 @@ body {
   color: $body-text;
   background-color: #fff;
 
-  width: 400px;
   padding: 0 0 1rem 0;
+
+  &.popup {
+    width: 400px;
+  }
 }
 
 header {
