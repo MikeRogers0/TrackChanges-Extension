@@ -11,7 +11,7 @@
     "build-view-all-html": "cp src/view-all.html lib/view-all.html",
     "build-view": "cp src/view.html lib/view.html",
     "build-view-js": "browserify -t rollupify src/pages/view.js > lib/pages/view.js",
-    "build-scss": "sass src/styles/popup.scss:lib/styles/popup.css",
+    "build-scss": "sass --update src/styles:lib/styles",
     "build": "npm run build-background-js & npm run build-content-scripts-js & npm run build-popup-js & npm run build-popup-html & npm run build-view-all-html & npm run build-view & npm run build-scss"
   },
   "devDependencies": {

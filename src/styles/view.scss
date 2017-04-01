@@ -1,0 +1,91 @@
+.snapshot-side-by-side {
+  overflow: hidden;
+
+  .screenshot, .code-diff {
+    width: calc(50% - 24px);
+    float: left;
+    padding: 0 12px;
+  }
+
+  .screenshot {
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .code-diff {
+    overflow-x: scroll;
+    font-size: 14px;
+  }
+}
+
+// Currently looks way to much like GitHubs - stop that!
+.diff-table {
+  width: 100%;
+  border-spacing: 0;
+  font-size: 12px;
+  border: 1px solid #e1e4e8;
+  border-radius: 3px;
+
+  thead {
+    tr {
+      background-color: #fafbfc;
+    }
+
+    th {
+      border-bottom: 1px solid #e1e4e8;
+      padding: 6px 9px;
+      text-align: left;
+      font-weight: normal;
+    }
+  }
+
+  pre {
+    color: #24292e;
+    word-wrap: normal;
+    white-space: pre;
+  }
+
+  tr td {
+    color: #ACAEAF;
+    border: none;
+    padding: 3px;
+
+    &:last-child {
+      color: #24292e;
+    }
+  }
+
+  .code-deletion {
+    td {
+      background-color: #ffdddd;
+
+      &:last-child {
+        background-color: #ffecec;
+      }
+    }
+  }
+
+  .code-addition {
+    td {
+      background-color: #dbffdb;
+
+      &:last-child {
+        background-color: #eaffea;
+      }
+    }
+  }
+
+  .blob-num {
+    width: 1%;
+    min-width: 26px;
+    padding-right: 9px;
+    padding-left: 9px;
+    text-align: right;
+
+    &::before {
+      content: attr(data-line-number);
+    }
+  }
+}
