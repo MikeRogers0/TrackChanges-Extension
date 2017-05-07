@@ -79,6 +79,11 @@ export function MHTMLParser() {
     // Remove "cid:frame-1007-078dc205-110a-4a99-8c03-53a3a256e7ef@mhtml.blink" Kind of stuff from the HTML source
     if( fileData["Content-Type"] === "text/html" ) {
       fileData.data = fileData.data.replace( /cid:([a-z0-9\-]+)@mhtml\.blink/g, '' );
+
+      // Remove Intercom elements also
+      fileData.data = fileData.data.replace( /<style id="intercom-stylesheet"(.*)<\/style\>/g, '' );
+      fileData.data = fileData.data.replace( /<iframe id="intercom-frame"(.*)<\/iframe\>/g, '' );
+      fileData.data = fileData.data.replace( /<div id="intercom-container"(.*)<\/div\>/g, '' );
     }
 
     // Save the parsed file to the data;

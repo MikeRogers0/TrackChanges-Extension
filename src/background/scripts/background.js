@@ -2,6 +2,7 @@ import { MHTMLParser } from '../../shared/mhtml-parser';
 
 // Saves the tabs MHTML on page load, clear the store on tab close.
 window.original_tabs = {};
+var tabCacheTimeout = {};
 
 // Cache the HTML to memory.
 function cacheMHTML(tabId){
@@ -26,11 +27,13 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     return;
   }
 
+  clearTimeout(tabCacheTimeout[tab.id]);
+
   // We need a quick delay otherwise chrome throws a shitty error.
   // TODO: Make sure we don't hammer this command somehow.
-  setTimeout(function(){
+  tabCacheTimeout[tab.id] = setTimeout(function(){
     cacheMHTML(tab.id)
-  }, 250);
+  }, 350);
 });
 
 // Clear up the memory on tab close.

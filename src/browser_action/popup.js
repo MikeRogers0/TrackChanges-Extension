@@ -22,6 +22,10 @@ var snaptshotsElm = document.querySelector(".snapshots");
 var someChangesElm = document.querySelector(".some-changes");
 var noChangesElm = document.querySelector(".no-changes");
 
+window.diffFileHTML = document.querySelector('[data-template="diffFile"]').innerHTML;
+window.diffTableHTML = document.querySelector('[data-template="diffTable"]').innerHTML;
+window.diffRowHTML = document.querySelector('[data-template="diffRow"]').innerHTML;
+
 window.tab = null;
 
 function renderSnapshotElement(result){

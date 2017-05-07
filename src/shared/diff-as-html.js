@@ -17,10 +17,11 @@ export function DiffAsHTML() {
 
   function buildHTMLFile(_snapshotParsedFiles, callback){
     console.log("Building HTML Diff File");
-    finalHTML = document.createElement("div");
+    finalHTML = document.createElement("html");
+    finalHTML.innerHTML = window.diffFileHTML;
     latestFiles = _snapshotParsedFiles;
     originalFiles = background.original_tabs[tabID()]["parsed"];
-
+    
     compareFiles(callback);
   }
 
@@ -46,26 +47,36 @@ export function DiffAsHTML() {
       return;
     }
 
-    var diffFile = document.createElement("h2");
-    diffFile.innerHTML += file;
-    var diffElement = document.createElement("pre");
+    // Create the file.
+    var diffTable = document.createElement("div");
+    diffTable.innerHTML = window.diffTableHTML;
+    diffTable.innerHTML = diffTable.innerHTML.replace(/#{fileName}/g, file);
+
+    var diffRowElm = document.createElement("tbody");
+    var totalLinesOfCode = originalFiles[file].data.split("\n").filter(function(n){ return n.trim() != "" }).length;
+    var currentLineOfCode = 1;
 
     JsDiff.diffLines(originalFiles[file].data, latestFiles[file].data, { newlineIsToken: false }).forEach(function(part){
-      //var linesCount = part.value.split("\n").filter(function(n){ return n.trim() != "" }).length;
+      var diffRow = document.createElement("tr");
+      diffRow.innerHTML =  window.diffRowHTML;
 
-      var linesOfCode = part.value.split("\n");
-      var linesOfCodeElm = document.createElement("code");
+      var initalLineOfCode = currentLineOfCode;
+      var linesOfCode = part.value.split("\n").filter(function(n){ return n.trim() != "" });
+
+      // Make the lines HTML Safe
+      linesOfCode = linesOfCode.map(function(line){
+        var div = document.createElement('div');
+        div.appendChild(document.createTextNode(line));
+        return div.innerHTML;
+      });
 
       // Add the CSS class to the new element
       if( part.added ){
-        linesOfCodeElm.className = "added"
-        linesOfCodeElm.style = "color: green;"
+        diffRow.className = "code-addition";
       } else if( part.removed ){
-        linesOfCodeElm.className = "removed"
-        linesOfCodeElm.style = "color: red;"
+        diffRow.className ="code-deletion";
       } else {
-        linesOfCodeElm.className = "unchanged"
-        linesOfCodeElm.style = "color: grey;"
+        diffRow.className = "code-context";
       }
       
       // Now adjust lines we're going to append to now overload the user.
@@ -76,34 +87,49 @@ export function DiffAsHTML() {
         var newLinesOfCode = [];
 
         // Remove all the white space lines
-        linesOfCode = linesOfCode.filter(function(n){ return n.trim() != "" })
+        linesOfCode = linesOfCode.filter(function(n){ return n.trimRight() != "" })
 
         // Trim the lines of code to only include a bit of context
-        if(diffElement.innerHTML == ""){
+        if(diffRowElm.innerHTML == ""){
+          currentLineOfCode = linesOfCode.length - 2;
           newLinesOfCode = linesOfCode.slice(-2);
         } else {
           newLinesOfCode = linesOfCode.slice(0, 2);
-          newLinesOfCode = newLinesOfCode.concat(["[...]"]);
-          newLinesOfCode = newLinesOfCode.concat(linesOfCode.slice(-3));
+
+          // When we're not at the end of the file.
+          if(initalLineOfCode + currentLineOfCode < totalLinesOfCode){
+            newLinesOfCode = newLinesOfCode.concat(["[...]"]);
+            newLinesOfCode = newLinesOfCode.concat(linesOfCode.slice(-3));
+          }
         }
 
         linesOfCode = newLinesOfCode;
       }
 
-      // Make the lines HTML Safe
-      linesOfCode = linesOfCode.map(function(line){
-        var div = document.createElement('div');
-        div.appendChild(document.createTextNode(line));
-        return div.innerHTML;
-      });
+      // Loop though the lines, so each line is a row in the able.
+      for(var i in linesOfCode){
+        var diffLocRow = diffRow.cloneNode(true);
+        diffLocRow.innerHTML = diffLocRow.innerHTML.replace(/#{code}/g, linesOfCode[i].trimRight());
 
-      linesOfCodeElm.innerHTML = linesOfCode.join("\n");
+        // Show a sensible line number
+        if(i == 0 || part.removed || part.context){
+          diffLocRow.innerHTML = diffLocRow.innerHTML.replace(/#{currentLineOfCode}/g, currentLineOfCode);
+        } else {
+          diffLocRow.innerHTML = diffLocRow.innerHTML.replace(/#{currentLineOfCode}/g, "");
+        }
+        diffLocRow.innerHTML = diffLocRow.innerHTML.replace(/#{newLineNumber}/g, "");
 
-      diffElement.appendChild(linesOfCodeElm);
+        if( !part.added ){
+          currentLineOfCode++;
+        }
+
+        diffRowElm.appendChild(diffLocRow);
+      }
     });
 
-    finalHTML.appendChild(diffFile);
-    finalHTML.appendChild(diffElement);
+    diffTable.querySelector("tbody").appendChild(diffRowElm);
+    diffTable.querySelector("tbody .code-context:last-child").remove();
+    finalHTML.querySelector(".code-diff").appendChild(diffTable);
   }
 
   return {
