@@ -1,0 +1,143 @@
+$side-panel-bg: #F3F3F3;
+$side-panel-highlighted-bg: #3377DC;
+$side-panel-highlighted-text: #FFF;
+
+$text-colour: #2F3942;
+$text-colour-accent: #808080;
+
+$border-colour: #A3A3A3;
+
+$input-bg: #f9fafb;
+$input-focus-bg: #fff;
+
+h1, h3, h4, h5, h6 {
+  color: $text-colour-accent;
+}
+
+body {
+  margin: 0;
+  color: $text-colour;
+  font-family: system-ui, sans-serif;
+  font-size: 12px;
+}
+
+.vbox {
+  display: flex;
+  flex-direction: row;
+
+  .flex-auto {
+    flex: auto;
+  }
+}
+
+@import "diff";
+
+.files-list-view, .files-details-view {
+  min-height: 100vh;
+}
+
+.files-list-view {
+  background: $side-panel-bg;
+  border-right: 1px solid $border-colour;
+  flex: 0 0 240px;
+
+  > .quick-functions {
+    border-bottom: 1px solid $border-colour;
+    margin-bottom: 3px;
+    overflow: hidden;
+  }
+
+  > .files-title {
+    text-transform: uppercase;
+    color: $text-colour-accent;
+    padding: 1rem 0.5rem 0.5rem 0.5rem;
+  }
+
+  > .file-list {
+    height: calc(100vh - 3rem);
+    overflow: scroll;
+  }
+
+}
+
+.quick-functions {
+  display: flex;
+
+  .filter {
+    flex: auto;
+    padding: 0.5rem 0 0.5rem 1rem;
+    
+    input[type="search"] {
+      padding: 0.3rem;
+      display: block;
+      border-radius: 2px;
+      background: $input-bg;
+      border: 1px solid $border-colour;
+      width: 100%;
+
+      &:focus {
+        background: $input-focus-bg;
+      }
+    }
+  }
+
+  .download {
+    padding: 0.5rem 1rem 0.5rem 0;
+    text-align: right;
+    flex: 0 0 1.75rem;
+    text-decoration: none;
+    filter: grayscale(100%);
+    font-size: 0.8rem;
+
+    &:hover {
+      filter: grayscale(50%);
+    }
+
+    &:active {
+      filter: grayscale(0%);
+    }
+  }
+}
+
+.panel-link {
+  padding: 1rem 0.5rem;
+
+  .file-list & {
+    padding: 0.5rem 1rem;
+  }
+
+
+  .action {
+    float: right;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.active, &:active {
+    background: $side-panel-highlighted-bg;
+    color: $side-panel-highlighted-text;
+
+    .action {
+      color: $side-panel-highlighted-text;
+    }
+  }
+}
+
+.files-details-view {
+  > div {
+    padding: 1rem;
+    height: 100vh;
+    overflow: scroll;
+  }
+}
+
+.get-started {
+  text-align: center;
+  padding-top: 4rem;
+}
+
+.btn {
+  padding: 0.5rem;
+}

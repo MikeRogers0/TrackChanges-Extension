@@ -5,17 +5,14 @@
   "scripts": {
     "test": "grunt test",
     "build-background-js": "browserify -t rollupify src/background/scripts/background.js > lib/background/scripts/background.js",
-    "build-content-scripts-js": "rollup -i src/content_scripts/on_inject_callback.js -o lib/content_scripts/on_inject_callback.js -c",
-    "build-popup-js": "browserify -t rollupify src/browser_action/popup.js > lib/browser_action/popup.js",
-    "build-popup-html": "cp src/browser_action/popup.html lib/browser_action/popup.html",
-    "build-view-all-html": "cp src/view-all.html lib/view-all.html",
-    "build-view": "cp src/view.html lib/view.html",
-    "build-view-js": "browserify -t rollupify src/pages/view.js > lib/pages/view.js",
+    "build-devtools-js": "browserify -t rollupify src/devtools/run.js > lib/devtools/run.js && browserify -t rollupify src/devtools/panel.js > lib/devtools/panel.js",
+    "build-js": "npm run build-background-js & npm run build-devtools-js",
     "build-scss": "sass --update src/styles:lib/styles",
-    "build": "npm run build-background-js & npm run build-content-scripts-js & npm run build-popup-js & npm run build-popup-html & npm run build-view-all-html & npm run build-view & npm run build-scss"
+    "build-html": "cp src/devtools.html lib/devtools.html && cp src/panel.html lib/panel.html && cp src/first-snapshot.html lib/first-snapshot.html",
+    "build": "npm run build-js & npm run build-scss & npm run build-html"
   },
   "devDependencies": {
-    "browserify": "^13.1.1",
+    "browserify": "^13.3.0",
     "diff": "^3.2.0",
     "html2canvas": "^0.5.0-beta4",
     "install": "^0.8.4",
@@ -25,7 +22,7 @@
     "rollup": "^0.38.1",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-watch": "^2.5.0",
-    "rollupify": "^0.3.8",
+    "rollupify": "^0.3.9",
     "sass": "^0.5.0"
   }
 }

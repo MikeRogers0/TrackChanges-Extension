@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>ChangesDiff Panel</title>
+    <link rel="stylesheet" href="styles/panel.css">
+    <script src="devtools/panel.js"></script>
+  </head>
+  <body>
+
+    <div class="vbox split-widget">
+      <div class="files-list-view">
+        <div class="quick-functions">
+          <div class="filter">
+            <input type="search" placeholder="Filter" />
+          </div>
+          <a class="download" href="#">🚀</a>
+        </div>
+
+        <div class="panel-link">Start Here</div>
+
+        <div class="files-title">
+          Diff Snapshots
+        </div>
+        <div class="file-list">
+          <div class="panel-link active">08-08-2017 23:30 <a href="first-snapshot.html.erb" class="action">Save</a></div>
+          <div class="panel-link">08-08-2017 23:21 <a href="#" class="action">Save</a></div>
+          <div class="panel-link">08-08-2017 22:44 <a href="#" class="action">Save</a></div>
+          <div class="panel-link">08-08-2017 22:29 <a href="#" class="action">Save</a></div>
+        </div>
+      </div>
+      <div class="flex-auto files-details-view">
+        <div>
+
+          <h1>08-08-2017 23:30</h1>
+
+          <div>
+
+            <table class="diff-table">
+              <thead>
+                <tr>
+                  <th colspan="3">index.html</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="code-context">
+                  <td data-line-number="3" class="blob-num blob-num-context"></td>
+                  <td data-line-number="3" class="blob-num blob-num-context"></td>
+                  <td class="blob-code blob-code-context"><pre><code>        &lt;div class="col-md-6"&gt;</code></pre></td>
+                </tr>
+                <tr class="code-deletion">
+                  <td data-line-number="4" class="blob-num blob-num-deletion"></td>
+                  <td class="blob-num blob-num-deletion"></td>
+                <td class="blob-code blob-code-deletion"><pre><code>          &lt;h1&gt;I want help with my:&lt;/h1&gt;</code></pre></td>
+                </tr>
+                <tr class="code-addition">
+                  <td class="blob-num blob-num-addition empty-cell"></td>
+                  <td data-line-number="4" class="blob-num blob-num-addition"></td>
+                  <td class="blob-code blob-code-addition">
+              <pre><code>          &lt;h1&gt;Yo Yo Yo&lt;/h1&gt;</code></pre>
+                </td>
+              </tr>
+
+              <tr class="code-context">
+                <td data-line-number="5" class="blob-num blob-num-context"></td>
+                <td data-line-number="5" class="blob-num blob-num-context"></td>
+                <td class="blob-code blob-code-context"><pre><code>          &lt;ul class="list-unstyled row skills-list"&gt;</code></pre></td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>
