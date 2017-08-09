@@ -7,7 +7,7 @@ $text-colour-accent: #808080;
 
 $border-colour: #A3A3A3;
 
-$input-bg: #f9fafb;
+$input-bg: #fff;
 $input-focus-bg: #fff;
 
 h1, h3, h4, h5, h6 {
@@ -100,7 +100,7 @@ body {
 }
 
 .panel-link {
-  padding: 1rem 0.5rem;
+  padding: 0.75rem 0.5rem;
 
   .file-list & {
     padding: 0.5rem 1rem;

@@ -4,12 +4,14 @@
   "private": true,
   "scripts": {
     "test": "grunt test",
-    "build-background-js": "browserify -t rollupify src/background/scripts/background.js > lib/background/scripts/background.js",
-    "build-devtools-js": "browserify -t rollupify src/devtools/run.js > lib/devtools/run.js && browserify -t rollupify src/devtools/panel.js > lib/devtools/panel.js",
-    "build-js": "npm run build-background-js & npm run build-devtools-js",
+    "build-js-background": "browserify -t rollupify src/background/scripts/background.js > lib/background/scripts/background.js",
+    "build-js-injection": "browserify -t rollupify src/content_scripts/on_inject_callback.js > lib/content_scripts/on_inject_callback.js",
+    "build-js-devtools-panel": "browserify -t rollupify src/devtools/panel.js > lib/devtools/panel.js",
+    "build-js-devtools-run": "browserify -t rollupify src/devtools/run.js > lib/devtools/run.js",
+    "build-js": "npm run build-js-background && npm run build-js-injection && npm run build-js-devtools-panel && npm run build-js-devtools-run",
     "build-scss": "sass --update src/styles:lib/styles",
-    "build-html": "cp src/devtools.html lib/devtools.html && cp src/panel.html lib/panel.html && cp src/first-snapshot.html lib/first-snapshot.html",
-    "build": "npm run build-js & npm run build-scss & npm run build-html"
+    "build-html": "cp src/[[:alnum:]]*.html lib/",
+    "build": "npm run build-js && npm run build-scss && npm run build-html"
   },
   "devDependencies": {
     "browserify": "^13.3.0",

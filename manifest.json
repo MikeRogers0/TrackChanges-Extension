@@ -11,15 +11,16 @@
       "lib/background/scripts/background.js"
     ]
   },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["lib/content_scripts/on_inject_callback.js"]
+    }
+  ],
   "default_locale": "en",
   "permissions": [
     "tabs", "pageCapture", "activeTab"
   ],
-  "browser_action": {
-    "default_title": "__MSG_browser_action__",
-    "default_icon": "images/logo.png",
-    "default_popup": "lib/browser_action/popup.html"
-  },
   "icons": {
     "16": "images/logo.png",
     "48": "images/logo.png",
