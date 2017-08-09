@@ -64,10 +64,11 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   // Enable the snapshot'ing of this tab if devtools has been opened.
   window.tabSnapshots[tabId] = window.tabSnapshots[tabId] || { active: false };
 
-  console.log("Activating: " + tabId)
-  window.tabSnapshots[tabId]["active"] = true;
- 
-  queueCacheMHTML(tabId)
+  if( window.tabSnapshots[tabId]["active"] === false ) {
+    console.log("Activating: " + tabId)
+    window.tabSnapshots[tabId]["active"] = true;
+    queueCacheMHTML(tabId)
+  }
 });
 
 // Clear up the memory on tab close.
