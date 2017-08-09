@@ -10,3 +10,4 @@ chrome.devtools.panels.create("ChangesDiff",
 );
 
 // Send a message to the background.js to snapshot the tab.
+chrome.runtime.sendMessage( { action: "devtools-opened", tabID: chrome.devtools.inspectedWindow.tabId } );
