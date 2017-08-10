@@ -24,6 +24,7 @@ body {
 .vbox {
   display: flex;
   flex-direction: row;
+  height: 100vh;
 
   .flex-auto {
     flex: auto;
@@ -33,13 +34,15 @@ body {
 @import "diff";
 
 .files-list-view, .files-details-view {
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .files-list-view {
   background: $side-panel-bg;
   border-right: 1px solid $border-colour;
   flex: 0 0 240px;
+  min-height: 100vh;
 
   > .quick-functions {
     border-bottom: 1px solid $border-colour;
@@ -54,7 +57,7 @@ body {
   }
 
   > .file-list {
-    height: calc(100vh - 3rem);
+    max-height: 50vh;
     overflow: scroll;
   }
 
@@ -128,7 +131,6 @@ body {
 .files-details-view {
   > div {
     padding: 1rem;
-    height: 100vh;
     overflow: scroll;
   }
 }

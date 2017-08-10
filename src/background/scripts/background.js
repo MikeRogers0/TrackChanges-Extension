@@ -1,22 +1,52 @@
 import { MHTMLParser } from '../../shared/mhtml-parser';
 
-function cacheMHTML(tabId){
+// List of tabs with their snapshots
+// {
+//   123: { // Key is the tabID
+//     active: true, // True when the user has opened the devtools on this tab.
+//     snapshot: { // The Snapshot
+//       mhtml: Blob, // Copy of the MHTML of the page. 
+//       files: Hash // A copy of the files & their body.
+//     }
+//   }
+// }
+window.tabSnapshots = {};
+
+function cacheMHTML(tabId, boardcastAction){
   // Only run if the devtools has been opened.
-  if( window.tabSnapshots[tabId]["active"] !== true ){
-    return;
-  }
+  if( window.tabSnapshots[tabId]["active"] !== true ){ return; }
 
-  console.log("pageCapture: " + tabId)
-
+  console.log("pageCapture: " + tabId);
   chrome.pageCapture.saveAsMHTML({tabId: tabId}, function(mhtmlData){
     var reader = new window.FileReader();
     reader.onload = function() {
       window.tabSnapshots[tabId] = {
         "active": true,
-        "mhtml": reader.result,
-        "files": MHTMLParser().parseString(reader.result)
+        "data": {
+          "mhtml": reader.result,
+          "files": MHTMLParser().parseString(reader.result)
+        }
       };
     };
+    reader.readAsText(mhtmlData);
+  });
+}
+
+function broadcastTabSnapshots(tabId){
+  console.log("broadcastTabSnapshots: " + tabId);
+  chrome.pageCapture.saveAsMHTML({tabId: tabId}, function(mhtmlData){
+    var reader = new window.FileReader();
+    reader.onload = function() {
+      connections[tabId].postMessage({
+        action: "snapshots-data",
+        tabID: tabId,
+        inital: window.tabSnapshots[tabId]["data"],
+        updated: {
+          "mhtml": reader.result,
+          "files": MHTMLParser().parseString(reader.result)
+        }
+      });
+    }
     reader.readAsText(mhtmlData);
   });
 }
@@ -31,31 +61,18 @@ function queueCacheMHTML(tabId){
   }, 350);
 }
 
-// List of tabs with their snapshots
-// {
-//   123: { // Key is the tabID
-//     active: true, // True when the user has opened the devtools on this tab.
-//     snapshot: { // The Snapshot
-//       mhtml: Blob, // Copy of the MHTML of the page. 
-//       files: Hash // A copy of the files & their body.
-//     }
-//   }
-// }
-window.tabSnapshots = {};
-
 // When a page tell us it has has loaded successfully, we grab a snapshot of the page.
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
+chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
   // If it's some other message, ignore it.
   if(request.action !== "page-loaded"){ return; }
 
   var tabId = sender.tab.id;
   window.tabSnapshots[tabId] = window.tabSnapshots[tabId] || { active: false };
-
   queueCacheMHTML(tabId)
 });
 
 // When a page tell us it has has loaded successfully, we grab a snapshot of the page.
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
+chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
   // If it's some other message, ignore it.
   if(request.action !== "devtools-opened" || request.tabID === null){ return; }
 
@@ -68,7 +85,14 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     console.log("Activating: " + tabId)
     window.tabSnapshots[tabId]["active"] = true;
     queueCacheMHTML(tabId)
+  } else {
   }
+});
+
+// When the panel tab is shown, send the latest version of the page to them.
+chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
+  if(request.action !== "devtools-shown" || request.tabID === null){ return; }
+  broadcastTabSnapshots(request.tabID);
 });
 
 // Clear up the memory on tab close.
@@ -76,5 +100,33 @@ chrome.tabs.onRemoved.addListener(function(tabId, removeInfo){
   console.log("Removing: " + tabId)
   delete tabSnapshots[tabId];
 });
+
+// Experimenting with longer running connections
+window.connections = {};
+chrome.runtime.onConnect.addListener(function (port) {
+
+  var extensionListener = function (message, sender, sendResponse) {
+    if (message.name == "init") {
+      window.connections[message.tabId] = port;
+      return;
+    }
+  }
+
+  // Listen to messages sent from the DevTools page
+  port.onMessage.addListener(extensionListener);
+
+  port.onDisconnect.addListener(function(port) {
+    port.onMessage.removeListener(extensionListener);
+
+    var tabs = Object.keys(connections);
+    for (var i=0, len=tabs.length; i < len; i++) {
+      if (window.connections[tabs[i]] == port) {
+        delete window.connections[tabs[i]]
+        break;
+      }
+    }
+  });
+});
+
 
 // TODO: On start up capture all opens tabs.
