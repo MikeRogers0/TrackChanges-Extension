@@ -32,25 +32,6 @@ function cacheMHTML(tabId, boardcastAction){
   });
 }
 
-function broadcastTabSnapshots(tabId){
-  console.log("broadcastTabSnapshots: " + tabId);
-  chrome.pageCapture.saveAsMHTML({tabId: tabId}, function(mhtmlData){
-    var reader = new window.FileReader();
-    reader.onload = function() {
-      connections[tabId].postMessage({
-        action: "snapshots-data",
-        tabID: tabId,
-        inital: window.tabSnapshots[tabId]["data"],
-        updated: {
-          "mhtml": reader.result,
-          "files": MHTMLParser().parseString(reader.result)
-        }
-      });
-    }
-    reader.readAsText(mhtmlData);
-  });
-}
-
 // Make sure if the site loads a bunch times we don't hammer the CPU parsing it.
 window.tabCacheTimeout = {};
 function queueCacheMHTML(tabId){
@@ -89,25 +70,42 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
   }
 });
 
-// When the panel tab is shown, send the latest version of the page to them.
-chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
-  if(request.action !== "devtools-shown" || request.tabID === null){ return; }
-  broadcastTabSnapshots(request.tabID);
-});
-
 // Clear up the memory on tab close.
 chrome.tabs.onRemoved.addListener(function(tabId, removeInfo){
   console.log("Removing: " + tabId)
   delete tabSnapshots[tabId];
 });
 
+
+function broadcastTabSnapshots(tabId){
+  console.log("broadcastTabSnapshots: " + tabId);
+  chrome.pageCapture.saveAsMHTML({tabId: tabId}, function(mhtmlData){
+    var reader = new window.FileReader();
+    reader.onload = function() {
+      connections[tabId].postMessage({
+        action: "snapshots-data",
+        tabID: tabId,
+        inital: window.tabSnapshots[tabId]["data"],
+        updated: {
+          "mhtml": reader.result,
+          "files": MHTMLParser().parseString(reader.result)
+        }
+      });
+    }
+    reader.readAsText(mhtmlData);
+  });
+}
+
 // Experimenting with longer running connections
 window.connections = {};
 chrome.runtime.onConnect.addListener(function (port) {
 
   var extensionListener = function (message, sender, sendResponse) {
-    if (message.name == "init") {
+
+    // When the panel tab is shown, send the latest version of the page to them.
+    if (message.name == "init" && message.tabId !== null) {
       window.connections[message.tabId] = port;
+      broadcastTabSnapshots(message.tabId);
       return;
     }
   }
