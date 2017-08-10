@@ -6,9 +6,11 @@
     "test": "grunt test",
     "build-js-background": "browserify -t rollupify src/background/scripts/background.js > lib/background/scripts/background.js",
     "build-js-injection": "browserify -t rollupify src/content_scripts/on_inject_callback.js > lib/content_scripts/on_inject_callback.js",
-    "build-js-devtools-panel": "browserify -t rollupify src/devtools/panel.js > lib/devtools/panel.js",
+    "build-js-devtools-panel-view": "browserify -t rollupify src/devtools/panel-view.js > lib/devtools/panel-view.js",
+    "build-js-devtools-panel-sidebar": "browserify -t rollupify src/devtools/panel-sidebar.js > lib/devtools/panel-sidebar.js",
+    "build-js-devtools-panel-create-snapshot": "browserify -t rollupify src/devtools/panel-create-snapshot.js > lib/devtools/panel-create-snapshot.js",
     "build-js-devtools-run": "browserify -t rollupify src/devtools/run.js > lib/devtools/run.js",
-    "build-js": "npm run build-js-background && npm run build-js-injection && npm run build-js-devtools-panel && npm run build-js-devtools-run",
+    "build-js": "npm run build-js-background && npm run build-js-injection && npm run build-js-devtools-panel-view && npm run build-js-devtools-panel-sidebar  && npm run build-js-devtools-panel-create-snapshot && npm run build-js-devtools-run",
     "build-scss": "sass --update src/styles:lib/styles",
     "build-html": "cp src/[[:alnum:]]*.html lib/",
     "build": "npm run build-js && npm run build-scss && npm run build-html"
