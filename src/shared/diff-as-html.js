@@ -58,7 +58,7 @@ export function DiffAsHTML(initalFiles, updatedFiles) {
   }
 
   function buildDiffTable(file){
-    var tableHTML = templates["table"].cloneNode(true);
+    var tableHTML = templates["table"];
     var rowsHTML = '';
 
     JsDiff.diffLines(initalFiles[file].data, updatedFiles[file].data, { newlineIsToken: false }).forEach(function(part){
@@ -70,6 +70,8 @@ export function DiffAsHTML(initalFiles, updatedFiles) {
       }
     });
 
+    // TODO - The above runs async, we need to wait for it to finish.
+
     tableHTML = tableHTML.replace(/#{fileName}/g, file);
     tableHTML = tableHTML.replace(/#{diffTableRows}/g, rowsHTML);
 
@@ -77,7 +79,7 @@ export function DiffAsHTML(initalFiles, updatedFiles) {
   }
 
   function buildDiffRow(rowType, code){
-    var rowHTML = templates[rowType].cloneNode(true);
+    var rowHTML = templates[rowType];
     rowHTML = rowHTML.replace(/#{lineOfCode}/g, code);
     rowsHTML += rowHTML;
   }

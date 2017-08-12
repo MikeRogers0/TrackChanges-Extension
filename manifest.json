@@ -19,7 +19,7 @@
   ],
   "default_locale": "en",
   "permissions": [
-    "tabs", "pageCapture", "activeTab"
+    "tabs", "pageCapture", "activeTab", "unlimitedStorage", "storage"
   ],
   "icons": {
     "16": "images/logo.png",
