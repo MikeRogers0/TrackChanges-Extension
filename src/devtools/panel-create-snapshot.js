@@ -24,9 +24,10 @@ document.querySelectorAll('.create-snapshot').forEach(function(button) {
     e.preventDefault();
 
     console.log('Snapshot(chrome.devtools.inspectedWindow.tabId).save()');
-    Snapshot(chrome.devtools.inspectedWindow.tabId).save(function(){
-      debugger;
+    Snapshot(chrome.devtools.inspectedWindow.tabId).save().then(function(){
       alert('Reload the file list!'); 
+    }).catch(function(e){
+      alert("I'm sorry: " + e);
     });
   });
 });

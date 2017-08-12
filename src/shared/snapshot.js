@@ -1,30 +1,38 @@
 import { ChromeFiles } from '../shared/chrome-files';
-import { HTMLDiff } from '../shared/html-diff';
 import { DiffAsHTML } from '../shared/diff-as-html';
 
 export function Snapshot(tabId) {
   var timeStamp = (new Date).getTime(); // Used for file directory
-  var tabSnapshot = null;
-  var completedCallback = function(){};
-  var templates = {};
 
-  function setCompletedCallback(callback){
-    completedCallback = callback;
+  function saveMHTMLFile(version){
+    return new Promise(function(resolve, reject) {
+      console.log("saveMHTMLFile(" + version + ")")
+      ChromeFiles().saveMHTMLFile(timeStamp + "/" + version + ".mhtml", window.tabSnapshot[version]["mhtml"], function(){
+        resolve();
+      });
+    });
   }
 
-  function setTemplates(htmlTemplates){
-    templates = htmlTemplates;
-  }
-
-  function generateDiff(){
-    completedCallback();
+  function saveDiffFile(){
+    return new Promise(function(resolve, reject) {
+      console.log("saveDiffFile()")
+      DiffAsHTML(window.tabSnapshot["inital"]["files"], window.tabSnapshot["updated"]["files"]).buildHTML(function(html){
+        debugger;
+        ChromeFiles().saveHTMLFile(timeStamp + "/diff.html", html, function(){
+          resolve();
+        });
+      });
+    });
   }
 
   return {
-    save: function(callback, htmlTemplates){
-      setCompletedCallback(callback);
-      setTemplates(htmlTemplates);
-      generateDiff();
+    save: function(){
+      return Promise.all([
+        // TODO: Create the directory first idiot.
+        saveMHTMLFile("inital"),
+        saveMHTMLFile("updated"),
+        saveDiffFile()
+      ]);
     }
   }
 }

@@ -52,7 +52,7 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
   queueCacheMHTML(tabId)
 });
 
-// When a page tell us it has has loaded successfully, we grab a snapshot of the page.
+// When a devtools has been opened, grab a snapshot. 
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
   // If it's some other message, ignore it.
   if(request.action !== "devtools-opened" || request.tabID === null){ return; }
@@ -66,7 +66,6 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
     console.log("Activating: " + tabId)
     window.tabSnapshots[tabId]["active"] = true;
     queueCacheMHTML(tabId)
-  } else {
   }
 });
 
