@@ -16,16 +16,11 @@
         <a class="download" href="#">🚀</a>
       </div>
 
-      <div class="panel-link active">Starting Point</div>
-
       <div class="files-title">
         Diff Snapshots
       </div>
       <div class="file-list">
-        <div class="panel-link">08-08-2017 23:30 <a href="first-snapshot.html" class="action">Save</a></div>
-        <div class="panel-link">08-08-2017 23:21 <a href="#" class="action">Save</a></div>
-        <div class="panel-link">08-08-2017 22:44 <a href="#" class="action">Save</a></div>
-        <div class="panel-link">08-08-2017 22:29 <a href="#" class="action">Save</a></div>
+        <!-- Becomes a list of snapshots -->
       </div>
     </div>
     <div class="flex-auto files-details-view">
@@ -45,10 +40,16 @@
           </form>
         </div>
 
+        <div class="snapshot-preview">
+
       </div>
 
     </div>
   </div>
+
+  <script type="text/html" data-template="fileListItem">
+    <div class="panel-link">#{date} <a href="?id=#{id}" class="action">Open</a></div>
+  </script>
 
   <script type="text/html" data-template="diffTable">
     <table class="diff-table">
@@ -89,5 +90,6 @@
 
   <script src="devtools/panel-sidebar.js"></script>
   <script src="devtools/panel-create-snapshot.js"></script>
+  <script src="devtools/panel-view.js"></script>
 </body>
 </html>
