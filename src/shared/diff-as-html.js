@@ -61,16 +61,17 @@ export function DiffAsHTML(initalFiles, updatedFiles) {
     var tableHTML = templates["table"];
     var rowsHTML = '';
 
-    JsDiff.diffLines(initalFiles[file].data, updatedFiles[file].data, { newlineIsToken: false }).forEach(function(part){
-      var rowType = partTemplate(part);
-      var linesOfCode = partLinesOfcode(part);
+    var parts = JsDiff.diffLines(initalFiles[file].data, updatedFiles[file].data, { newlineIsToken: false });
+    var part, rowType, linesOfCode;
+    for(var i in parts){
+      part = parts[i];
+      rowType = partTemplate(part);
+      linesOfCode = partLinesOfcode(part);
 
       for(var i in linesOfCode){
-        buildDiffRow(rowType, linesOfCode[i]);
+        rowsHTML += buildDiffRow(rowType, linesOfCode[i]);
       }
-    });
-
-    // TODO - The above runs async, we need to wait for it to finish.
+    }
 
     tableHTML = tableHTML.replace(/#{fileName}/g, file);
     tableHTML = tableHTML.replace(/#{diffTableRows}/g, rowsHTML);
@@ -80,8 +81,8 @@ export function DiffAsHTML(initalFiles, updatedFiles) {
 
   function buildDiffRow(rowType, code){
     var rowHTML = templates[rowType];
-    rowHTML = rowHTML.replace(/#{lineOfCode}/g, code);
-    rowsHTML += rowHTML;
+    rowHTML = rowHTML.replace(/#{lineNumber}/g, "");
+    return rowHTML.replace(/#{lineOfCode}/g, code);
   }
 
   return {

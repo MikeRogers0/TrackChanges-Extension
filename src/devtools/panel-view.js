@@ -1,4 +1,4 @@
-// List the created snapshot.
+import { ChromeFiles } from '../shared/chrome-files';
 
 function getJsonFromUrl() {
   var query = location.search.substr(1);
@@ -10,9 +10,20 @@ function getJsonFromUrl() {
   return result;
 }
 
+document.querySelector(".get-started").style = "display: none;";
+document.querySelector(".snapshot-preview").style = "display: none;";
+
 var snapshotId = getJsonFromUrl()["id"];
-if( snapshotId.length > 0 ){
+if( snapshotId != undefined && snapshotId.length > 0 ){
   // Hide the show snapshot
   // Load the snapshot.
-}
 
+  ChromeFiles().getFile(snapshotId + "/" + "diff.html", function(result){
+    var div = document.createElement('html');
+    div.innerHTML = result;
+    document.querySelector(".snapshot-preview").innerHTML = div.querySelector("body").innerHTML;
+    document.querySelector(".snapshot-preview").style = "display: block;";
+  });
+} else {
+  document.querySelector(".get-started").style = "display: block;";
+}

@@ -40,9 +40,18 @@ export function ChromeFiles() {
     return blob;
   }
 
+  // Read file get it as text.
   function getFile(filename, callback){
     initFileSystem(function(fs){
-      fs.root.getFile(filename, {}, callback, errorHandler);
+      fs.root.getFile(filename, {}, function(fileEntry){
+        fileEntry.file(function(file) {
+          var reader = new FileReader();
+          reader.onloadend = function(e) {
+            callback(this.result);
+          };
+          reader.readAsText(file);
+        }, errorHandler);
+      }, errorHandler);
     }, errorHandler);
   }
 

@@ -15,7 +15,6 @@ ChromeFiles().listFoldersInRootDirectory(function(results){
   for(var i in results){
     var result = results[i];
     if(result.isDirectory){
-      debugger;
       fileList.innerHTML += renderSnapshotListItem(result);
     }
   }
