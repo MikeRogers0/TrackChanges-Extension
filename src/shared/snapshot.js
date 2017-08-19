@@ -2,12 +2,12 @@ import { ChromeFiles } from '../shared/chrome-files';
 import { DiffAsHTML } from '../shared/diff-as-html';
 
 export function Snapshot(tabId) {
-  var timeStamp = (new Date).getTime(); // Used for file directory
+  var timestamp = (new Date).getTime(); // Used for file directory
 
   function touchTimestampDirectory(){
     return new Promise(function(resolve, reject) {
-      console.log("Creating Directory: " + timeStamp);
-      ChromeFiles().createDirectory(timeStamp, function(){
+      console.log("Creating Directory: " + timestamp);
+      ChromeFiles().createDirectory(timestamp, function(){
         resolve();
       });
     });
@@ -16,7 +16,7 @@ export function Snapshot(tabId) {
   function saveMHTMLFile(version){
     return new Promise(function(resolve, reject) {
       console.log("saveMHTMLFile(" + version + ")")
-      ChromeFiles().saveMHTMLFile(timeStamp + "/" + version + ".mhtml", window.tabSnapshot[version]["mhtml"], function(){
+      ChromeFiles().saveMHTMLFile(timestamp + "/" + version + ".mhtml", window.tabSnapshot[version]["mhtml"], function(){
         resolve();
       });
     });
@@ -26,7 +26,7 @@ export function Snapshot(tabId) {
     return new Promise(function(resolve, reject) {
       console.log("saveDiffFile()")
       DiffAsHTML(window.tabSnapshot["inital"]["files"], window.tabSnapshot["updated"]["files"]).buildHTML(function(html){
-        ChromeFiles().saveHTMLFile(timeStamp + "/diff.html", html, function(){
+        ChromeFiles().saveHTMLFile(timestamp + "/diff.html", html, function(){
           resolve();
         });
       });
@@ -34,6 +34,9 @@ export function Snapshot(tabId) {
   }
 
   return {
+    timestamp: function(){
+      return timestamp;
+    },
     save: function(){
       return Promise.all([
         touchTimestampDirectory(),

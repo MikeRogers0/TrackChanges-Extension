@@ -24,8 +24,9 @@ document.querySelectorAll('.create-snapshot').forEach(function(button) {
     e.preventDefault();
 
     console.log('Snapshot(chrome.devtools.inspectedWindow.tabId).save()');
-    Snapshot(chrome.devtools.inspectedWindow.tabId).save().then(function(){
-      alert('Reload the file list!'); 
+    var snapshot = Snapshot(chrome.devtools.inspectedWindow.tabId);
+    snapshot.save().then(function(){
+      window.location.replace("?id=" + snapshot.timestamp());
     }).catch(function(e){
       alert("I'm sorry: " + e);
     });
