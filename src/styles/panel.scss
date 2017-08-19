@@ -57,7 +57,7 @@ body {
   }
 
   > .file-list {
-    max-height: 50vh;
+    max-height: calc(100vh - 5.5rem);
     overflow: scroll;
   }
 }
