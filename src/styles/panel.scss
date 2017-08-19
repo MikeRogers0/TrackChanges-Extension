@@ -45,8 +45,8 @@ body {
   min-height: 100vh;
 
   > .quick-functions {
-    border-bottom: 1px solid $border-colour;
-    margin-bottom: 3px;
+    border-top: 1px solid $border-colour;
+    margin-top: 3px;
     overflow: hidden;
   }
 
@@ -57,7 +57,7 @@ body {
   }
 
   > .file-list {
-    max-height: calc(100vh - 5.5rem);
+    height: calc(100vh - 4.5rem);
     overflow: scroll;
   }
 }
