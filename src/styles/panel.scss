@@ -69,9 +69,9 @@ body {
 .quick-functions {
   display: flex;
 
-  .filter {
+  > .filter {
+    padding: 0.5rem;
     flex: auto;
-    padding: 0.5rem 0 0.5rem 1rem;
     
     input[type="search"] {
       padding: 0.3rem;
@@ -87,21 +87,28 @@ body {
     }
   }
 
-  .download {
-    padding: 0.5rem 1rem 0.5rem 0;
-    text-align: right;
-    flex: 0 0 1.75rem;
+  > a  {
+    padding: 0.5rem 0.25rem;
+    text-align: center;
     text-decoration: none;
-    filter: grayscale(100%);
+    opacity: 0.75;
     font-size: 0.8rem;
+    filter: grayscale(100%);
 
     &:hover {
-      filter: grayscale(50%);
+      opacity: 1;
     }
 
     &:active {
-      filter: grayscale(0%);
+      opacity: 1;
     }
+  }
+
+  > *:first-child {
+    padding-left: 0.75rem;
+  }
+  > *:last-child {
+    padding-right: 0.75rem;
   }
 }
 
