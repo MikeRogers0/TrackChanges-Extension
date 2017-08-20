@@ -69,6 +69,17 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
   }
 });
 
+// When a devtools has been reshown, grab a rebroadcast the changes. 
+chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
+  // If it's some other message, ignore it.
+  if(request.action !== "devtools-reopened" || request.tabID === null){ return; }
+
+  console.log("devtools-reopened");
+  if( window.connections[message.tabId] != undefined ){
+    broadcastTabSnapshots(message.tabId);
+  }
+});
+
 // Clear up the memory on tab close.
 chrome.tabs.onRemoved.addListener(function(tabId, removeInfo){
   console.log("Removing: " + tabId)

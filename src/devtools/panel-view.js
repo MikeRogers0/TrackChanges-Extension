@@ -1,5 +1,7 @@
 import { ChromeFiles } from '../shared/chrome-files';
 
+var fileList = document.querySelector(".file-list");
+
 function getJsonFromUrl() {
   var query = location.search.substr(1);
   var result = {};
@@ -23,6 +25,8 @@ if( snapshotId != undefined && snapshotId.length > 0 ){
     div.innerHTML = result;
     document.querySelector(".snapshot-preview").innerHTML = div.querySelector("body").innerHTML;
     document.querySelector(".snapshot-preview").style = "display: block;";
+
+    fileList.querySelector("[data-file-id='" + snapshotId + "']").className += " active"
   });
 } else {
   document.querySelector(".get-started").style = "display: block;";

@@ -10,10 +10,10 @@
     "build-js-devtools-panel-sidebar": "browserify -t rollupify src/devtools/panel-sidebar.js > lib/devtools/panel-sidebar.js",
     "build-js-devtools-panel-create-snapshot": "browserify -t rollupify src/devtools/panel-create-snapshot.js > lib/devtools/panel-create-snapshot.js",
     "build-js-devtools-run": "browserify -t rollupify src/devtools/run.js > lib/devtools/run.js",
-    "build-js": "npm run build-js-background && npm run build-js-injection && npm run build-js-devtools-panel-view && npm run build-js-devtools-panel-sidebar  && npm run build-js-devtools-panel-create-snapshot && npm run build-js-devtools-run",
+    "build-js": "npm run build-js-background & npm run build-js-injection & npm run build-js-devtools-panel-view & npm run build-js-devtools-panel-sidebar & npm run build-js-devtools-panel-create-snapshot & npm run build-js-devtools-run",
     "build-scss": "sass --update src/styles:lib/styles",
     "build-html": "cp src/[[:alnum:]]*.html lib/",
-    "build": "npm run build-js && npm run build-scss && npm run build-html"
+    "build": "npm run build-scss && npm run build-html && npm run build-js"
   },
   "devDependencies": {
     "browserify": "^13.3.0",

@@ -2,7 +2,6 @@
 import { ChromeFiles } from '../shared/chrome-files';
 
 var fileList = document.querySelector(".file-list");
-
 var clearSnapshots = document.querySelector(".clear-all-snapshots");
 
 function renderSnapshotListItem(result){
@@ -23,6 +22,20 @@ function renderSnapshotList(){
     }
   });
 }
+
+fileList.addEventListener('click', function(e){
+  var elem = e.target; // Which element was actually clicked.
+
+  if(elem.nodeName == "A"){
+    // They clicked the link, move on.
+    return;
+  }
+
+  elem.className += " active"
+
+  // They clicked the outer div.
+  window.location.replace("?id=" + elem.attributes["data-file-id"].value);
+});
 
 clearSnapshots.addEventListener('click', function(e){
   e.preventDefault();
