@@ -9,7 +9,7 @@ export function DiffAsHTML(initalFiles, updatedFiles) {
   };
   var finalHTML = document.createElement("html");
   var linesAdded = 0;
-  var linesRemoved = 0;
+  var linesContext = 0;
   var rowsHTML = '';
   var tablesHTML = '';
 
@@ -57,9 +57,19 @@ export function DiffAsHTML(initalFiles, updatedFiles) {
     buildDiffTable(file);
   }
 
+  function calcLineNumber(part){
+    if( part.added ){
+      return linesAdded++;
+    }
+    return linesContext++;
+  }
+
   function buildDiffTable(file){
     var tableHTML = templates["table"];
     var rowsHTML = '';
+    linesAdded = 0;
+    linesContext = 0;
+    var lineNumber = 0;
 
     var parts = JsDiff.diffLines(initalFiles[file].data, updatedFiles[file].data, { newlineIsToken: false });
     var part, rowType, linesOfCode;
@@ -67,9 +77,11 @@ export function DiffAsHTML(initalFiles, updatedFiles) {
       part = parts[i];
       rowType = partTemplate(part);
       linesOfCode = partLinesOfcode(part);
+      linesAdded = linesContext;
 
       for(var i in linesOfCode){
-        rowsHTML += buildDiffRow(rowType, linesOfCode[i]);
+        lineNumber = calcLineNumber(part);
+        rowsHTML += buildDiffRow(rowType, linesOfCode[i], lineNumber);
       }
     }
 
@@ -79,9 +91,9 @@ export function DiffAsHTML(initalFiles, updatedFiles) {
     tablesHTML += tableHTML;
   }
 
-  function buildDiffRow(rowType, code){
+  function buildDiffRow(rowType, code, lineNumber){
     var rowHTML = templates[rowType];
-    rowHTML = rowHTML.replace(/#{lineNumber}/g, "");
+    rowHTML = rowHTML.replace(/#{lineNumber}/g, lineNumber);
     return rowHTML.replace(/#{lineOfCode}/g, code);
   }
 
