@@ -41,8 +41,15 @@ export function DiffAsHTML(initalFiles, updatedFiles) {
 
       finalHTML.innerHTML = tablesHTML;
 
+      removeExcessiveContext();
+
       resolve();
     });
+  }
+
+  function removeExcessiveContext(){
+    // Remove .code-context if there is a lot of them.
+    //finalHTML.
   }
 
   function compareVersionsOfFile(file){
