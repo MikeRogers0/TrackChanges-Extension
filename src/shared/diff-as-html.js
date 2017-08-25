@@ -84,7 +84,7 @@ export function DiffAsHTML(initalFiles, updatedFiles) {
           tableRows[i + 1].className = tableRows[i + 1].className.replace(' hide', '');
         }
 
-        if(tableRows[i + 1] != undefined){
+        if(tableRows[i + 2] != undefined){
           tableRows[i + 2].className = tableRows[i + 2].className.replace(' hide', '');
         }
       }
