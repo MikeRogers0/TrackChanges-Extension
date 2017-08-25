@@ -47,9 +47,30 @@ export function DiffAsHTML(initalFiles, updatedFiles) {
     });
   }
 
+  // Hide .code-context if there is a lot of them.
   function removeExcessiveContext(){
-    // Remove .code-context if there is a lot of them.
-    //finalHTML.
+    var diffTables = finalHTML.querySelectorAll('.diff-table');
+
+    for (var i = 0, len = diffTables.length; i < len; i++) {
+      diffTables[i].innerHTML = hideExcessiveContextInTable(diffTables[i]);
+    }
+  }
+
+  function hideExcessiveContextInTable(tableElm){
+    var tableRows = tableElm.querySelectorAll('tbody tr');
+
+    for (var i = 0, len = tableRows.length; i < len; i++) {
+      // Look at the next three rows, if they're not a context hide this one.
+      var row = tableRows[i];
+
+      if(row.className == "code-context"){
+        if(tableRows[i + 1] == undefined || tableRows[i + 1].className == "code-context"){
+          row.className += " hide";
+        }
+      }
+    }
+
+    return tableElm.innerHTML;
   }
 
   function compareVersionsOfFile(file){
