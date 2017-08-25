@@ -64,7 +64,9 @@ export function DiffAsHTML(initalFiles, updatedFiles) {
       var row = tableRows[i];
 
       if(row.className == "code-context"){
-        if(tableRows[i + 1] == undefined || tableRows[i + 1].className == "code-context"){
+        if(tableRows[i + 1] == undefined || tableRows[i - 1] == undefined){
+          row.className += " hide";
+        } else if ( tableRows[i + 1].className.includes("code-context") && tableRows[i - 1].className.includes("code-context") ){
           row.className += " hide";
         }
       }
