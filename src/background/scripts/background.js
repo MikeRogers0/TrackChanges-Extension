@@ -72,9 +72,9 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
 // When a devtools has been reshown, grab a rebroadcast the changes. 
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
   // If it's some other message, ignore it.
-  if(request.action !== "devtools-reopened" || request.tabID === null){ return; }
+  if(request.action !== "devtools-shown" || request.tabID === null){ return; }
 
-  console.log("devtools-reopened");
+  console.log("devtools-shown");
   if( window.connections[message.tabId] != undefined ){
     broadcastTabSnapshots(message.tabId);
   }
