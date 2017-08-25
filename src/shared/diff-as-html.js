@@ -58,16 +58,34 @@ export function DiffAsHTML(initalFiles, updatedFiles) {
 
   function hideExcessiveContextInTable(tableElm){
     var tableRows = tableElm.querySelectorAll('tbody tr');
+    var contextRows = tableElm.querySelectorAll('tr.code-context');
+    var row = "";
+
+    // Hide all the context rows
+    for (var i = 0, len = contextRows.length; i < len; i++) {
+      contextRows[i].className += " hide";
+    }
 
     for (var i = 0, len = tableRows.length; i < len; i++) {
-      // Look at the next three rows, if they're not a context hide this one.
-      var row = tableRows[i];
+      row = tableRows[i];
 
-      if(row.className == "code-context"){
-        if(tableRows[i + 1] == undefined || tableRows[i - 1] == undefined){
-          row.className += " hide";
-        } else if ( tableRows[i + 1].className.includes("code-context") && tableRows[i - 1].className.includes("code-context") ){
-          row.className += " hide";
+      // If it's a non-contextual row, make sure 2 the two rows before & after
+      // are visible
+      if(!row.className.includes("code-context")){
+        if(tableRows[i - 2] != undefined){
+          tableRows[i - 2].className = tableRows[i - 2].className.replace(' hide', '');
+        }
+
+        if(tableRows[i - 1] != undefined){
+          tableRows[i - 1].className = tableRows[i - 1].className.replace(' hide', '');
+        }
+
+        if(tableRows[i + 1] != undefined){
+          tableRows[i + 1].className = tableRows[i + 1].className.replace(' hide', '');
+        }
+
+        if(tableRows[i + 1] != undefined){
+          tableRows[i + 2].className = tableRows[i + 2].className.replace(' hide', '');
         }
       }
     }
