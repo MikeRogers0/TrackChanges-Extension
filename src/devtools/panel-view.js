@@ -23,7 +23,7 @@ if( snapshotId != undefined && snapshotId.length > 0 ){
   ChromeFiles().getFile(snapshotId + "/" + "diff.html", function(result){
     var div = document.createElement('html');
     div.innerHTML = result;
-    document.querySelector(".snapshot-preview").innerHTML = div.querySelector("body").innerHTML;
+    document.querySelector(".snapshot-preview").innerHTML = div.querySelector(".inner-diff").innerHTML;
     document.querySelector(".snapshot-preview").style = "display: block;";
 
     fileList.querySelector("[data-file-id='" + snapshotId + "']").className += " active"

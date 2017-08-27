@@ -17,7 +17,6 @@ backgroundPageConnection.postMessage({
   tabId: chrome.devtools.inspectedWindow.tabId
 });
 
-
 // When the button is clicked, build a new diff
 document.querySelectorAll('.create-snapshot').forEach(function(button) {
   button.addEventListener('click', function(e){

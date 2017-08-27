@@ -1,25 +1,4 @@
-$side-panel-bg: #F3F3F3;
-$side-panel-highlighted-bg: #3377DC;
-$side-panel-highlighted-text: #FFF;
-
-$text-colour: #2F3942;
-$text-colour-accent: #808080;
-
-$border-colour: #A3A3A3;
-
-$input-bg: #fff;
-$input-focus-bg: #fff;
-
-h1, h3, h4, h5, h6 {
-  color: $text-colour-accent;
-}
-
-body {
-  margin: 0;
-  color: $text-colour;
-  font-family: system-ui, sans-serif;
-  font-size: 12px;
-}
+@import 'colours';
 
 .vbox {
   display: flex;
@@ -30,8 +9,6 @@ body {
     flex: auto;
   }
 }
-
-@import "diff";
 
 .files-list-view, .files-details-view {
   height: 100vh;

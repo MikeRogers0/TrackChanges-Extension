@@ -39,12 +39,29 @@ export function DiffAsHTML(initalFiles, updatedFiles) {
         compareVersionsOfFile(file);
       }
 
+      tablesHTML = '<div class="inner-diff">' + tablesHTML + '</div>';
       finalHTML.innerHTML = tablesHTML;
 
       removeExcessiveContext();
+      addStylesheet();
 
       resolve();
     });
+  }
+
+  function addStylesheet(){
+    // Add a style tag
+    finalHTML.querySelector('head').innerHTML = '<style></style>';
+    var style = finalHTML.querySelector('head style');
+    var baseRules = document.querySelector('[href="styles/base.css"]').sheet.cssRules;
+    var diffRules = document.querySelector('[href="styles/diff.css"]').sheet.cssRules;
+
+    for (var i = 0, len = baseRules.length; i < len; i++) {
+      style.innerHTML += baseRules[i].cssText;
+    }
+    for (var i = 0, len = diffRules.length; i < len; i++) {
+      style.innerHTML += diffRules[i].cssText;
+    }
   }
 
   // Hide .code-context if there is a lot of them.
