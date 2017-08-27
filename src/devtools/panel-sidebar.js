@@ -7,6 +7,7 @@ var clearSnapshots = document.querySelector(".clear-all-snapshots");
 function renderSnapshotListItem(result){
   var listItem = document.querySelector('[data-template="fileListItem"]').innerHTML;
   listItem = listItem.replace(/#{id}/g, result.name);
+  listItem = listItem.replace(/#{folder_path}/g, result.toURL());
   listItem = listItem.replace(/#{date}/g, new Date(parseInt(result.name)).toLocaleDateString());
   return listItem;
 }

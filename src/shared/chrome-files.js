@@ -103,6 +103,10 @@ export function ChromeFiles() {
   }
 
   return {
+    saveBlob: function(filename, contents, callback){
+      // Do something with the contents.
+      writeFile(filename, contents, callback)
+    },
     saveBase64AsImage: function(filename, contents, callback){
       contents = contents.replace(/^data:image\/\w+;base64,/, "");
       contents = b64toBlob(contents, "image/png");
