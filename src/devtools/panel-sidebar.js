@@ -32,10 +32,19 @@ fileList.addEventListener('click', function(e){
     return;
   }
 
-  elem.className += " active"
+  var activePanelLink = document.querySelector(".file-list .panel-link.active")
+  if( activePanelLink !== null ) {
+    activePanelLink.className = activePanelLink.className.replace(/active/g, '').trim();
+  }
+
+  if(!elem.className.includes("active")) {
+    elem.className += " active"
+  }
 
   // They clicked the outer div.
-  window.location.replace("?id=" + elem.attributes["data-file-id"].value);
+  var newLocation = window.location.origin + window.location.pathname + "?id=" + elem.attributes["data-file-id"].value;
+  window.history.pushState({path: newLocation}, elem.attributes["data-file-id"], newLocation);
+  window.loadView();
 });
 
 clearSnapshots.addEventListener('click', function(e){
@@ -53,6 +62,9 @@ clearSnapshots.addEventListener('click', function(e){
 
   // Empty the file list - there is no files any more :D
   fileList.innerHTML = ''
+
+  document.querySelector(".get-started").style = "display: block;";
+  document.querySelector(".snapshot-preview").style = "display: none;";
 });
 
 renderSnapshotList();

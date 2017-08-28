@@ -4,7 +4,6 @@ See the differences made to a page.
 
 ## TODO
 
-  - After clear all, go back to default panel.
   - Load previews without reloading page.
   - Capture URL/Title of page (Display in Sidebar / File / Zip filename)
   - Style button on audit page.

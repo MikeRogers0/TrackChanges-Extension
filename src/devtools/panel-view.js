@@ -12,22 +12,30 @@ function getJsonFromUrl() {
   return result;
 }
 
-document.querySelector(".get-started").style = "display: none;";
-document.querySelector(".snapshot-preview").style = "display: none;";
+function loadView(){
+  document.querySelector(".get-started").style = "display: none;";
+  document.querySelector(".snapshot-preview").style = "display: none;";
 
-var snapshotId = getJsonFromUrl()["id"];
-if( snapshotId != undefined && snapshotId.length > 0 ){
-  // Hide the show snapshot
-  // Load the snapshot.
+  var snapshotId = getJsonFromUrl()["id"];
+  if( snapshotId != undefined && snapshotId.length > 0 ){
+    // Hide the show snapshot
+    // Load the snapshot.
 
-  ChromeFiles().getFile(snapshotId + "/" + "diff.html", function(result){
-    var div = document.createElement('html');
-    div.innerHTML = result;
-    document.querySelector(".snapshot-preview").innerHTML = div.querySelector(".diff-inner").innerHTML;
-    document.querySelector(".snapshot-preview").style = "display: block;";
+    ChromeFiles().getFile(snapshotId + "/" + "diff.html", function(result){
+      var div = document.createElement('html');
+      div.innerHTML = result;
+      document.querySelector(".snapshot-preview").innerHTML = div.querySelector(".diff-inner").innerHTML;
+      document.querySelector(".snapshot-preview").style = "display: block;";
 
-    fileList.querySelector("[data-file-id='" + snapshotId + "']").className += " active"
-  });
-} else {
-  document.querySelector(".get-started").style = "display: block;";
+      fileList.querySelector("[data-file-id='" + snapshotId + "']").className += " active"
+    });
+  } else {
+    document.querySelector(".get-started").style = "display: block;";
+  }
 }
+
+loadView();
+
+window.loadView = function(){
+  loadView();
+};
