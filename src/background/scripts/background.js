@@ -75,8 +75,8 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
   if(request.action !== "devtools-shown" || request.tabID === null){ return; }
 
   console.log("devtools-shown");
-  if( window.connections[message.tabId] != undefined ){
-    broadcastTabSnapshots(message.tabId);
+  if( window.connections[request.tabId] != undefined ){
+    broadcastTabSnapshots(request.tabId);
   }
 });
 
@@ -89,6 +89,7 @@ chrome.tabs.onRemoved.addListener(function(tabId, removeInfo){
 
 function broadcastTabSnapshots(tabId){
   console.log("broadcastTabSnapshots: " + tabId);
+
   chrome.pageCapture.saveAsMHTML({tabId: tabId}, function(mhtmlData){
     var reader = new window.FileReader();
     reader.onload = function() {
