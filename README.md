@@ -13,7 +13,6 @@ See the differences made to a page.
   - I18n, en/en-GB initially.
   - Landing page - use https://developer.chrome.com/webstore/branding
   - Handle max storage limits.
-  - Context snip lines on diff (CSS?)
   - Handle when user presses back button.
 
 ## Future Stuff

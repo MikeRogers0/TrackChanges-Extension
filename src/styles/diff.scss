@@ -78,3 +78,9 @@
     }
   }
 }
+
+.code-addition + .code-context:not(.hide) + .code-context:not(.hide) td {
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba($border-colour, 0.1);
+}
