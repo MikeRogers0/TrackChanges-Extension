@@ -1,6 +1,6 @@
 var JsDiff = require("diff");
 
-export function DiffAsHTML(initalFiles, updatedFiles) {
+export function DiffAsHTML(initalFiles, updatedFiles, tabTitle) {
   var templates = {
     file: document.querySelector('[data-template="diffFile"]').innerHTML,
     table: document.querySelector('[data-template="diffTable"]').innerHTML,
@@ -41,6 +41,7 @@ export function DiffAsHTML(initalFiles, updatedFiles) {
       }
 
       finalHTML.innerHTML = templates["file"].replace(/#{diffTables}/g, tablesHTML);
+      finalHTML.innerHTML = finalHTML.innerHTML.replace(/#{pageTitle}/g, tabTitle);
 
       removeExcessiveContext();
       addStylesheet();

@@ -37,6 +37,10 @@ export function Snapshot(tabId) {
     });
   }
 
+  function saveLocalStorage(){
+    localStorage[timestamp] = {}
+  }
+
   function saveZipFile(){
     return new Promise(function(resolve, reject) {
       console.log("saveZipFile()")

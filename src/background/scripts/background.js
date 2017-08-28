@@ -90,20 +90,23 @@ chrome.tabs.onRemoved.addListener(function(tabId, removeInfo){
 function broadcastTabSnapshots(tabId){
   console.log("broadcastTabSnapshots: " + tabId);
 
-  chrome.pageCapture.saveAsMHTML({tabId: tabId}, function(mhtmlData){
-    var reader = new window.FileReader();
-    reader.onload = function() {
-      connections[tabId].postMessage({
-        action: "snapshots-data",
-        tabID: tabId,
-        inital: window.tabSnapshots[tabId]["data"],
-        updated: {
-          "mhtml": reader.result,
-          "files": MHTMLParser().parseString(reader.result)
-        }
-      });
-    }
-    reader.readAsText(mhtmlData);
+  chrome.tabs.get(tabId, function(tab){
+    chrome.pageCapture.saveAsMHTML({tabId: tabId}, function(mhtmlData){
+      var reader = new window.FileReader();
+      reader.onload = function() {
+        connections[tabId].postMessage({
+          action: "snapshots-data",
+          tabID: tabId,
+          title: tab.title,
+          inital: window.tabSnapshots[tabId]["data"],
+          updated: {
+            "mhtml": reader.result,
+            "files": MHTMLParser().parseString(reader.result)
+          }
+        });
+      }
+      reader.readAsText(mhtmlData);
+    });
   });
 }
 
