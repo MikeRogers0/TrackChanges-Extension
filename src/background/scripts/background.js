@@ -98,6 +98,7 @@ function broadcastTabSnapshots(tabId){
           action: "snapshots-data",
           tabID: tabId,
           title: tab.title,
+          url: tab.url,
           inital: window.tabSnapshots[tabId]["data"],
           updated: {
             "mhtml": reader.result,

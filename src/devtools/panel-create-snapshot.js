@@ -8,6 +8,7 @@ backgroundPageConnection.onMessage.addListener(function(message, sender, sendRes
   if(message.action === "snapshots-data" && message.tabID === chrome.devtools.inspectedWindow.tabId){
     console.log('snapshots-data');
     window.tabSnapshot["title"] = message.title;
+    window.tabSnapshot["url"] = message.url;
     window.tabSnapshot["inital"] = message.inital;
     window.tabSnapshot["updated"] = message.updated;
   }

@@ -57,6 +57,7 @@ clearSnapshots.addEventListener('click', function(e){
       var result = results[i];
       if(result.isDirectory){
         ChromeFiles().removeDirectory(result.name);
+        localStorage.removeItem(result.name + "filename");
       }
     }
   });
