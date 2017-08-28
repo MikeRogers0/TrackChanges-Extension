@@ -1,6 +1,10 @@
 import { ChromeFiles } from '../shared/chrome-files';
 import { DiffAsHTML } from '../shared/diff-as-html';
 var JSZip = require("jszip");
+var urlify = require('urlify').create({
+  spaces: "-",
+  toLower: true
+});
 
 export function Snapshot(tabId) {
   var timestamp = (new Date).getTime(); // Used for file directory
@@ -28,7 +32,7 @@ export function Snapshot(tabId) {
   function saveDiffFile(){
     return new Promise(function(resolve, reject) {
       console.log("saveDiffFile()")
-      DiffAsHTML(window.tabSnapshot["inital"]["files"], window.tabSnapshot["updated"]["files"]).buildHTML(function(html){
+      DiffAsHTML(window.tabSnapshot["inital"]["files"], window.tabSnapshot["updated"]["files"], window.tabSnapshot["title"]).buildHTML(function(html){
         zip.file("diff.html", html);
         ChromeFiles().saveHTMLFile(timestamp + "/diff.html", html, function(){
           resolve();
@@ -39,13 +43,14 @@ export function Snapshot(tabId) {
 
   function saveLocalStorage(){
     localStorage[timestamp] = {}
+    localStorage[timestamp + "filename"] = urlify(window.tabSnapshot["title"]) + ".zip";
   }
 
   function saveZipFile(){
     return new Promise(function(resolve, reject) {
       console.log("saveZipFile()")
       zip.generateAsync({type:"blob"}).then(function (blob) {
-        ChromeFiles().saveBlob(timestamp + "/" + timestamp + ".zip", blob, function(){
+        ChromeFiles().saveBlob(timestamp + "/" + localStorage[timestamp + "filename"], blob, function(){
           resolve();
         });
       });
@@ -58,6 +63,8 @@ export function Snapshot(tabId) {
     },
     save: function(){
       return new Promise(function(resolve, reject) {
+        saveLocalStorage();
+
         touchTimestampDirectory().then(function(){
           Promise.all([
             saveMHTMLFile("inital"),

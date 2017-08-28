@@ -42,6 +42,7 @@ export function DiffAsHTML(initalFiles, updatedFiles, tabTitle) {
 
       finalHTML.innerHTML = templates["file"].replace(/#{diffTables}/g, tablesHTML);
       finalHTML.innerHTML = finalHTML.innerHTML.replace(/#{pageTitle}/g, tabTitle);
+      finalHTML.innerHTML = finalHTML.innerHTML.replace(/#{timestamp}/g, new Date().toLocaleDateString());
 
       removeExcessiveContext();
       addStylesheet();
