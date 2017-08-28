@@ -30,11 +30,11 @@
   > .files-title {
     text-transform: uppercase;
     color: $text-colour-accent;
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1rem;
   }
 
   > .file-list {
-    height: calc(100vh - 5.5rem);
+    height: calc(100vh - 6rem);
     overflow: scroll;
   }
 }

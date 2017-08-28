@@ -4,7 +4,6 @@ See the differences made to a page.
 
 ## TODO
 
-  - Show title in sidebar
   - SVG Icon
   - file:// permission warning.
   - chrome:// notice.
