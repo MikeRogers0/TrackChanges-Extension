@@ -42,6 +42,7 @@ export function Snapshot(tabId) {
   }
 
   function saveLocalStorage(){
+    localStorage[timestamp + "title"] = window.tabSnapshot["title"];
     localStorage[timestamp + "filename"] = urlify(window.tabSnapshot["title"]) + ".zip";
   }
 

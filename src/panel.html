@@ -53,7 +53,12 @@
   </div>
 
   <script type="text/html" data-template="fileListItem">
-    <div class="panel-link" data-file-id="#{id}">#{date} <a href="#{folder_path}/#{download_file}" class="action">Save</a></div>
+    <div class="panel-link" data-file-id="#{id}">
+      <div class="file-overview">#{title}<br />
+        <small>#{date}</small>
+      </div>
+      <a href="#{folder_path}/#{download_file}" class="action">Save</a>
+    </div>
   </script>
 
   <script type="text/html" data-template="diffFile">

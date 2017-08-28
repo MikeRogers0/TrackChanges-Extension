@@ -30,11 +30,11 @@
   > .files-title {
     text-transform: uppercase;
     color: $text-colour-accent;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
   }
 
   > .file-list {
-    height: calc(100vh - 6.25rem);
+    height: calc(100vh - 5.5rem);
     overflow: scroll;
   }
 }
@@ -83,12 +83,17 @@
 }
 
 .panel-link {
-  padding: 1rem 0.75rem;
+  padding: 0.5rem 1rem;
+  display: flex;
+  /*align-items: center;*/
 
-  .file-list & {
-    padding: 0.75rem 1.25rem;
+  > .file-overview {
+    flex: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 3rem;
   }
-
 
   .action {
     float: right;
@@ -118,7 +123,7 @@
 .get-started {
   text-align: center;
   padding: 1rem;
-  max-width: 35rem;
+  max-width: 50rem;
   margin: 0 auto;
 
   .logo {

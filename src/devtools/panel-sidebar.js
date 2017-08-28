@@ -9,6 +9,7 @@ function renderSnapshotListItem(result){
   listItem = listItem.replace(/#{id}/g, result.name);
   listItem = listItem.replace(/#{folder_path}/g, result.toURL());
   listItem = listItem.replace(/#{download_file}/g, localStorage[result.name + "filename"]);
+  listItem = listItem.replace(/#{title}/g, localStorage[result.name + "title"]);
   listItem = listItem.replace(/#{date}/g, new Date(parseInt(result.name)).toLocaleDateString());
   return listItem;
 }
@@ -31,6 +32,10 @@ fileList.addEventListener('click', function(e){
   if(elem.nodeName == "A"){
     // They clicked the link, move on.
     return;
+  }
+
+  if( !elem.className.includes('panel-link') ){
+    elem = elem.parentElement;
   }
 
   var activePanelLink = document.querySelector(".file-list .panel-link.active")
@@ -58,6 +63,7 @@ clearSnapshots.addEventListener('click', function(e){
       if(result.isDirectory){
         ChromeFiles().removeDirectory(result.name);
         localStorage.removeItem(result.name + "filename");
+        localStorage.removeItem(result.name + "title");
       }
     }
   });

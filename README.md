@@ -4,7 +4,7 @@ See the differences made to a page.
 
 ## TODO
 
-  - Style button on audit page.
+  - Show title in sidebar
   - SVG Icon
   - file:// permission warning.
   - chrome:// notice.
