@@ -2,6 +2,7 @@ var JsDiff = require("diff");
 
 export function DiffAsHTML(initalFiles, updatedFiles) {
   var templates = {
+    file: document.querySelector('[data-template="diffFile"]').innerHTML,
     table: document.querySelector('[data-template="diffTable"]').innerHTML,
     rowContext: document.querySelector('[data-template="diffTableRowContext"]').innerHTML,
     rowAddition: document.querySelector('[data-template="diffTableRowAddition"]').innerHTML,
@@ -39,8 +40,7 @@ export function DiffAsHTML(initalFiles, updatedFiles) {
         compareVersionsOfFile(file);
       }
 
-      tablesHTML = '<div class="inner-diff">' + tablesHTML + '</div>';
-      finalHTML.innerHTML = tablesHTML;
+      finalHTML.innerHTML = templates["file"].replace(/#{diffTables}/g, tablesHTML);
 
       removeExcessiveContext();
       addStylesheet();

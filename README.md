@@ -2,29 +2,40 @@
 
 See the differences made to a page.
 
-### Handy scripts for local development
+## TODO
 
-####
+  - After clear all, go back to default panel.
+  - Load previews without reloading page.
+  - Capture URL/Title of page (Display in Sidebar / File / Zip filename)
+  - Style button on audit page.
+  - SVG Icon
+  - file:// permission warning.
+  - chrome:// notice.
+  - Diff Summary at top of file.
+  - No changes alert
+  - I18n, en/en-GB initially.
+  - Landing page - use https://developer.chrome.com/webstore/branding
+  - Handle max storage limits.
+  - Context snip lines on diff (CSS?)
+  - Handle when user presses back button.
 
-Setup the enviroment - Install font awesome with compontent.
+## Future Stuff
 
-#### Build the CSS & JS
+  - Delete single snapshot
+  - Translate more.
+  - Handle minified code - Advanced option, run all HTML through HTML prettier.
+  - Full page screenshots - http://html2canvas.hertzen.com/documentation.html#getting-started could be the way to do this.
+
+## Handy scripts for local development
+
+Setup the environment 
+
+    npm install
+
+### Build the CSS & JS
 
     npm run build
 
 Or if your want to watch
 
     npm run watch
-
-## TODO
-
-  - Limit recent snapshops in popup to lastest 4
-  - view-all.html page
-  - view.html page, a previewable 
-  - Download as .zip
-  - Give the snapshots meaningful names.
-  - Hotkey to save!!!!!!!!!
-  - Full page screenshots - http://html2canvas.hertzen.com/documentation.html#getting-started could be the way to do this.
-  - Figure out the performance problems
-  - Keep diff button looking the same so it doesn't jump about so much.
-  - Ignore Intercom

@@ -124,7 +124,17 @@
 
 .get-started {
   text-align: center;
-  padding-top: 4rem;
+  padding: 5% 1rem 1% 1rem;
+  max-width: 30rem;
+  margin: 0 auto;
+
+  .logo {
+    margin-bottom: 1rem;
+  }
+
+  .actions {
+    margin-top: 1rem;
+  }
 }
 
 .btn {
