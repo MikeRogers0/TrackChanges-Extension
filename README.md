@@ -13,7 +13,10 @@ See the differences made to a page.
   - Landing page - use https://developer.chrome.com/webstore/branding
   - Handle max storage limits.
   - Handle when user presses back button.
-  - Copy to Clipboard as Markdown - https://stackoverflow.com/questions/25657626/how-to-copy-html-formatted-text-on-to-clipboard-from-google-chrome-extension#25662380
+  - Copy to Clipboard as Markdown 
+    -- https://stackoverflow.com/questions/25657626/how-to-copy-html-formatted-text-on-to-clipboard-from-google-chrome-extension#25662380
+    -- https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
+  - Keyboard Shortcut
 
 ## Future Stuff
 
