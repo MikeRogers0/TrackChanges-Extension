@@ -1,14 +1,14 @@
 {
   "name": {
-    "message": "ChangesDiff",
+    "message": "TrackChanges",
     "description": "Extension name"
   },
   "short_name": {
-    "message": "ChangesDiff",
+    "message": "TrackChanges",
     "description": "Short Extension name"
   },
   "description": {
-    "message": "",
+    "message": "TrackChanges will compare what has changed since the page has loaded, then generate a set of developer friendly files that can be easily shared.",
     "description": "Extension description"
   },
   "browser_action": {

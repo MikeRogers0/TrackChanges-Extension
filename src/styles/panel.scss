@@ -79,6 +79,14 @@
     &:active {
       opacity: 1;
     }
+
+    &.disabled {
+      opacity: 0.5;
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
   }
 }
 
@@ -131,8 +139,8 @@
   }
 
   .actions {
-    margin-top: 1.25rem;
-    margin-bottom: 1.25rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
   }
 }
 
@@ -141,12 +149,21 @@
   font-size: 0.9rem;
 }
 
+.hidden {
+  display: none;
+}
+
 .btn {
   padding: 0.75rem 1rem;
   background: $btn-colour;
+  border: 1px solid darken($btn-colour, 10%);
   border: 0;
   color: #fff;
   border-radius: 3px;
+
+  &.disabled {
+    background: rgba($btn-colour, 0.5);
+  }
 
   &:hover {
     cursor: pointer;
@@ -158,5 +175,13 @@
 
   &:active {
     background: darken($btn-colour, 15%);
+  }
+}
+
+.disabled {
+  cursor: not-allowed;
+
+  &:hover, &:focus {
+    cursor: not-allowed;
   }
 }

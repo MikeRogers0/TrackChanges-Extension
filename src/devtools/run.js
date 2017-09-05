@@ -1,4 +1,4 @@
-chrome.devtools.panels.create("ChangesDiff",
+chrome.devtools.panels.create("TrackChanges",
   "images/logo.png",
   "lib/panel.html",
   function(panel) {
