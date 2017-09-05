@@ -143,4 +143,11 @@ chrome.runtime.onConnect.addListener(function (port) {
 });
 
 
-// TODO: On start up capture all opens tabs.
+// On start up capture all opens tabs.
+chrome.tabs.query({ "status": "complete" }, function(tabs){
+  for(var i in tabs){
+    var tabId = tabs[i].id;
+    window.tabSnapshots[tabId] = { active: true };
+    queueCacheMHTML(tabId);
+  }
+});
