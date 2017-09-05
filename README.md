@@ -4,8 +4,6 @@ See the differences made to a page.
 
 ## TODO
 
-  - file:// permission warning.
-  - chrome:// notice.
   - Diff Summary at top of file.
   - No changes notice
   - I18n, en/en-GB initially.

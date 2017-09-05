@@ -111,7 +111,7 @@
     cursor: pointer;
   }
 
-  &.active {
+  &.active, &:active {
     background: $side-panel-highlighted-bg;
     color: $side-panel-highlighted-text;
 

@@ -17,18 +17,22 @@ function cacheMHTML(tabId, boardcastAction){
   if( window.tabSnapshots[tabId]["active"] !== true ){ return; }
 
   console.log("pageCapture: " + tabId);
-  chrome.pageCapture.saveAsMHTML({tabId: tabId}, function(mhtmlData){
-    var reader = new window.FileReader();
-    reader.onload = function() {
-      window.tabSnapshots[tabId] = {
-        "active": true,
-        "data": {
-          "mhtml": reader.result,
-          "files": MHTMLParser().parseString(reader.result)
-        }
+  chrome.tabs.get(tabId, function(tab){
+    chrome.pageCapture.saveAsMHTML({tabId: tabId}, function(mhtmlData){
+      var reader = new window.FileReader();
+      reader.onload = function() {
+        window.tabSnapshots[tabId] = {
+          "active": true,
+          "title": tab.title,
+          "url": tab.url,
+          "data": {
+            "mhtml": reader.result,
+            "files": MHTMLParser().parseString(reader.result)
+          }
+        };
       };
-    };
-    reader.readAsText(mhtmlData);
+      reader.readAsText(mhtmlData);
+    });
   });
 }
 
@@ -63,8 +67,6 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
   window.tabSnapshots[tabId] = window.tabSnapshots[tabId] || { active: false };
 
   if( window.tabSnapshots[tabId]["active"] === false ) {
-    console.log("Activating: " + tabId)
-    window.tabSnapshots[tabId]["active"] = true;
     queueCacheMHTML(tabId)
   }
 });
@@ -85,7 +87,6 @@ chrome.tabs.onRemoved.addListener(function(tabId, removeInfo){
   console.log("Removing: " + tabId)
   delete tabSnapshots[tabId];
 });
-
 
 function broadcastTabSnapshots(tabId){
   console.log("broadcastTabSnapshots: " + tabId);
