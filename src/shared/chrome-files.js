@@ -41,15 +41,33 @@ export function ChromeFiles() {
   }
 
   // Read file get it as text.
+  function getFileAsText(filename, callback){
+    getFile(filename, function(file) {
+      var reader = new FileReader();
+      reader.onloadend = function(e) {
+        callback(this.result);
+      };
+      reader.readAsText(file);
+    });
+  }
+
+  // Read file get it as blob.
+  function getFileAsDataURL(filename, callback){
+    getFile(filename, function(file) {
+      var reader = new FileReader();
+      reader.onloadend = function(e) {
+        callback(this.result);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // Read file
   function getFile(filename, callback){
     initFileSystem(function(fs){
       fs.root.getFile(filename, {}, function(fileEntry){
         fileEntry.file(function(file) {
-          var reader = new FileReader();
-          reader.onloadend = function(e) {
-            callback(this.result);
-          };
-          reader.readAsText(file);
+          callback(file);
         }, errorHandler);
       }, errorHandler);
     }, errorHandler);
@@ -131,6 +149,12 @@ export function ChromeFiles() {
     },
     listFoldersInRootDirectory: function(callback){
       readDirectory(callback);
+    },
+    getFileAsDataURL: function(filename, callback){
+      getFileAsDataURL(filename, callback);
+    },
+    getFileAsText: function(filename, callback){
+      getFileAsText(filename, callback);
     },
     getFile: function(filename, callback){
       getFile(filename, callback);

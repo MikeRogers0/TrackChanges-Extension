@@ -21,7 +21,7 @@ function loadView(){
     // Hide the show snapshot
     // Load the snapshot.
 
-    ChromeFiles().getFile(snapshotId + "/" + "diff.html", function(result){
+    ChromeFiles().getFileAsText(snapshotId + "/" + "diff.html", function(result){
       var div = document.createElement('html');
       div.innerHTML = result;
       document.querySelector(".snapshot-preview").innerHTML = div.querySelector(".diff-inner").innerHTML;

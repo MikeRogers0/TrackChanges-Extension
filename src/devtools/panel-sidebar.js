@@ -23,7 +23,31 @@ function renderSnapshotList(){
         fileList.innerHTML += renderSnapshotListItem(result);
       }
     }
+
+    attachDragListener();
   });
+}
+
+var dragImage = document.querySelector('.logo');
+
+function attachDragListener(){
+  var panelLinks = fileList.querySelectorAll(".panel-link");
+  var panelLink = null;
+
+  for (var i = 0, len = panelLinks.length; i < len; i++) {
+    panelLink = panelLinks[i];
+
+    addEventListener('dragstart', function(e){
+      var linkElm = e.target.querySelector('[href]');
+
+      e.dataTransfer.dropEffect = "copy";
+      e.dataTransfer.effectAllowed = "copy";
+      e.dataTransfer.setData("DownloadURL", "application/zip:" + localStorage[e.target.getAttribute("data-file-id") + "filename"] + ":" + linkElm.getAttribute("href"));
+      e.dataTransfer.setDragImage(dragImage, 64, 64);
+
+      debugger;
+    });
+  }
 }
 
 fileList.addEventListener('click', function(e){

@@ -6,6 +6,7 @@ See the differences made to a page.
 
   - I18n, en/en-GB initially.
   - Landing page - use https://developer.chrome.com/webstore/branding
+  - Promo Material
   - Handle max storage limits.
   - Handle when user presses back button.
   - Copy to Clipboard as Markdown 

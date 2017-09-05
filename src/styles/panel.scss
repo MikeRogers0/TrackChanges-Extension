@@ -111,7 +111,16 @@
     cursor: pointer;
   }
 
-  &.active, &:active {
+  &:active {
+    background: rgba($side-panel-highlighted-bg, 0.5);
+    color: $side-panel-highlighted-text;
+
+    .action {
+      color: $side-panel-highlighted-text;
+    }
+  }
+
+  &.active {
     background: $side-panel-highlighted-bg;
     color: $side-panel-highlighted-text;
 
