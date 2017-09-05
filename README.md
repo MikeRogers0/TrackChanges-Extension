@@ -4,8 +4,6 @@ See the differences made to a page.
 
 ## TODO
 
-  - Diff Summary at top of file.
-  - No changes notice
   - I18n, en/en-GB initially.
   - Landing page - use https://developer.chrome.com/webstore/branding
   - Handle max storage limits.
@@ -16,6 +14,7 @@ See the differences made to a page.
 
 ## Future Stuff
 
+  - Diff Summary at top of file.
   - Keyboard Shortcut
   - Save and Download button
   - Delete single snapshot

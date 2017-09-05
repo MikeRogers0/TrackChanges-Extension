@@ -6,7 +6,8 @@ export function DiffAsHTML(initalFiles, updatedFiles, tabTitle) {
     table: document.querySelector('[data-template="diffTable"]').innerHTML,
     rowContext: document.querySelector('[data-template="diffTableRowContext"]').innerHTML,
     rowAddition: document.querySelector('[data-template="diffTableRowAddition"]').innerHTML,
-    rowDeletion: document.querySelector('[data-template="diffTableRowDeletion"]').innerHTML
+    rowDeletion: document.querySelector('[data-template="diffTableRowDeletion"]').innerHTML,
+    noDiff: document.querySelector('[data-template="noDiff"]').innerHTML
   };
   var finalHTML = document.createElement("html");
   var linesAdded = 0;
@@ -38,6 +39,11 @@ export function DiffAsHTML(initalFiles, updatedFiles, tabTitle) {
     return new Promise(function(resolve, reject) {
       for(var file in initalFiles){
         compareVersionsOfFile(file);
+      }
+
+      // Add fallback for when div is empty.
+      if( tablesHTML == "" ){
+        tablesHTML = templates["noDiff"];
       }
 
       finalHTML.innerHTML = templates["file"].replace(/#{diffTables}/g, tablesHTML);
