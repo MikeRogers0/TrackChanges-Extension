@@ -29,6 +29,7 @@ function renderSnapshotList(){
 }
 
 var dragImage = document.querySelector('.logo');
+var dragItems = {}
 
 function attachDragListener(){
   var panelLinks = fileList.querySelectorAll(".panel-link");
@@ -37,16 +38,18 @@ function attachDragListener(){
   for (var i = 0, len = panelLinks.length; i < len; i++) {
     panelLink = panelLinks[i];
 
-    addEventListener('dragstart', function(e){
+    ChromeFiles().getFile(panelLink.getAttribute("data-file-id") + "/" + localStorage[panelLink.getAttribute("data-file-id") + "filename"], function(result){
+      dragItems[panelLink.getAttribute("data-file-id")] = result;
+    });
+
+    panelLink.addEventListener('dragstart', function(e){
       var linkElm = e.target.querySelector('[href]');
 
-      e.dataTransfer.dropEffect = "copy";
-      e.dataTransfer.effectAllowed = "copy";
+      //e.dataTransfer.dropEffect = "copy";
+      e.dataTransfer.effectAllowed = "move";
       e.dataTransfer.setData("DownloadURL", "application/zip:" + localStorage[e.target.getAttribute("data-file-id") + "filename"] + ":" + linkElm.getAttribute("href"));
       e.dataTransfer.setDragImage(dragImage, 64, 64);
-
-      debugger;
-    });
+    }, false);
   }
 }
 
@@ -75,7 +78,7 @@ fileList.addEventListener('click', function(e){
   var newLocation = window.location.origin + window.location.pathname + "?id=" + elem.attributes["data-file-id"].value;
   window.history.pushState({path: newLocation}, elem.attributes["data-file-id"], newLocation);
   window.loadView();
-});
+}, false);
 
 clearSnapshots.addEventListener('click', function(e){
   e.preventDefault();
@@ -97,6 +100,6 @@ clearSnapshots.addEventListener('click', function(e){
 
   document.querySelector(".get-started").style = "display: block;";
   document.querySelector(".snapshot-preview").style = "display: none;";
-});
+}, false);
 
 renderSnapshotList();

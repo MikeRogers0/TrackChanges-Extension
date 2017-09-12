@@ -15,12 +15,8 @@ export function ChromeI18nHelper(data) {
   }
 
   function parseTemplates(){
-    var tmpDom = document.createElement("div");
-
     for (var i = 0, len = data.length; i < len; i++) {
-      tmpDom.innerHTML = data[i].innerHTML;
-      tmpDom = parseDomForI18ns(tmpDom);
-      data[i].innerHTML = tmpDom.innerHTML;
+      data[i] = parseDomForI18ns(data[i]);
     }
     return data;
   }

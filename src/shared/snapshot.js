@@ -32,7 +32,7 @@ export function Snapshot(tabId) {
   function saveDiffFile(){
     return new Promise(function(resolve, reject) {
       console.log("saveDiffFile()")
-      DiffAsHTML(window.tabSnapshot["inital"]["files"], window.tabSnapshot["updated"]["files"], window.tabSnapshot["title"]).buildHTML(function(html){
+      DiffAsHTML(window.tabSnapshot["inital"]["files"], window.tabSnapshot["updated"]["files"], window.tabSnapshot["title"], window.tabSnapshot["url"]).buildHTML(function(html){
         zip.file("diff.html", html);
         ChromeFiles().saveHTMLFile(timestamp + "/diff.html", html, function(){
           resolve();

@@ -12,9 +12,9 @@ import { MHTMLParser } from '../../shared/mhtml-parser';
 // }
 window.tabSnapshots = {};
 
-function cacheMHTML(tabId, boardcastAction){
+function cacheMHTML(tabId){
   // Only run if the devtools has been opened.
-  if( window.tabSnapshots[tabId]["active"] !== true ){ return; }
+  //if( window.tabSnapshots[tabId]["active"] !== true ){ return; }
 
   console.log("pageCapture: " + tabId);
   chrome.tabs.get(tabId, function(tab){
@@ -39,6 +39,8 @@ function cacheMHTML(tabId, boardcastAction){
 // Make sure if the site loads a bunch times we don't hammer the CPU parsing it.
 window.tabCacheTimeout = {};
 function queueCacheMHTML(tabId){
+  console.log("queueCacheMHTML(" + tabId +")");
+
   // We need a quick delay otherwise chrome throws a shitty error.
   clearTimeout(tabCacheTimeout[tabId]);
   tabCacheTimeout[tabId] = setTimeout(function(){
@@ -62,6 +64,7 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
   if(request.action !== "devtools-opened" || request.tabID === null){ return; }
 
   var tabId = request.tabID;
+  console.log("devtools-opened: " + tabId);
 
   // Enable the snapshot'ing of this tab if devtools has been opened.
   window.tabSnapshots[tabId] = window.tabSnapshots[tabId] || { active: false };

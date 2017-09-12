@@ -1,7 +1,33 @@
 @import 'colours';
 
-.diff-inner {
+body {
+  background: #F9F9F9;
+}
+
+.diff-inner {}
+
+.diff-header {
   padding: 2rem;
+  display: flex;
+  border-bottom: 1px solid #e1e4e8;
+  background: lighten(#F9F9F9, 30%);
+
+  > div {
+    line-height: 1.5;
+  }
+  > div:first-child {
+    padding-right: 0.5rem;
+  }
+}
+
+.diff-tables {
+  padding: 2rem;
+  background: #F9F9F9;
+  overflow: hidden;
+}
+
+.diff-footer {
+  padding: 0 2rem;
 }
 
 .diff-table {

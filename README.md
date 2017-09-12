@@ -4,7 +4,8 @@ See the differences made to a page.
 
 ## TODO
 
-  - I18n, en/en-GB initially.
+  - https://yarnpkg.com/en/docs/usage - Use Yarn for dependencies. 
+  - Template i18n is borked.
   - Landing page - use https://developer.chrome.com/webstore/branding
   - Promo Material
   - Handle max storage limits.
