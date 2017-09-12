@@ -32,6 +32,11 @@
     "description": ""
   },
 
+  "@results_for": {
+    "message": "Results For:",
+    "description": ""
+  },
+
   "@learn_more": {
     "message": "Learn More",
     "description": ""
