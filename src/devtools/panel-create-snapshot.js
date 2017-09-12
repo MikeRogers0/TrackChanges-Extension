@@ -30,7 +30,7 @@ function enableCreateSnapshot(){
 var backgroundPageConnection = chrome.runtime.connect({ name: "panel" });
 
 backgroundPageConnection.onMessage.addListener(function(message, sender, sendResponse){
-  if(message.action === "snapshots-data" && message.tabID === chrome.devtools.inspectedWindow.tabId){
+  if(message.action === "snapshots-data" && message.tabId === chrome.devtools.inspectedWindow.tabId){
     console.log('backgroundPageConnection.onMessage: snapshots-data');
     window.tabSnapshot["title"] = message.title;
     window.tabSnapshot["url"] = message.url;

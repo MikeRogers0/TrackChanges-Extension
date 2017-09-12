@@ -10,18 +10,18 @@ export function DiffOverview() {
   var latestFiles = null;
   var originalFiles = null;
 
-  function tabID(){
+  function tabId(){
     return window.tab.id;
   }
 
   function loadLatestMHTMLFile(callback){
     console.log("Loading Latest MHTML File");
 
-    chrome.pageCapture.saveAsMHTML({tabId: tabID()}, function(mhtmlData){
+    chrome.pageCapture.saveAsMHTML({tabId: tabId()}, function(mhtmlData){
       var reader = new window.FileReader();
       reader.onload = function() {
         latestFiles = MHTMLParser().parseString(reader.result);
-        originalFiles = background.original_tabs[tabID()]["parsed"];
+        originalFiles = background.original_tabs[tabId()]["parsed"];
 
         compareFiles(callback);
       };

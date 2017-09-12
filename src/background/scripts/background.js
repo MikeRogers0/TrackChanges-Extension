@@ -2,7 +2,7 @@ import { MHTMLParser } from '../../shared/mhtml-parser';
 
 // List of tabs with their snapshots
 // {
-//   123: { // Key is the tabID
+//   123: { // Key is the tabId
 //     active: true, // True when the user has opened the devtools on this tab.
 //     snapshot: { // The Snapshot
 //       mhtml: Blob, // Copy of the MHTML of the page. 
@@ -61,9 +61,9 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
 // When a devtools has been opened, grab a snapshot. 
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
   // If it's some other message, ignore it.
-  if(request.action !== "devtools-opened" || request.tabID === null){ return; }
+  if(request.action !== "devtools-opened" || request.tabId === null){ return; }
 
-  var tabId = request.tabID;
+  var tabId = request.tabId;
   console.log("devtools-opened: " + tabId);
 
   // Enable the snapshot'ing of this tab if devtools has been opened.
@@ -77,9 +77,9 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
 // When a devtools has been reshown, grab a rebroadcast the changes. 
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
   // If it's some other message, ignore it.
-  if(request.action !== "devtools-shown" || request.tabID === null){ return; }
+  if(request.action !== "devtools-shown" || request.tabId === null){ return; }
 
-  console.log("devtools-shown");
+  console.log("devtools-shown: " + request.tabId);
   if( window.connections[request.tabId] != undefined ){
     broadcastTabSnapshots(request.tabId);
   }
@@ -100,7 +100,7 @@ function broadcastTabSnapshots(tabId){
       reader.onload = function() {
         connections[tabId].postMessage({
           action: "snapshots-data",
-          tabID: tabId,
+          tabId: tabId,
           title: tab.title,
           url: tab.url,
           inital: window.tabSnapshots[tabId]["data"],

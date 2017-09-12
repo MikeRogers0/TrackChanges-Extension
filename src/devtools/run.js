@@ -3,9 +3,9 @@ chrome.devtools.panels.create("TrackChanges",
   "lib/panel.html",
   function(panel) {
     panel.onShown.addListener(function(){
-      chrome.extension.sendMessage( { action: "devtools-shown", tabID: chrome.devtools.inspectedWindow.tabId } );
+      chrome.extension.sendMessage( { action: "devtools-shown", tabId: chrome.devtools.inspectedWindow.tabId } );
     });
   }
 );
 
-chrome.extension.sendMessage( { action: "devtools-opened", tabID: chrome.devtools.inspectedWindow.tabId } );
+//chrome.extension.sendMessage( { action: "devtools-opened", tabId: chrome.devtools.inspectedWindow.tabId } );
