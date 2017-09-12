@@ -8,7 +8,7 @@
     "description": "Short Extension name"
   },
   "description": {
-    "message": "TrackChanges will compare what has changed since the page has loaded, then generate a set of developer friendly files that can be easily shared.",
+    "message": "TrackChanges will compare what has changed since the page has loaded, then generate a set of developer friendly files.",
     "description": "Extension description"
   },
   "browser_action": {
