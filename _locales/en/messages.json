@@ -12,7 +12,7 @@
     "description": "Extension description"
   },
   "browser_action": {
-    "message": "",
+    "message": "Open inspector, make a change and save the summary.",
     "description": "The default tooltip on the icon"
   },
 

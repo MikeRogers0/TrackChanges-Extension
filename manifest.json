@@ -25,8 +25,16 @@
     "48": "images/logo.png",
     "128": "images/logo.png"
   },
+  "options_ui": {
+    "page": "lib/options.html",
+    "chrome_style": true
+  },
+  "browser_action": {
+    "default_title": "__MSG_browser_action__",
+    "default_icon": "images/logo.png"
+  },
   "minimum_chrome_version": "55",
   "offline_enabled": true,
   "author": "Mike Rogers",
-  "homepage_url": "https://mikerogers.io/changes-diff"
+  "homepage_url": "https://trackchanges.mikerogers.io/"
 }

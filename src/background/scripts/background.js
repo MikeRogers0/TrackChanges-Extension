@@ -154,3 +154,7 @@ chrome.tabs.query({ "status": "complete" }, function(tabs){
     queueCacheMHTML(tabId);
   }
 });
+
+chrome.browserAction.onClicked.addListener(function(tab) {
+  alert("Open inspector, change something, click 'TrackChanges' then create summary :)");
+});

@@ -10,6 +10,7 @@ See the differences made to a page.
   - Handle max storage limits.
   - Handle when user presses back button.
   - Handle Minified files
+  - After install, make the button in the browser do something.
 
 ## Future Stuff
 

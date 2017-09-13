@@ -13,6 +13,11 @@ function createSnapshot(){
 }
 
 function enableCreateSnapshot(){
+  debugger;
+  if( !document.querySelector('#create-snapshot-form').className.includes('hidden') ) {
+    return;
+  }
+
   document.querySelector('#create-snapshot-form').className = document.querySelector('#create-snapshot-form').className.replace('hidden', '').trim();
 
   // When the button is clicked, build a new diff
