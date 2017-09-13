@@ -60,7 +60,7 @@ export function DiffAsHTML(initalFiles, updatedFiles, tabTitle, tabUrl) {
 
   function addStylesheet(){
     // Add a style tag
-    finalHTML.querySelector('head').innerHTML = '<style></style><link rel="icon" type="image/ico" href="https://trackchanges.mikerogers.io/favicon.ico" />';
+    finalHTML.querySelector('head').innerHTML = '<meta charset="utf-8"><style></style><link rel="icon" type="image/ico" href="https://trackchanges.mikerogers.io/favicon.ico" />';
     var style = finalHTML.querySelector('head style');
     var baseRules = document.querySelector('[href="styles/base.css"]').sheet.cssRules;
     var diffRules = document.querySelector('[href="styles/diff.css"]').sheet.cssRules;
