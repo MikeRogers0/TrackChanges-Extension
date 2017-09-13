@@ -18,11 +18,12 @@
         <!-- Becomes a list of snapshots -->
       </div>
       <div class="quick-functions">
-        <a class="create-snapshot disabled" href="#" disabled>➕</a>
+        <a class="create-snapshot disabled" href="#" title="Create Summary" disabled>➕</a>
         <div class="filter">
           <!--<input type="search" placeholder="Filter" />-->
         </div>
-        <a class="clear-all-snapshots" href="#">🗑️</a>
+        <a class="clear-all-snapshots" href="#" title="Remove all Snapshots">🗑️</a>
+        <a class="clear-snapshots" href="#" title="Remove Snapshots">➖</a>
       </div>
 
     </div>
@@ -36,7 +37,7 @@
 
           <form id="create-snapshot-form" class="hidden">
             <div class="actions">
-              <button class="btn create-snapshot disabled" disabled data-i18n="create_snapshot">Create Snapshot</button>
+              <button class="btn create-snapshot disabled" disabled data-i18n="create_snapshot" title="Create Summary">Create Snapshot</button>
             </div>
           </form>
         </div>
@@ -48,7 +49,7 @@
   </div>
 
   <script type="text/html" data-template="fileListItem">
-    <div class="panel-link" draggable="true" data-file-id="#{id}">
+    <div class="panel-link" data-file-id="#{id}">
       <div class="file-overview">#{title}<br />
         <small>#{date}</small>
       </div>
