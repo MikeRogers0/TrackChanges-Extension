@@ -9,8 +9,8 @@ See the differences made to a page.
   - Promo Material
   - Handle max storage limits.
   - Handle when user presses back button.
-  - Handle Minified files
   - After install, make the button in the browser do something.
+  - Fix weird styling.
 
 ## Future Stuff
 

@@ -1,6 +1,7 @@
 // Parses HTML and turns it into individual files.
 
 var quotedPrintable = require('quoted-printable');
+var jsbeautifier = require("js-beautify").html;
 
 export function MHTMLParser() {
 
@@ -84,6 +85,29 @@ export function MHTMLParser() {
       fileData.data = fileData.data.replace( /<style id="intercom-stylesheet"(.*)<\/style\>/g, '' );
       fileData.data = fileData.data.replace( /<iframe id="intercom-frame"(.*)<\/iframe\>/g, '' );
       fileData.data = fileData.data.replace( /<div id="intercom-container"(.*)<\/div\>/g, '' );
+
+      fileData.data = jsbeautifier(fileData.data, {
+        "indent_size": 2,
+        "indent_char": " ",
+        "indent_with_tabs": false,
+        "eol": "\n",
+        "end_with_newline": false,
+        "indent_level": 0,
+        "preserve_newlines": true,
+        "max_preserve_newlines": 10,
+        "space_in_paren": false,
+        "space_in_empty_paren": false,
+        "jslint_happy": false,
+        "space_after_anon_function": false,
+        "brace_style": "collapse",
+        "break_chained_methods": false,
+        "keep_array_indentation": false,
+        "unescape_strings": 6,
+        "wrap_line_length": 0,
+        "e4x": false,
+        "comma_first": false,
+        "operator_position": "before-newline"
+      });
     }
 
     // Save the parsed file to the data;
