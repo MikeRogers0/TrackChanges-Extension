@@ -7,13 +7,19 @@ See the differences made to a page.
   - https://yarnpkg.com/en/docs/usage - Use Yarn for dependencies. 
   - Landing page - use https://developer.chrome.com/webstore/branding
   - Promo Material
+      - https://www.canvasflip.com/visual-inspector/
   - Handle max storage limits.
   - Handle when user presses back button.
   - After install, make the button in the browser do something.
-  - Fix weird styling.
+  - Fix weird scrollbars
+  - In diff, link to MHTML files.
+  - Timestamps in zip file.
+  - Popup should contains link to download current page.
+  - http://embedhunt.com/
 
 ## Future Stuff
 
+  - Slack Integration?
   - Diff Summary at top of file.
   - Keyboard Shortcut
   - Save and Download button
