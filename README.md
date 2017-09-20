@@ -16,6 +16,11 @@ See the differences made to a page.
   - Timestamps in zip file.
   - Popup should contains link to download current page.
   - http://embedhunt.com/
+  - Screenshots
+  - Link to mhtmls in diff.html
+  - Time snapshot was taken, not just date.
+  - Ignore inline styles
+      - https://bleech.de/
 
 ## Future Stuff
 
@@ -25,7 +30,6 @@ See the differences made to a page.
   - Save and Download button
   - Delete single snapshot
   - Translate more.
-  - Handle minified code - Advanced option, run all HTML through HTML prettier.
   - Full page screenshots - http://html2canvas.hertzen.com/documentation.html#getting-started could be the way to do this.
   - Drag and drop as Markdown 
     -- https://stackoverflow.com/questions/25657626/how-to-copy-html-formatted-text-on-to-clipboard-from-google-chrome-extension#25662380
