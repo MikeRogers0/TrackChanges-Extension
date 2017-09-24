@@ -8,6 +8,7 @@ function createSnapshot(){
   snapshot.save().then(function(){
     window.location.replace("?id=" + snapshot.timestamp());
   }).catch(function(e){
+    debugger;
     alert("I'm sorry: " + e);
   });
 }

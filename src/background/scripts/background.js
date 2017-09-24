@@ -22,7 +22,7 @@ function cacheMHTML(tabId){
       var reader = new window.FileReader();
       reader.onload = function() {
         window.tabSnapshots[tabId] = {
-          "active": true,
+          "active": window.tabSnapshots[tabId]["active"],
           "title": tab.title,
           "url": tab.url,
           "data": {
@@ -58,6 +58,16 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
   queueCacheMHTML(tabId)
 });
 
+// When a page tell us it has has loaded successfully, we grab a snapshot of the page.
+chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
+  // If it's some other message, ignore it.
+  if(request.action !== "page-unloaded"){ return; }
+
+  var tabId = sender.tab.id;
+  console.log("page-unloaded: " + tabId)
+  window.tabSnapshots[tabId] = { active: false };
+});
+
 // When a devtools has been opened, grab a snapshot. 
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
   // If it's some other message, ignore it.
@@ -70,6 +80,7 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
   window.tabSnapshots[tabId] = window.tabSnapshots[tabId] || { active: false };
 
   if( window.tabSnapshots[tabId]["active"] === false ) {
+    window.tabSnapshots[tabId]["active"] === true;
     queueCacheMHTML(tabId)
   }
 });
@@ -150,7 +161,7 @@ chrome.runtime.onConnect.addListener(function (port) {
 chrome.tabs.query({ "status": "complete" }, function(tabs){
   for(var i in tabs){
     var tabId = tabs[i].id;
-    window.tabSnapshots[tabId] = { active: true };
+    window.tabSnapshots[tabId] = { active: false };
     queueCacheMHTML(tabId);
   }
 });

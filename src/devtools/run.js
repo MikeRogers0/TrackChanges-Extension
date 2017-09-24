@@ -8,4 +8,4 @@ chrome.devtools.panels.create("TrackChanges",
   }
 );
 
-//chrome.extension.sendMessage( { action: "devtools-opened", tabId: chrome.devtools.inspectedWindow.tabId } );
+chrome.extension.sendMessage( { action: "devtools-opened", tabId: chrome.devtools.inspectedWindow.tabId } );

@@ -123,6 +123,7 @@ export function DiffAsHTML(initalFiles, updatedFiles, tabTitle, tabUrl) {
     console.log("Comparing file: " + file);
 
     if(file == "") { return; }
+    if(updatedFiles[file] == undefined) { return; }
 
     // If they're the same, skip this file.
     if(initalFiles[file].data === updatedFiles[file].data) { return; }

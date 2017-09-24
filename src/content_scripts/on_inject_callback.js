@@ -12,6 +12,14 @@ document.addEventListener('DOMContentLoaded', function(){
   chrome.runtime.sendMessage( { action: "page-loaded" } );
 }, false);
 
+window.addEventListener('load', function(){
+  chrome.runtime.sendMessage( { action: "page-loaded" } );
+}, false);
+
+window.addEventListener('unload', function(){
+  chrome.runtime.sendMessage( { action: "page-unloaded" } );
+}, false);
+
 // Turbolinks 5
 document.addEventListener('turbolinks:load', function(){
   chrome.runtime.sendMessage( { action: "page-loaded" } );
