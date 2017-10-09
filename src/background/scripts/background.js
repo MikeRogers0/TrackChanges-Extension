@@ -96,11 +96,28 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
   }
 });
 
+onMessageActions = {
+  "devtools-opened": function(tabId){}, // Upsert our initial capture, unless it's already active. Then mark as being edited.
+  "devtools-interacted": function(tabId){}, // Mark the tab as being edited.
+  "devtools-panel-shown": function(tabId){}, // Send the initial capture and out current capture down the pipe,
+  "page-loaded": function(tabId){}, // Upsert our initial capture
+  "page-updated": function(tabId){}, // Upsert our initial capture, unless it's already active.
+  "page-unloaded": function(tabId){}, // Delete the tab, we don't need it.
+}
+
 // Clear up the memory on tab close.
 chrome.tabs.onRemoved.addListener(function(tabId, removeInfo){
   console.log("Removing: " + tabId)
   delete tabSnapshots[tabId];
 });
+
+// Clear up the memory on tab close.
+//chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
+  //if(changeInfo.status == 'loading' && typeof(tabSnapshots[tabId]) != 'undefined'){
+    //console.log("Loading: " + tabId);
+    //delete tabSnapshots[tabId];
+  //}
+//});
 
 function broadcastTabSnapshots(tabId){
   console.log("broadcastTabSnapshots: " + tabId);

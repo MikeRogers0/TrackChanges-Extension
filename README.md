@@ -21,6 +21,10 @@ See the differences made to a page.
   - Time snapshot was taken, not just date.
   - Ignore inline styles
       - https://bleech.de/
+          - Lazy Loading
+              - Listen for document change/image loads?
+        - Add a panel to the elements document, when it's added that marks the last snapshot as initial?
+  - Figure out better UTF-8
 
 ## Future Stuff
 
