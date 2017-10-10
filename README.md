@@ -14,15 +14,13 @@ See the differences made to a page.
   - Fix weird scrollbars
   - In diff, link to MHTML files.
   - Timestamps in zip file.
-  - Popup should contains link to download current page.
+  - Popup should contains link to download current page & options.
   - http://embedhunt.com/
   - Screenshots
   - Link to mhtmls in diff.html
   - Time snapshot was taken, not just date.
   - Ignore inline styles
       - https://bleech.de/
-          - Lazy Loading
-              - Listen for document change/image loads?
         - Add a panel to the elements document, when it's added that marks the last snapshot as initial?
   - Figure out better UTF-8
 

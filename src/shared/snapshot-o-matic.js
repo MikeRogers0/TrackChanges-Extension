@@ -11,7 +11,7 @@ export function SnapshotOMatic(tabId) {
           reader.onload = function() {
             resolve({tab: tab, result: reader.result});
           };
-          reader.readAsText(mhtmlData);
+          reader.readAsText(mhtmlData, 'UTF-8');
         });
       });
     });

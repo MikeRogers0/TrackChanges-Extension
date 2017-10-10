@@ -47,7 +47,7 @@ export function ChromeFiles() {
       reader.onloadend = function(e) {
         callback(this.result);
       };
-      reader.readAsText(file);
+      reader.readAsText(file, 'UTF-8');
     });
   }
 
