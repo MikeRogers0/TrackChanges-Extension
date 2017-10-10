@@ -19,7 +19,8 @@ window.delayTaskEvents = {}
 // Load up the options - These can be updated in the popups
 window.options = {
   ignore_css_names: 'front-visible|front|lazyloaded|lazyload|fix|animate-in|animate',
-  ignore_html_attributes: 'style|data-src|src',
+  ignore_inline_styles: false,
+  ignore_html_attributes: 'data-src|src',
   ignore_html_tag: 'svg|iframe'
 }
 

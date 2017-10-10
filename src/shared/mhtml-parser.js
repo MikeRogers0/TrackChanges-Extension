@@ -2,6 +2,7 @@
 
 var quotedPrintable = require('quoted-printable');
 var jsbeautifier = require("js-beautify").html;
+var htmlclean = require('htmlclean');
 
 export function MHTMLParser() {
 
@@ -96,14 +97,14 @@ export function MHTMLParser() {
       }
 
       // Ignore some attributes
+      if( window.options.ignore_inline_styles ){
+        fileData.data = fileData.data.replace( new RegExp('style="(.*?)"', "g"), '' );
+      }
       if( window.options.ignore_html_attributes.length >= 1 ){
         fileData.data = fileData.data.replace( new RegExp('('+window.options.ignore_html_attributes+')="(.*?)"', "g"), '' );
       }
 
-      // Ignore some tags
-      //if( window.options.ignore_html_attributes.length >= 1 ){
-        //fileData.data = fileData.data.replace( new RegExp('<('+window.options.ignore_html_tag+')(.*?)></', "g"), '' );
-      //}
+      fileData.data = htmlclean(fileData.data);
 
       fileData.data = jsbeautifier(fileData.data, {
         "indent_size": 2,
@@ -127,6 +128,12 @@ export function MHTMLParser() {
         "comma_first": false,
         "operator_position": "before-newline"
       });
+
+
+      // Ignore some tags
+      //if( window.options.ignore_html_attributes.length >= 1 ){
+        //fileData.data = fileData.data.replace( new RegExp('<('+window.options.ignore_html_tag+')(.*?)></', "g"), '' );
+      //}
     }
 
     // Save the parsed file to the data;
