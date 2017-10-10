@@ -3,7 +3,7 @@ chrome.devtools.panels.create("TrackChanges",
   "lib/panel.html",
   function(panel) {
     panel.onShown.addListener(function(){
-      chrome.extension.sendMessage( { action: "devtools-panel-shown", tabId: chrome.devtools.inspectedWindow.tabId } );
+      //chrome.extension.sendMessage( { action: "devtools-panel-shown", tabId: chrome.devtools.inspectedWindow.tabId } );
     });
 
     panel.onHidden.addListener(function(){

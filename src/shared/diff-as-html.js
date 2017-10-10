@@ -49,7 +49,7 @@ export function DiffAsHTML(initalFiles, updatedFiles, tabTitle, tabUrl) {
       finalHTML.innerHTML = templates["file"].replace(/#{diffTables}/g, tablesHTML);
       finalHTML.innerHTML = finalHTML.innerHTML.replace(/#{pageTitle}/g, tabTitle);
       finalHTML.innerHTML = finalHTML.innerHTML.replace(/#{pageUrl}/g, tabUrl);
-      finalHTML.innerHTML = finalHTML.innerHTML.replace(/#{timestamp}/g, new Date().toLocaleDateString());
+      finalHTML.innerHTML = finalHTML.innerHTML.replace(/#{timestamp}/g, new Date().toLocaleString());
 
       removeExcessiveContext();
       addStylesheet();
@@ -59,8 +59,6 @@ export function DiffAsHTML(initalFiles, updatedFiles, tabTitle, tabUrl) {
   }
 
   function addStylesheet(){
-    // Add a style tag
-    finalHTML.querySelector('head').innerHTML = '<meta charset="utf-8"><style></style><link rel="icon" type="image/ico" href="https://trackchanges.mikerogers.io/favicon.ico" />';
     var style = finalHTML.querySelector('head style');
     var baseRules = document.querySelector('[href="styles/base.css"]').sheet.cssRules;
     var diffRules = document.querySelector('[href="styles/diff.css"]').sheet.cssRules;
@@ -156,6 +154,7 @@ export function DiffAsHTML(initalFiles, updatedFiles, tabTitle, tabUrl) {
 
       for(var i in linesOfCode){
         lineNumber = calcLineNumber(part);
+        console.log(linesOfCode[i]);
         rowsHTML += buildDiffRow(rowType, linesOfCode[i], lineNumber);
       }
     }

@@ -11,14 +11,13 @@ See the differences made to a page.
   - Handle max storage limits.
   - Handle when user presses back button.
   - After install, make the button in the browser do something.
-  - Fix weird scrollbars
+  - Fix weird scrollbars - It's nice when he had a mouse...
   - In diff, link to MHTML files.
   - Timestamps in zip file.
   - Popup should contains link to download current page & options.
   - http://embedhunt.com/
   - Screenshots
   - Link to mhtmls in diff.html
-  - Time snapshot was taken, not just date.
   - Ignore inline styles
       - https://bleech.de/
         - Add a panel to the elements document, when it's added that marks the last snapshot as initial?

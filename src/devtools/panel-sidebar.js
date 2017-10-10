@@ -10,14 +10,14 @@ function renderSnapshotListItem(result){
   listItem = listItem.replace(/#{folder_path}/g, result.toURL());
   listItem = listItem.replace(/#{download_file}/g, localStorage[result.name + "filename"]);
   listItem = listItem.replace(/#{title}/g, localStorage[result.name + "title"]);
-  listItem = listItem.replace(/#{date}/g, new Date(parseInt(result.name)).toLocaleDateString());
+  listItem = listItem.replace(/#{date}/g, new Date(parseInt(result.name)).toLocaleString());
   return listItem;
 }
 
 function renderSnapshotList(){
   ChromeFiles().listFoldersInRootDirectory(function(results){
     fileList.innerHTML = '';
-    for(var i in results){
+    for (var i = 0, len = results.length; i < len; i++) {
       var result = results[i];
       if(result.isDirectory){
         fileList.innerHTML += renderSnapshotListItem(result);
