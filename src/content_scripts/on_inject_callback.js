@@ -2,9 +2,18 @@
 chrome.runtime.sendMessage( { action: "page-loaded" } );
 
 function postReadyChangesListner(){
-  document.querySelector('body').addEventListener('DOMSubtreeModified', function(){
-    chrome.runtime.sendMessage( { action: "page-updated" } );
-  }, false);
+  // Removed, it's triggered way to often and kills the page performance.
+  //document.querySelector('body').addEventListener('DOMSubtreeModified', function(){
+    //chrome.runtime.sendMessage( { action: "page-updated" } );
+  //}, false);
+
+  // Listen for lazy loaded images
+  var imagesOnPage = document.querySelectorAll('img');
+  for (var i = 0, len = imagesOnPage.length; i < len; i++) {
+    imagesOnPage[i].addEventListener('load', function(){
+      chrome.runtime.sendMessage( { action: "page-updated" } );
+    }, false);
+  }
 }
 
 document.onreadystatechange = function () {

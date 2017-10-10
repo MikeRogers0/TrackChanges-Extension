@@ -56,7 +56,10 @@ export function SnapshotOMatic(tabId) {
 
   function userInteracted(){
     console.log("SnapshotOMatic.userInteracted: " + tabId);
-    window.tabSnapshots[tabId]["user_interacted"] = true;
+
+    if( typeof(window.tabSnapshots[tabId]) != 'undefined' ){
+      window.tabSnapshots[tabId]["user_interacted"] = true;
+    }
   }
 
   function broadcast(){
@@ -78,7 +81,7 @@ export function SnapshotOMatic(tabId) {
 
   function clear(){
     console.log("SnapshotOMatic.clear: " + tabId);
-    delete tabSnapshots[tabId];
+    delete window.tabSnapshots[tabId];
   }
 
   return {

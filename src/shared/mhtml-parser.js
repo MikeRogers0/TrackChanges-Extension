@@ -82,9 +82,28 @@ export function MHTMLParser() {
       fileData.data = fileData.data.replace( /cid:([a-z0-9\-]+)@mhtml\.blink/g, '' );
 
       // Remove Intercom elements also
-      fileData.data = fileData.data.replace( /<style id="intercom-stylesheet"(.*)<\/style\>/g, '' );
-      fileData.data = fileData.data.replace( /<iframe id="intercom-frame"(.*)<\/iframe\>/g, '' );
-      fileData.data = fileData.data.replace( /<div id="intercom-container"(.*)<\/div\>/g, '' );
+      fileData.data = fileData.data.replace( /<style id="intercom-stylesheet"(.*?)<\/style\>/g, '' );
+      fileData.data = fileData.data.replace( /<iframe id="intercom-frame"(.*?)<\/iframe\>/g, '' );
+      fileData.data = fileData.data.replace( /<div id="intercom-container"(.*?)<\/div\>/g, '' );
+
+      // Ignore classes via regex
+      if( window.options.ignore_css_names.length >= 1 ){
+        fileData.data = fileData.data.replace( new RegExp('class="(.*?)('+window.options.ignore_css_names+')(.*?)"', "g"), 'class="$1$3"' );
+
+        // Remove the white space added.
+        fileData.data = fileData.data.replace( new RegExp('class="(.*?) "', "g"), 'class="$1"' );
+        fileData.data = fileData.data.replace( new RegExp('class=" (.*?)"', "g"), 'class="$1"' );
+      }
+
+      // Ignore some attributes
+      if( window.options.ignore_html_attributes.length >= 1 ){
+        fileData.data = fileData.data.replace( new RegExp('('+window.options.ignore_html_attributes+')="(.*?)"', "g"), '' );
+      }
+
+      // Ignore some tags
+      //if( window.options.ignore_html_attributes.length >= 1 ){
+        //fileData.data = fileData.data.replace( new RegExp('<('+window.options.ignore_html_tag+')(.*?)></', "g"), '' );
+      //}
 
       fileData.data = jsbeautifier(fileData.data, {
         "indent_size": 2,

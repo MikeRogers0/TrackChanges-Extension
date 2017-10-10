@@ -16,8 +16,12 @@ window.tabSnapshots = {};
 // Used to store events in DelayTask.
 window.delayTaskEvents = {}
 
-// Load up the options
-window.options = {}
+// Load up the options - These can be updated in the popups
+window.options = {
+  ignore_css_names: 'front-visible|front|lazyloaded|lazyload|fix|animate-in|animate',
+  ignore_html_attributes: 'style|data-src|src',
+  ignore_html_tag: 'svg|iframe'
+}
 
 // Our Stored long running connections.
 window.connections = {}
