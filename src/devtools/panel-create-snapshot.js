@@ -8,13 +8,11 @@ function createSnapshot(){
   snapshot.save().then(function(){
     window.location.replace("?id=" + snapshot.timestamp());
   }).catch(function(e){
-    debugger;
     alert("I'm sorry: " + e);
   });
 }
 
 function enableCreateSnapshot(){
-  debugger;
   if( !document.querySelector('#create-snapshot-form').className.includes('hidden') ) {
     return;
   }

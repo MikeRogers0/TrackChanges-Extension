@@ -1,4 +1,4 @@
-import { MHTMLParser } from '../../shared/mhtml-parser';
+import { MHTMLParser } from '../shared/mhtml-parser';
 
 export function SnapshotOMatic(tabId) {
 
@@ -9,7 +9,7 @@ export function SnapshotOMatic(tabId) {
         chrome.pageCapture.saveAsMHTML({tabId: tabId}, function(mhtmlData){
           var reader = new window.FileReader();
           reader.onload = function() {
-            resolve(tab, reader.result)
+            resolve({tab: tab, result: reader.result});
           };
           reader.readAsText(mhtmlData);
         });
@@ -39,7 +39,7 @@ export function SnapshotOMatic(tabId) {
     console.log("SnapshotOMatic.insert: " + tabId);
     setDefaultTabSnapshotData();
 
-    buildTabSnapshot().then(function(tab, result){
+    buildTabSnapshot().then(({tab, result}) => {
       saveSnapshot(tab, result);
     });
   }
@@ -61,7 +61,7 @@ export function SnapshotOMatic(tabId) {
 
   function broadcast(){
     console.log("SnapshotOMatic.broadcast: " + tabId);
-    buildTabSnapshot().then(function(tab, result){
+    buildTabSnapshot().then(({tab, result}) => {
       window.connections[tabId].postMessage({
         action: "snapshots-data",
         tabId: tabId,
@@ -82,10 +82,10 @@ export function SnapshotOMatic(tabId) {
   }
 
   return {
-    insert: insert(),
-    update: update(),
-    userInteracted: userInteracted(),
-    broadcast: broadcast(),
-    clear: clear();
+    insert: insert,
+    update: update,
+    userInteracted: userInteracted,
+    broadcast: broadcast,
+    clear: clear
   }
 }
