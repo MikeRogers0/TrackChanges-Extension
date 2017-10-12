@@ -16,7 +16,7 @@ window.tabSnapshots = {};
 // Used to store events in DelayTask.
 window.delayTaskEvents = {}
 
-// Load up the options - These can be updated in the popups
+// Load up the options - These can be updated the options.html & and applied when generating the diff.
 window.options = {
   ignore_css_names: 'front-visible|front|lazyloaded|lazyload|fix|animate-in|animate',
   ignore_inline_styles: false,
