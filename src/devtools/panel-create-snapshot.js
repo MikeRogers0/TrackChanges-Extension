@@ -13,11 +13,11 @@ function createSnapshot(){
 }
 
 function enableCreateSnapshot(){
-  if( !document.querySelector('#create-snapshot-form').className.includes('hidden') ) {
+  if( !document.querySelector('#create-snapshot-form .create-snapshot').className.includes('disabled') ) {
     return;
   }
 
-  document.querySelector('#create-snapshot-form').className = document.querySelector('#create-snapshot-form').className.replace('hidden', '').trim();
+  document.querySelector('#create-snapshot-form .create-snapshot').className = document.querySelector('#create-snapshot-form .create-snapshot').className.replace('disabled', '').trim();
 
   // When the button is clicked, build a new diff
   document.querySelectorAll('.create-snapshot').forEach(function(button) {

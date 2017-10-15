@@ -9,11 +9,8 @@ See the differences made to a page.
   - Promo Material
       - https://www.canvasflip.com/visual-inspector/
   - Handle max storage limits.
-  - Handle when user presses back button.
   - After install, make the button in the browser do something.
-  - Fix weird scrollbars - It's nice when he had a mouse...
   - In diff, link to MHTML files.
-  - Timestamps in zip file.
   - Popup should contains link to download current page & options.
   - http://embedhunt.com/
   - Screenshots
@@ -26,6 +23,7 @@ See the differences made to a page.
 ## Future Stuff
 
   - Slack Integration?
+  - Fix weird scrollbars - It's nice when he had a mouse...
   - Diff Summary at top of file.
   - Keyboard Shortcut
   - Save and Download button

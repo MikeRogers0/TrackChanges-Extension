@@ -171,6 +171,9 @@
 
   &.disabled {
     background: rgba($btn-colour, 0.5);
+    &:hover {
+      background: rgba($btn-colour, 0.5);
+    }
   }
 
   &:hover {
