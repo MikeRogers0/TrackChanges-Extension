@@ -19,7 +19,6 @@
   "devDependencies": {
     "browserify": "^13.3.0",
     "diff": "^3.2.0",
-    "html2canvas": "^0.5.0-beta4",
     "htmlclean": "^3.0.3",
     "install": "^0.8.4",
     "js-beautify": "^1.6.14",
