@@ -10,18 +10,18 @@ See the differences made to a page.
       - https://www.canvasflip.com/visual-inspector/
   - Handle max storage limits.
   - After install, make the button in the browser do something.
-  - In diff, link to MHTML files.
   - Popup should contains link to download current page & options.
   - http://embedhunt.com/
-  - Screenshots
-  - Link to mhtmls in diff.html
-  - Ignore inline styles
+  - Ignore dynamic elements Checkbox - TY Sarah
       - https://bleech.de/
-        - Add a panel to the elements document, when it's added that marks the last snapshot as initial?
+      - List some common elements to ignore 
+        - Some have inline styles ignore
+        - Some have other attributes ignored.
   - Figure out better UTF-8
 
 ## Future Stuff
 
+  - Screenshots - https://github.com/mrcoles/full-page-screen-capture-chrome-extension/
   - Slack Integration?
   - Fix weird scrollbars - It's nice when he had a mouse...
   - Diff Summary at top of file.
