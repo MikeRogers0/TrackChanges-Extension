@@ -35,7 +35,21 @@ export function SnapshotOMatic(tabId) {
     window.tabSnapshots[tabId]["user_interacted"] = window.tabSnapshots[tabId]["user_interacted"] || false;
   }
 
+  function trackTab(){
+    console.log("SnapshotOMatic.trackTab: " + tabId);
+    window.trackingTabs[tabId] = true
+  }
+
+  function untrackTab(){
+    console.log("SnapshotOMatic.untrackTab: " + tabId);
+    window.trackingTabs[tabId] = false
+  }
+
   function insert(){
+    if( !window.trackingTabs[tabId] ){
+      return;
+    }
+
     console.log("SnapshotOMatic.insert: " + tabId);
     setDefaultTabSnapshotData();
 
@@ -45,6 +59,9 @@ export function SnapshotOMatic(tabId) {
   }
 
   function update(){
+    if( !window.trackingTabs[tabId] ){
+      return;
+    }
     console.log("SnapshotOMatic.update: " + tabId);
     setDefaultTabSnapshotData();
 
@@ -85,6 +102,8 @@ export function SnapshotOMatic(tabId) {
   }
 
   return {
+    trackTab: trackTab,
+    untrackTab: untrackTab,
     insert: insert,
     update: update,
     userInteracted: userInteracted,

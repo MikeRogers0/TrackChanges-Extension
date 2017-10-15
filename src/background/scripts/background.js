@@ -12,6 +12,7 @@ import { DelayTask } from '../../shared/delay-task';
 //   }
 // }
 window.tabSnapshots = {};
+window.trackingTabs = {};
 
 // Used to store events in DelayTask.
 window.delayTaskEvents = {}
@@ -31,13 +32,21 @@ window.namedActions = {
   "devtools-panel-shown": function(tabId){ // Send the initial capture and out current capture down the pipe,
     SnapshotOMatic(tabId).broadcast();
   },
+  "first-startup": function(tabId){ // Send the initial capture and out current capture down the pipe,
+    SnapshotOMatic(tabId).trackTab();
+    DelayTask(tabId).add(() => {
+      SnapshotOMatic(tabId).insert();
+    });
+  },
   "devtools-opened": function(tabId){ // Insert our initial capture, unless it's already active. Then mark as being edited.
+    SnapshotOMatic(tabId).trackTab();
     DelayTask(tabId).add(() => {
       SnapshotOMatic(tabId).update();
       SnapshotOMatic(tabId).userInteracted();
     });
   },
   "devtools-interacted": function(tabId){ // Mark the tab as being edited.
+    SnapshotOMatic(tabId).trackTab();
     SnapshotOMatic(tabId).userInteracted();
   },
   "page-loaded": function(tabId){ // Insert our initial capture
@@ -53,6 +62,9 @@ window.namedActions = {
   "page-unloaded": function(tabId){ // Delete the tab, we don't need it.
     SnapshotOMatic(tabId).clear();
   },
+  "tab-closed": function(tabId){ // Delete the tab, we don't need it.
+    SnapshotOMatic(tabId).untrackTab();
+  }
 };
 
 function chromeMessageHandler(request, sender={}, sendResponse={}){
@@ -72,8 +84,12 @@ chrome.extension.onMessage.addListener(chromeMessageHandler);
 chrome.tabs.query({ "status": "complete" }, function(tabs){
   for(var i in tabs){
     var tabId = tabs[i].id;
-    chromeMessageHandler({ action: "page-loaded", tabId: tabId })
+    chromeMessageHandler({ action: "first-startup", tabId: tabId })
   }
+});
+
+chrome.tabs.onRemoved.addListener(function(tabId, removeInfo){
+  window.namedActions['tab-closed'](tabId);
 });
 
 chrome.runtime.onConnect.addListener(function (port) {
