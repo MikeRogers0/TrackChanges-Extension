@@ -87,7 +87,7 @@ export function SnapshotOMatic(tabId) {
         tabId: tabId,
         title: tab.title,
         url: tab.url,
-        inital: window.tabSnapshots[tabId]["data"],
+        initial: window.tabSnapshots[tabId]["data"],
         updated: {
           "mhtml": result,
           "files": MHTMLParser().parseString(result)

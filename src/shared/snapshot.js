@@ -32,7 +32,7 @@ export function Snapshot(tabId) {
   function saveDiffFile(){
     return new Promise(function(resolve, reject) {
       console.log("saveDiffFile()")
-      DiffAsHTML(window.tabSnapshot["inital"]["files"], window.tabSnapshot["updated"]["files"], window.tabSnapshot["title"], window.tabSnapshot["url"]).buildHTML(function(html){
+      DiffAsHTML(window.tabSnapshot["initial"]["files"], window.tabSnapshot["updated"]["files"], window.tabSnapshot["title"], window.tabSnapshot["url"]).buildHTML(function(html){
         zip.file("diff.html", html);
         ChromeFiles().saveHTMLFile(timestamp + "/diff.html", html, function(){
           resolve();
@@ -67,7 +67,7 @@ export function Snapshot(tabId) {
 
         touchTimestampDirectory().then(function(){
           Promise.all([
-            saveMHTMLFile("inital"),
+            saveMHTMLFile("initial"),
             saveMHTMLFile("updated"),
             saveDiffFile()
           ]).then(function(){

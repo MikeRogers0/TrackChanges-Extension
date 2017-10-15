@@ -38,7 +38,7 @@ backgroundPageConnection.onMessage.addListener(function(message, sender, sendRes
     console.log('backgroundPageConnection.onMessage: snapshots-data');
     window.tabSnapshot["title"] = message.title;
     window.tabSnapshot["url"] = message.url;
-    window.tabSnapshot["inital"] = message.inital;
+    window.tabSnapshot["initial"] = message.initial;
     window.tabSnapshot["updated"] = message.updated;
 
     enableCreateSnapshot();

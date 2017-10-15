@@ -134,6 +134,14 @@
   > div {
     overflow: scroll;
   }
+
+  .diff-header .diff-save {
+    display: block;
+  }
+
+  .diff-mhtml-files {
+    display: none;
+  }
 }
 
 .get-started {

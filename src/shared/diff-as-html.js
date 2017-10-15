@@ -1,6 +1,6 @@
 var JsDiff = require("diff");
 
-export function DiffAsHTML(initalFiles, updatedFiles, tabTitle, tabUrl) {
+export function DiffAsHTML(initialFiles, updatedFiles, tabTitle, tabUrl) {
   var templates = {
     file: document.querySelector('[data-template="diffFile"]').innerHTML,
     table: document.querySelector('[data-template="diffTable"]').innerHTML,
@@ -37,7 +37,7 @@ export function DiffAsHTML(initalFiles, updatedFiles, tabTitle, tabUrl) {
   function compareFiles(){
     console.log("Comparing files");
     return new Promise(function(resolve, reject) {
-      for(var file in initalFiles){
+      for(var file in initialFiles){
         compareVersionsOfFile(file);
       }
 
@@ -124,7 +124,7 @@ export function DiffAsHTML(initalFiles, updatedFiles, tabTitle, tabUrl) {
     if(updatedFiles[file] == undefined) { return; }
 
     // If they're the same, skip this file.
-    if(initalFiles[file].data === updatedFiles[file].data) { return; }
+    if(initialFiles[file].data === updatedFiles[file].data) { return; }
 
     // Build the diff HTML
     buildDiffTable(file);
@@ -144,7 +144,7 @@ export function DiffAsHTML(initalFiles, updatedFiles, tabTitle, tabUrl) {
     linesContext = 0;
     var lineNumber = 0;
 
-    var parts = JsDiff.diffLines(initalFiles[file].data, updatedFiles[file].data, { newlineIsToken: false });
+    var parts = JsDiff.diffLines(initialFiles[file].data, updatedFiles[file].data, { newlineIsToken: false });
     var part, rowType, linesOfCode;
     for(var i in parts){
       part = parts[i];

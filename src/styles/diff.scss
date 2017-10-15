@@ -18,6 +18,23 @@ body {
   > div:first-child {
     padding-right: 0.5rem;
   }
+
+  .diff-save {
+    display: none;
+  }
+
+  .diff-mhtml-files, .diff-save {
+    margin-left: auto;
+    a {
+      border: 1px solid #e1e4e8;
+      padding: 1rem;
+      margin-right: 1rem;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
 }
 
 .diff-tables {

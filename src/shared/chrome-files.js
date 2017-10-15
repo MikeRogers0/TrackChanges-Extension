@@ -62,15 +62,22 @@ export function ChromeFiles() {
     });
   }
 
-  // Read file
-  function getFile(filename, callback){
+  // Get File Entry
+  function getFileEntry(filename, callback){
     initFileSystem(function(fs){
       fs.root.getFile(filename, {}, function(fileEntry){
-        fileEntry.file(function(file) {
-          callback(file);
-        }, errorHandler);
+        callback(fileEntry);
       }, errorHandler);
     }, errorHandler);
+  }
+
+  // Read file
+  function getFile(filename, callback){
+    getFileEntry(filename, function(fileEntry){
+      fileEntry.file(function(file) {
+        callback(file);
+      }, errorHandler);
+    });
   }
 
   function writeFile(filename, contents, callback){
@@ -121,10 +128,7 @@ export function ChromeFiles() {
   }
 
   return {
-    saveBlob: function(filename, contents, callback){
-      // Do something with the contents.
-      writeFile(filename, contents, callback)
-    },
+    saveBlob: writeFile,
     saveBase64AsImage: function(filename, contents, callback){
       contents = contents.replace(/^data:image\/\w+;base64,/, "");
       contents = b64toBlob(contents, "image/png");
@@ -141,23 +145,12 @@ export function ChromeFiles() {
       contents = new Blob([contents], {type: "text/html"});
       writeFile(filename, contents, callback)
     },
-    createDirectory: function(folderName, callback){
-      createDirectory(folderName, callback);
-    },
-    removeDirectory: function(folderName){
-      removeDirectory(folderName);
-    },
-    listFoldersInRootDirectory: function(callback){
-      readDirectory(callback);
-    },
-    getFileAsDataURL: function(filename, callback){
-      getFileAsDataURL(filename, callback);
-    },
-    getFileAsText: function(filename, callback){
-      getFileAsText(filename, callback);
-    },
-    getFile: function(filename, callback){
-      getFile(filename, callback);
-    }
+    createDirectory: createDirectory,
+    removeDirectory: removeDirectory,
+    listFoldersInRootDirectory: readDirectory,
+    getFileAsDataURL: getFileAsDataURL,
+    getFileAsText: getFileAsText,
+    getFile: getFile,
+    getFileEntry: getFileEntry
   }
 }

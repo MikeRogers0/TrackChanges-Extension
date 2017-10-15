@@ -15,11 +15,13 @@ export function ChromeI18nHelper(data) {
   }
 
   function parseTemplates(){
-    var newData = {}
+    var templateDom = document.createElement('div');
     for (var i = 0, len = data.length; i < len; i++) {
-      newData[i] = parseDomForI18ns(data[i]);
+      templateDom.innerHTML = data[i].innerHTML;
+      data[i].innerHTML = parseDomForI18ns(templateDom).innerHTML;
     }
-    return newData;
+
+    return data;
   }
 
   return {
