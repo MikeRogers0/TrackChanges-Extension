@@ -22,7 +22,6 @@ See the differences made to a page.
       - https://bleech.de/
         - Add a panel to the elements document, when it's added that marks the last snapshot as initial?
   - Figure out better UTF-8
-  - Handle opening lots of FB tabs - it grinds my machine to a halt. Maybe queue the snapshots or make sure devtools has been opened?
 
 ## Future Stuff
 
