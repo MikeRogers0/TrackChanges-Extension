@@ -80,6 +80,10 @@ export function SnapshotOMatic(tabId) {
   }
 
   function broadcast(){
+    if( typeof(window.connections[tabId]) == 'undefined' ){
+      return;
+    }
+
     console.log("SnapshotOMatic.broadcast: " + tabId);
     buildTabSnapshot().then(({tab, result}) => {
       window.connections[tabId].postMessage({

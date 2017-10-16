@@ -1,4 +1,5 @@
 var JsDiff = require("diff");
+import { ChromeI18nHelper } from '../shared/chrome-i18n-helper';
 
 export function DiffAsHTML(initialFiles, updatedFiles, tabTitle, tabUrl) {
   var templates = {
@@ -53,6 +54,8 @@ export function DiffAsHTML(initialFiles, updatedFiles, tabTitle, tabUrl) {
 
       removeExcessiveContext();
       addStylesheet();
+
+      ChromeI18nHelper(finalHTML).parseDom();
 
       resolve();
     });
