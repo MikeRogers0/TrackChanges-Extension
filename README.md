@@ -10,7 +10,7 @@ See the differences made to a page.
       - https://www.canvasflip.com/visual-inspector/
   - Handle max storage limits.
   - After install, make the button in the browser do something.
-  - Popup should contains link to download current page & options.
+    - Popup should contains link to download current page & options.
   - http://embedhunt.com/
   - Ignore dynamic elements Checkbox - TY Sarah
       - https://bleech.de/

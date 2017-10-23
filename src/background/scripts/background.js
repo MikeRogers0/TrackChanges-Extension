@@ -123,3 +123,7 @@ chrome.runtime.onConnect.addListener(function (port) {
 chrome.browserAction.onClicked.addListener(function(tab) {
   alert("Open inspector, change something, click 'TrackChanges' then create summary :)");
 });
+
+chrome.runtime.onInstalled.addListener(function() {
+  //chrome.tabs.create({'url': 'https://track-changes.mikerogers.io/thank-you.html'}, function(window) {}); 
+});
