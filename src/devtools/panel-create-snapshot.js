@@ -29,6 +29,21 @@ function enableCreateSnapshot(){
       createSnapshot();
     });
   });
+
+  var moreOptionsBtn = document.querySelector('#create-snapshot-form .btn-options');
+  var optionsWrapper = document.querySelector('#create-snapshot-form .options');
+  moreOptionsBtn.addEventListener('click', function(e){
+    e.preventDefault();
+
+    // Toggle the class.
+    if( moreOptionsBtn.className.includes('active') ){
+      moreOptionsBtn.className = moreOptionsBtn.className.replace('active', '').trim();
+      optionsWrapper.className += ' hide';
+    } else {
+      moreOptionsBtn.className += ' active';
+      optionsWrapper.className = optionsWrapper.className.replace('hide', '').trim();
+    }
+  });
 }
 
 var backgroundPageConnection = chrome.runtime.connect({ name: "panel" });

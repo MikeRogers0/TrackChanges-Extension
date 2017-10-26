@@ -172,8 +172,8 @@
 .btn {
   padding: 0.75rem 1rem;
   background: $btn-colour;
-  border: 1px solid darken($btn-colour, 10%);
-  border: 0;
+  border: 1px solid darken($btn-colour, 5%);
+  border-width: 0;
   color: #fff;
   border-radius: 3px;
 
@@ -181,6 +181,11 @@
     background: rgba($btn-colour, 0.5);
     &:hover {
       background: rgba($btn-colour, 0.5);
+    }
+    
+    & + .btn {
+      background: rgba($btn-colour, 0.5);
+      border-color: rgba($btn-colour, 0.1);
     }
   }
 
@@ -194,6 +199,18 @@
 
   &:active {
     background: darken($btn-colour, 15%);
+  }
+}
+
+.btn-options {
+  &:before {
+    content: '▲';
+  }
+
+  &.active {
+    &:before {
+      content: '▼';
+    }
   }
 }
 
@@ -215,6 +232,7 @@
     }
 
     &:last-child {
+      border-left-width: 1px;
       border-radius: 0 3px 3px 0;
     }
   }

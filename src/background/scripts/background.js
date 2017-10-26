@@ -81,12 +81,12 @@ function chromeMessageHandler(request, sender={}, sendResponse={}){
 chrome.extension.onMessage.addListener(chromeMessageHandler);
 
 // On start up capture all opens tabs.
-chrome.tabs.query({ "status": "complete" }, function(tabs){
-  for(var i in tabs){
-    var tabId = tabs[i].id;
-    chromeMessageHandler({ action: "first-startup", tabId: tabId })
-  }
-});
+//chrome.tabs.query({ "status": "complete" }, function(tabs){
+  //for(var i in tabs){
+    //var tabId = tabs[i].id;
+    //chromeMessageHandler({ action: "first-startup", tabId: tabId })
+  //}
+//});
 
 chrome.tabs.onRemoved.addListener(function(tabId, removeInfo){
   window.namedActions['tab-closed'](tabId);
