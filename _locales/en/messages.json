@@ -64,5 +64,11 @@
   "@no_diff_html": {
     "message": "<p>Unable to find any differences.</p>",
     "description": ""
+  },
+
+
+  "@option_ignore_dynamic_elements": {
+    "message": "Ignore Dynamic Elements",
+    "description": ""
   }
 }
