@@ -14,7 +14,8 @@
     "build-js": "npm run build-js-background & npm run build-js-injection & npm run build-js-devtools-panel-i18n & npm run build-js-devtools-panel-view & npm run build-js-devtools-panel-sidebar & npm run build-js-devtools-panel-create-snapshot & npm run build-js-devtools-run",
     "build-scss": "sass --update src/styles:lib/styles",
     "build-html": "cp src/[[:alnum:]]*.html lib/",
-    "build": "npm run build-scss && npm run build-html && npm run build-js"
+    "build": "npm run build-scss && npm run build-html && npm run build-js",
+    "watch": "watch 'npm run build' src/"
   },
   "devDependencies": {
     "browserify": "^13.3.0",
@@ -31,5 +32,8 @@
     "rollupify": "^0.3.9",
     "sass": "^0.5.0",
     "urlify": "^0.3.6"
+  },
+  "dependencies": {
+    "watch": "^1.0.2"
   }
 }

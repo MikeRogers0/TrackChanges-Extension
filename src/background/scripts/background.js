@@ -121,7 +121,7 @@ chrome.runtime.onConnect.addListener(function (port) {
 });
 
 chrome.browserAction.onClicked.addListener(function(tab) {
-  alert("Open inspector, change something, click 'TrackChanges' then create summary :)");
+  chrome.windows.create({url: 'lib/how-to-use.html', type: 'popup', width: 450, height: 350 }, function(){});
 });
 
 chrome.runtime.onInstalled.addListener(function() {
