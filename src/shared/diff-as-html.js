@@ -147,6 +147,11 @@ export function DiffAsHTML(initialFiles, updatedFiles, tabTitle, tabUrl) {
     linesContext = 0;
     var lineNumber = 0;
 
+
+    if( initialFiles[file]["Content-Type"] === "text/html" ) {
+      // Do magic with HTMLCleaner here
+    }
+
     var parts = JsDiff.diffLines(initialFiles[file].data, updatedFiles[file].data, { newlineIsToken: false });
     var part, rowType, linesOfCode;
     for(var i in parts){
