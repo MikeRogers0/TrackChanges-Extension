@@ -37,15 +37,15 @@ export function HTMLCleaner(html, options) {
 
   function clean() {
     // Create a HTML fragment
-    dom = document.createElement("html");
-    dom.outerHTML = html;
+    dom = document.implementation.createHTMLDocument('html-cleaner-file').createElement("html");
+    dom.innerHTML = html;
 
     ignoreHtmlSelector();
     ignoreInlineStyles();
     ignoreAttributes();
     ignoreClassNames();
 
-    return dom.outerHTML;
+    return dom.innerHTML;
   }
 
   return {
