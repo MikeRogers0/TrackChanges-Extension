@@ -1,5 +1,6 @@
 var JsDiff = require("diff");
 import { ChromeI18nHelper } from '../shared/chrome-i18n-helper';
+import { HTMLCleaner } from '../shared/html-cleaner';
 
 export function DiffAsHTML(initialFiles, updatedFiles, tabTitle, tabUrl) {
   var templates = {
@@ -150,6 +151,8 @@ export function DiffAsHTML(initialFiles, updatedFiles, tabTitle, tabUrl) {
 
     if( initialFiles[file]["Content-Type"] === "text/html" ) {
       // Do magic with HTMLCleaner here
+      initialFiles[file].data = HTMLCleaner(initialFiles[file].data, localStorage['options']);
+      updatedFiles[file].data = HTMLCleaner(updatedFiles[file].data, localStorage['options']);
     }
 
     var parts = JsDiff.diffLines(initialFiles[file].data, updatedFiles[file].data, { newlineIsToken: false });

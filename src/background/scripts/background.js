@@ -17,13 +17,32 @@ window.trackingTabs = {};
 // Used to store events in DelayTask.
 window.delayTaskEvents = {}
 
-// Load up the options - These can be updated the options.html & and applied when generating the diff.
-window.options = {
-  ignore_css_names: 'front-visible|front|lazyloaded|lazyload|fix|animate-in|animate',
-  ignore_inline_styles: false,
-  ignore_html_attributes: 'data-src|src',
-  ignore_html_tag: 'svg|iframe'
-}
+// Default options for ignore dynamic elements
+// These are selectors 
+window.default_options = {
+  ignore_html_selector: [
+    'iframe',
+    '.client-card > a'
+  ],
+  ignore_inline_styles: {
+    '*': 'transform',
+    'svg *': 'matrix',
+    '.modal': 'display'
+  },
+  ignore_attributes: {
+    '.lazyloaded, .lazyload': 'src',
+    '.lazyloaded, .lazyload': 'data-src'
+  },
+  ignore_class_names: {
+    '*': '.front-visible',
+    '.carousel-inner .item': '.active',
+    '.animate': '.animate-in',
+    '.modal': '.in'
+  },
+};
+
+localStorage['options'] = Object.assign(( localStorage['options'] || {} ), window.default_options);
+
 
 // Our Stored long running connections.
 window.connections = {}
@@ -54,7 +73,7 @@ window.namedActions = {
       SnapshotOMatic(tabId).insert();
     });
   },
-  "page-updated": function(tabId){ // Insert our initial capture, unless it's already active.
+  "page-updated": function(tabId){ // Update our initial capture, unless it's already active.
     DelayTask(tabId).add(() => {
       SnapshotOMatic(tabId).update();
     });
@@ -64,6 +83,7 @@ window.namedActions = {
   },
   "tab-closed": function(tabId){ // Delete the tab, we don't need it.
     SnapshotOMatic(tabId).untrackTab();
+    SnapshotOMatic(tabId).clear();
   }
 };
 
@@ -81,12 +101,12 @@ function chromeMessageHandler(request, sender={}, sendResponse={}){
 chrome.extension.onMessage.addListener(chromeMessageHandler);
 
 // On start up capture all opens tabs.
-//chrome.tabs.query({ "status": "complete" }, function(tabs){
-  //for(var i in tabs){
-    //var tabId = tabs[i].id;
-    //chromeMessageHandler({ action: "first-startup", tabId: tabId })
-  //}
-//});
+chrome.tabs.query({ "status": "complete" }, function(tabs){
+  for(var i in tabs){
+    var tabId = tabs[i].id;
+    chromeMessageHandler({ action: "first-startup", tabId: tabId })
+  }
+});
 
 chrome.tabs.onRemoved.addListener(function(tabId, removeInfo){
   window.namedActions['tab-closed'](tabId);

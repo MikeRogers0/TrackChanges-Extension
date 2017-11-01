@@ -72,9 +72,8 @@ export function SnapshotOMatic(tabId) {
   }
 
   function userInteracted(){
-    console.log("SnapshotOMatic.userInteracted: " + tabId);
-
     if( typeof(window.tabSnapshots[tabId]) != 'undefined' ){
+      console.log("SnapshotOMatic.userInteracted: " + tabId);
       window.tabSnapshots[tabId]["user_interacted"] = true;
     }
   }
