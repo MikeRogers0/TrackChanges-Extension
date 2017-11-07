@@ -2,7 +2,6 @@
 
 var quotedPrintable = require('quoted-printable');
 var jsbeautifier = require("js-beautify").html;
-var htmlclean = require('htmlclean');
 
 export function MHTMLParser() {
 
@@ -69,6 +68,19 @@ export function MHTMLParser() {
     // Skip any files that are massive.
     if( fileData["Content-Transfer-Encoding"] === "base64" ) {
       return;
+    }
+
+    // Ignore hosts that are commonly embedded on the page.
+    if( typeof(fileData["Content-Location"]) !== 'undefined') {
+      if(
+        fileData["Content-Location"].includes("https://www.youtube.com/embed/") ||
+        fileData["Content-Location"].includes("https://fonts.googleapis.com/") ||
+        fileData["Content-Location"].includes("https://www.youtube.com/yts/cssbin/") ||
+        fileData["Content-Location"].includes("chrome-extension://") ||
+        fileData["Content-Location"].includes("chrome://")
+      ) {
+        return;
+      }
     }
       
     // Rejoin the actual content

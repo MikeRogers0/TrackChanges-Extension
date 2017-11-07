@@ -2,13 +2,33 @@ window.tabSnapshot = {}
 
 import { Snapshot } from '../shared/snapshot';
 
+function toggleCreateSnapshotButtons(){
+  document.querySelectorAll('.create-snapshot').forEach(function(button) {
+    toggleDisabled(button);
+  });
+}
+
+function toggleDisabled(element){
+  if( element.className.includes('disabled') ){
+    element.className = element.className.replace('disabled', '').trim();
+    element.removeAttribute("disabled", false);
+  } else {
+    element.className += ' disabled';
+    element.setAttribute("disabled", true);
+  }
+}
+
 function createSnapshot(){
   console.log('Snapshot(chrome.devtools.inspectedWindow.tabId).save()');
+
+  toggleCreateSnapshotButtons();
+
   var snapshot = Snapshot(chrome.devtools.inspectedWindow.tabId);
   snapshot.save().then(function(){
     window.location.replace("?id=" + snapshot.timestamp());
   }).catch(function(e){
     alert("I'm sorry: " + e);
+    toggleCreateSnapshotButtons();
   });
 }
 
@@ -17,13 +37,10 @@ function enableCreateSnapshot(){
     return;
   }
 
-  document.querySelector('#create-snapshot-form .create-snapshot').className = document.querySelector('#create-snapshot-form .create-snapshot').className.replace('disabled', '').trim();
+  toggleCreateSnapshotButtons();
 
   // When the button is clicked, build a new diff
   document.querySelectorAll('.create-snapshot').forEach(function(button) {
-    button.className = button.className.replace('disabled', '').trim();
-    button.removeAttribute("disabled", false);
-
     button.addEventListener('click', function(e){
       e.preventDefault();
       createSnapshot();

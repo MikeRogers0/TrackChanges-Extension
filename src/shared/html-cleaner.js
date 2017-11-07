@@ -1,21 +1,21 @@
 export function HTMLCleaner(html, options) {
   var dom = null;
 
-//window.default_options = {
-  //ignore_html_selector: [
+//window.defaultOptions = {
+  //ignoreHtmlSelector: [
     //'iframe',
     //'.client-card > a'
   //],
-  //ignore_inline_styles: {
+  //ignoreInlineStyles: {
     //'*': 'transform',
     //'svg *': 'matrix',
     //'.modal': 'display'
   //},
-  //ignore_attributes: {
+  //ignoreAttributes: {
     //'.lazyloaded, .lazyload': 'src',
     //'.lazyloaded, .lazyload': 'data-src'
   //},
-  //ignore_class_names: {
+  //ignoreClassNames: {
     //'*': '.front-visible',
     //'.carousel-inner .item': '.active',
     //'.animate': '.animate-in',
@@ -24,6 +24,7 @@ export function HTMLCleaner(html, options) {
 //};
 
   function ignoreHtmlSelector(){
+    console.log(dom);
   }
 
   function ignoreInlineStyles(){
@@ -44,6 +45,8 @@ export function HTMLCleaner(html, options) {
     ignoreInlineStyles();
     ignoreAttributes();
     ignoreClassNames();
+
+    debugger;
 
     return dom.innerHTML;
   }

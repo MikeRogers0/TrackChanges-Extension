@@ -19,21 +19,21 @@ window.delayTaskEvents = {}
 
 // Default options for ignore dynamic elements
 // These are selectors 
-window.default_options = {
-  ignore_html_selector: [
+window.defaultOptions = {
+  ignoreHtmlSelector: [
     'iframe',
     '.client-card > a'
   ],
-  ignore_inline_styles: {
+  ignoreInlineStyles: {
     '*': 'transform',
     'svg *': 'matrix',
     '.modal': 'display'
   },
-  ignore_attributes: {
+  ignoreAttributes: {
     '.lazyloaded, .lazyload': 'src',
     '.lazyloaded, .lazyload': 'data-src'
   },
-  ignore_class_names: {
+  ignoreClassNames: {
     '*': '.front-visible',
     '.carousel-inner .item': '.active',
     '.animate': '.animate-in',
@@ -41,8 +41,7 @@ window.default_options = {
   },
 };
 
-localStorage['options'] = Object.assign(( localStorage['options'] || {} ), window.default_options);
-
+window.userOptions = Object.assign(window.defaultOptions, (JSON.parse(localStorage['userOptions'] || '{}')));
 
 // Our Stored long running connections.
 window.connections = {}
