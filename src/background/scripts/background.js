@@ -17,32 +17,6 @@ window.trackingTabs = {};
 // Used to store events in DelayTask.
 window.delayTaskEvents = {}
 
-// Default options for ignore dynamic elements
-// These are selectors 
-window.defaultOptions = {
-  ignoreHtmlSelector: [
-    'iframe',
-    '.client-card > a'
-  ],
-  ignoreInlineStyles: {
-    '*': 'transform',
-    'svg *': 'matrix',
-    '.modal': 'display'
-  },
-  ignoreAttributes: {
-    '.lazyloaded, .lazyload': 'src',
-    '.lazyloaded, .lazyload': 'data-src'
-  },
-  ignoreClassNames: {
-    '*': '.front-visible',
-    '.carousel-inner .item': '.active',
-    '.animate': '.animate-in',
-    '.modal': '.in'
-  },
-};
-
-window.userOptions = Object.assign(window.defaultOptions, (JSON.parse(localStorage['userOptions'] || '{}')));
-
 // Our Stored long running connections.
 window.connections = {}
 

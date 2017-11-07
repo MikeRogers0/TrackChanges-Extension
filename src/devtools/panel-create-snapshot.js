@@ -2,6 +2,38 @@ window.tabSnapshot = {}
 
 import { Snapshot } from '../shared/snapshot';
 
+function setupOptions(){
+  // Default options for ignore dynamic elements
+  // These are selectors 
+  window.defaultOptions = {
+    ignoreHtmlSelectors: [
+      'iframe',
+      '.client-card > a',
+      '#intercom-stylesheet',
+      '#intercom-container'
+    ],
+    ignoreInlineStyles: {
+      '*': 'transform',
+      'svg *': 'matrix',
+      '.modal': 'display'
+    },
+    ignoreAttributes: {
+      '.lazyloaded, .lazyload': 'src',
+      '.lazyloaded, .lazyload': 'data-src'
+    },
+    ignoreClassNames: {
+      '*': 'front-visible',
+      '.carousel-inner .item': 'active',
+      '.animate': 'animate-in',
+      '.modal': 'in'
+    },
+  };
+
+  window.userOptions = Object.assign(window.defaultOptions, (JSON.parse(localStorage['userOptions'] || '{}')));
+  localStorage['userOptions'] = JSON.stringify(window.userOptions);
+}
+setupOptions();
+
 function toggleCreateSnapshotButtons(){
   document.querySelectorAll('.create-snapshot').forEach(function(button) {
     toggleDisabled(button);

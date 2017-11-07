@@ -1,5 +1,4 @@
 // Parses HTML and turns it into individual files.
-
 var quotedPrintable = require('quoted-printable');
 var jsbeautifier = require("js-beautify").html;
 
@@ -94,28 +93,6 @@ export function MHTMLParser() {
     if( fileData["Content-Type"] === "text/html" ) {
       fileData.data = fileData.data.replace( /cid:([a-z0-9\-]+)@mhtml\.blink/g, '' );
 
-      // Remove Intercom elements also
-      //fileData.data = fileData.data.replace( /<style id="intercom-stylesheet"(.*?)<\/style\>/g, '' );
-      //fileData.data = fileData.data.replace( /<iframe id="intercom-frame"(.*?)<\/iframe\>/g, '' );
-      //fileData.data = fileData.data.replace( /<div id="intercom-container"(.*?)<\/div\>/g, '' );
-
-      //// Ignore classes via regex
-      //if( window.options.ignore_css_names.length >= 1 ){
-        //fileData.data = fileData.data.replace( new RegExp('class="(.*?)('+window.options.ignore_css_names+')(.*?)"', "g"), 'class="$1$3"' );
-
-        //// Remove the white space added.
-        //fileData.data = fileData.data.replace( new RegExp('class="(.*?) "', "g"), 'class="$1"' );
-        //fileData.data = fileData.data.replace( new RegExp('class=" (.*?)"', "g"), 'class="$1"' );
-      //}
-
-      //// Ignore some attributes
-      //if( window.options.ignore_inline_styles ){
-        //fileData.data = fileData.data.replace( new RegExp('style="(.*?)"', "g"), '' );
-      //}
-      //if( window.options.ignore_html_attributes.length >= 1 ){
-        //fileData.data = fileData.data.replace( new RegExp('('+window.options.ignore_html_attributes+')="(.*?)"', "g"), '' );
-      //}
-
       fileData.data = jsbeautifier(fileData.data, {
         "indent_size": 2,
         "indent_char": " ",
@@ -138,12 +115,6 @@ export function MHTMLParser() {
         "comma_first": false,
         "operator_position": "before-newline"
       });
-
-
-      // Ignore some tags
-      //if( window.options.ignore_html_attributes.length >= 1 ){
-        //fileData.data = fileData.data.replace( new RegExp('<('+window.options.ignore_html_tag+')(.*?)></', "g"), '' );
-      //}
     }
 
     // Save the parsed file to the data;
@@ -171,6 +142,7 @@ export function MHTMLParser() {
     return fileData;
   }
 
+  // I had high hopes of reinjecting iframes srcs into the page.
   var injectContentIDs = function(){
     return;
 

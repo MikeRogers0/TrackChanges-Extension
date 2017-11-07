@@ -1,54 +1,63 @@
 export function HTMLCleaner(html, options) {
   var dom = null;
 
-//window.defaultOptions = {
-  //ignoreHtmlSelector: [
-    //'iframe',
-    //'.client-card > a'
-  //],
-  //ignoreInlineStyles: {
-    //'*': 'transform',
-    //'svg *': 'matrix',
-    //'.modal': 'display'
-  //},
-  //ignoreAttributes: {
-    //'.lazyloaded, .lazyload': 'src',
-    //'.lazyloaded, .lazyload': 'data-src'
-  //},
-  //ignoreClassNames: {
-    //'*': '.front-visible',
-    //'.carousel-inner .item': '.active',
-    //'.animate': '.animate-in',
-    //'.modal': '.in'
-  //},
-//};
-
   function ignoreHtmlSelector(){
-    console.log(dom);
+    dom.querySelectorAll(options.ignoreHtmlSelectors.join(', ')).forEach(function(element) {
+      element.remove();
+    });
   }
 
+  // Ignore when an element has styles like:
+  // <div style="matrix: 1010; display: none; transform: none;" />
   function ignoreInlineStyles(){
+    Object.keys( options.ignoreInlineStyles ).forEach(function(selector, index){
+      var styles = options.ignoreInlineStyles[selector];
+      dom.querySelectorAll(selector).forEach(function(element) {
+        styles.split(',').forEach(function(style) {
+          element.style.removeProperty(style.trim());
+        });
+
+        if( ( element.getAttribute('style') || '' ).trim() == '' ){
+          element.removeAttribute('style');
+        }
+      });
+    });
   }
 
+  // If an element has attributes like 'data-src', we can safely ignore those also.
   function ignoreAttributes(){
+    Object.keys( options.ignoreAttributes ).forEach(function(selector, index){
+      var attributes = options.ignoreAttributes[selector];
+      dom.querySelectorAll(selector).forEach(function(element) {
+        attributes.split(',').forEach(function(attribute) {
+          element.removeAttribute(className.trim());
+        });
+      });
+    });
   }
 
+  // Remoce classnames like in/animate-in
   function ignoreClassNames(){
+    Object.keys( options.ignoreClassNames ).forEach(function(selector, index){
+      var classNames = options.ignoreClassNames[selector];
+      dom.querySelectorAll(selector).forEach(function(element) {
+        classNames.split(',').forEach(function(className) {
+          element.classList.remove(className.trim());
+        });
+      });
+    });
   }
 
   function clean() {
-    // Create a HTML fragment
-    dom = document.implementation.createHTMLDocument('html-cleaner-file').createElement("html");
-    dom.innerHTML = html;
+    var parser = new DOMParser();
+    var dom = parser.parseFromString(html, "text/html");
 
     ignoreHtmlSelector();
     ignoreInlineStyles();
     ignoreAttributes();
     ignoreClassNames();
 
-    debugger;
-
-    return dom.innerHTML;
+    return dom.querySelector('html').outerHTML;
   }
 
   return {

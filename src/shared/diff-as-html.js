@@ -130,6 +130,14 @@ export function DiffAsHTML(initialFiles, updatedFiles, tabTitle, tabUrl) {
     // If they're the same, skip this file.
     if(initialFiles[file].data === updatedFiles[file].data) { return; }
 
+    if( initialFiles[file]["Content-Type"] === "text/html" ) {
+      initialFiles[file].data = HTMLCleaner(initialFiles[file].data, window.userOptions).clean();
+      updatedFiles[file].data = HTMLCleaner(updatedFiles[file].data, window.userOptions).clean();
+
+      // Again, if they're now the same, ignore them.
+      if(initialFiles[file].data === updatedFiles[file].data) { return; }
+    }
+
     // Build the diff HTML
     buildDiffTable(file);
   }
@@ -147,13 +155,6 @@ export function DiffAsHTML(initialFiles, updatedFiles, tabTitle, tabUrl) {
     linesAdded = 0;
     linesContext = 0;
     var lineNumber = 0;
-
-
-    if( initialFiles[file]["Content-Type"] === "text/html" ) {
-      // Do magic with HTMLCleaner here
-      initialFiles[file].data = HTMLCleaner(initialFiles[file].data, window.userOptions).clean();
-      updatedFiles[file].data = HTMLCleaner(updatedFiles[file].data, window.userOptions).clean();
-    }
 
     var parts = JsDiff.diffLines(initialFiles[file].data, updatedFiles[file].data, { newlineIsToken: false });
     var part, rowType, linesOfCode;
