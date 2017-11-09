@@ -15,10 +15,27 @@ window.tabSnapshots = {};
 window.trackingTabs = {};
 
 // Used to store events in DelayTask.
-window.delayTaskEvents = {}
+window.delayTaskEvents = {};
 
 // Our Stored long running connections.
-window.connections = {}
+window.connections = {};
+
+// Run a callback if the tab is active - stops background task killing the CPU.
+function tabIsActive(tabId, callback) {
+  chrome.tabs.query({
+    active: true
+  }, function(tabs) {
+    chrome.tabs.query({
+      active: true
+    }, function(tabs) {
+      tabs.forEach(function(tab){
+        if(tab.id == tabID){
+          callback();
+        }
+      });
+    });
+  });
+}
 
 window.namedActions = {
   "devtools-panel-shown": function(tabId){ // Send the initial capture and out current capture down the pipe,
@@ -47,8 +64,10 @@ window.namedActions = {
     });
   },
   "page-updated": function(tabId){ // Update our initial capture, unless it's already active.
-    DelayTask(tabId).add(() => {
-      SnapshotOMatic(tabId).update();
+    tabIsActive(tabId, () => {
+      DelayTask(tabId).add(() => {
+        SnapshotOMatic(tabId).update();
+      });
     });
   },
   "page-unloaded": function(tabId){ // Delete the tab, we don't need it.
