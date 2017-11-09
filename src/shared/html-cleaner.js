@@ -13,7 +13,7 @@ export function HTMLCleaner(html, options) {
     Object.keys( options.ignoreInlineStyles ).forEach(function(selector, index){
       var styles = options.ignoreInlineStyles[selector];
       dom.querySelectorAll(selector).forEach(function(element) {
-        styles.split(',').forEach(function(style) {
+        styles.split(' ').forEach(function(style) {
           element.style.removeProperty(style.trim());
         });
 
@@ -29,7 +29,7 @@ export function HTMLCleaner(html, options) {
     Object.keys( options.ignoreAttributes ).forEach(function(selector, index){
       var attributes = options.ignoreAttributes[selector];
       dom.querySelectorAll(selector).forEach(function(element) {
-        attributes.split(',').forEach(function(attribute) {
+        attributes.split(' ').forEach(function(attribute) {
           element.removeAttribute(className.trim());
         });
       });
@@ -41,7 +41,7 @@ export function HTMLCleaner(html, options) {
     Object.keys( options.ignoreClassNames ).forEach(function(selector, index){
       var classNames = options.ignoreClassNames[selector];
       dom.querySelectorAll(selector).forEach(function(element) {
-        classNames.split(',').forEach(function(className) {
+        classNames.split(' ').forEach(function(className) {
           element.classList.remove(className.trim());
         });
       });
