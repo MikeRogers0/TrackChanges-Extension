@@ -131,8 +131,8 @@ export function DiffAsHTML(initialFiles, updatedFiles, tabTitle, tabUrl) {
     if(initialFiles[file].data === updatedFiles[file].data) { return; }
 
     if( initialFiles[file]["Content-Type"] === "text/html" ) {
-      initialFiles[file].data = HTMLCleaner(initialFiles[file].data, window.userOptions).clean();
-      updatedFiles[file].data = HTMLCleaner(updatedFiles[file].data, window.userOptions).clean();
+      initialFiles[file].data = HTMLCleaner(initialFiles[file].data, window.trackChangesOptions.getAll()).clean();
+      updatedFiles[file].data = HTMLCleaner(updatedFiles[file].data, window.trackChangesOptions.getAll()).clean();
 
       // Again, if they're now the same, ignore them.
       if(initialFiles[file].data === updatedFiles[file].data) { return; }

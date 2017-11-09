@@ -1,37 +1,19 @@
 window.tabSnapshot = {}
+window.trackChangesOptions = {};
 
 import { Snapshot } from '../shared/snapshot';
+import { TrackChangesOptions } from '../shared/track-changes-options';
+
+window.trackChangesOptions = TrackChangesOptions();
 
 function setupOptions(){
-  // Default options for ignore dynamic elements
-  // These are selectors 
-  window.defaultOptions = {
-    ignoreHtmlSelectors: [
-      'iframe',
-      '.client-card > a',
-      '#intercom-stylesheet',
-      '#intercom-container'
-    ],
-    ignoreInlineStyles: {
-      '*': 'transform',
-      'svg *': 'matrix',
-      '.modal': 'display'
-    },
-    ignoreAttributes: {
-      '.lazyloaded, .lazyload': 'src',
-      '.lazyloaded, .lazyload': 'data-src'
-    },
-    ignoreClassNames: {
-      '*': 'front-visible',
-      '.carousel-inner .item': 'active',
-      '.animate': 'animate-in',
-      '.modal': 'in'
-    },
-  };
-
-  window.userOptions = Object.assign(window.defaultOptions, (JSON.parse(localStorage['userOptions'] || '{}')));
-  localStorage['userOptions'] = JSON.stringify(window.userOptions);
-}
+  document.querySelectorAll('.option').forEach(function(option) {
+    option.checked = window.trackChangesOptions.get(option.name);
+    option.addEventListener('change', function(e){
+      window.trackChangesOptions.set(option.name, option.checked);
+    });
+  });
+};
 setupOptions();
 
 function toggleCreateSnapshotButtons(){

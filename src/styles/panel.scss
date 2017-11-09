@@ -204,12 +204,12 @@
 
 .btn-options {
   &:before {
-    content: '▲';
+    content: '▼';
   }
 
   &.active {
     &:before {
-      content: '▼';
+      content: '▲';
     }
   }
 }
@@ -235,5 +235,12 @@
       border-left-width: 1px;
       border-radius: 0 3px 3px 0;
     }
+  }
+}
+
+form {
+  label.checkbox {
+    display: block;
+    margin-bottom: 1rem;
   }
 }

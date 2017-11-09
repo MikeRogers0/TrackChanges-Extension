@@ -70,5 +70,10 @@
   "@option_ignore_dynamic_elements": {
     "message": "Ignore Dynamic Elements",
     "description": ""
+  },
+
+  "@option_download_snapshot_immediately": {
+    "message": "Download Snapshot Immediately",
+    "description": ""
   }
 }
