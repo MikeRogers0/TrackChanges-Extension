@@ -52,10 +52,12 @@ export function HTMLCleaner(html, options) {
     var parser = new DOMParser();
     var dom = parser.parseFromString(html, "text/html");
 
-    ignoreHtmlSelector();
-    ignoreInlineStyles();
-    ignoreAttributes();
-    ignoreClassNames();
+    if(options.ignoreDynamicElements){
+      ignoreHtmlSelector();
+      ignoreInlineStyles();
+      ignoreAttributes();
+      ignoreClassNames();
+    }
 
     return dom.querySelector('html').outerHTML;
   }

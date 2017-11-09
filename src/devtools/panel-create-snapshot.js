@@ -37,7 +37,7 @@ function createSnapshot(){
 
   toggleCreateSnapshotButtons();
 
-  var snapshot = Snapshot(chrome.devtools.inspectedWindow.tabId);
+  var snapshot = Snapshot(chrome.devtools.inspectedWindow.tabId, window.trackChangesOptions.getAll());
   snapshot.save().then(function(){
     window.location.replace("?id=" + snapshot.timestamp());
   }).catch(function(e){

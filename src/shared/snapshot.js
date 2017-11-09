@@ -5,8 +5,9 @@ var urlify = require('urlify').create({
   spaces: "-",
   toLower: true
 });
+var FileSaver = require('file-saver');
 
-export function Snapshot(tabId) {
+export function Snapshot(tabId, options) {
   var timestamp = (new Date).getTime(); // Used for file directory
   var zip = new JSZip();
 
@@ -50,6 +51,10 @@ export function Snapshot(tabId) {
     return new Promise(function(resolve, reject) {
       console.log("saveZipFile()")
       zip.generateAsync({type:"blob"}).then(function (blob) {
+        if(options.downloadSnapshotImmediately){
+          FileSaver.saveAs(blob, localStorage[timestamp + "filename"]);
+        }
+
         ChromeFiles().saveBlob(timestamp + "/" + localStorage[timestamp + "filename"], blob, function(){
           resolve();
         });
