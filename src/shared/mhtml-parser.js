@@ -17,13 +17,14 @@ export function MHTMLParser() {
   var data = {};
 
   var setMultipartBoundary = function(){
-    var MultipartBoundaryLine = MHTMLString.split("\n")[6]
-    var MultipartBoundaryToken =  "" + MultipartBoundaryLine.replace('boundary="----', '').replace('----"', '').trim();
-    MultipartBoundary = "------" + MultipartBoundaryToken + "----";
+    var MultipartBoundaryToken =  MHTMLString.match('boundary="(.*)"')[1]
+    MultipartBoundary = "--" + MultipartBoundaryToken;
+    console.log("MHTMLParser().MultipartBoundary: " + MultipartBoundary);
   }
 
   var splitMHTMLStringIntoFiles = function(){
     MHTMLFiles = MHTMLString.replace(MultipartBoundary + "--", "").split(MultipartBoundary);
+    console.log("MHTMLParser().MHTMLFiles: " + MHTMLFiles.length);
   }
 
   var parseFiles = function(){
