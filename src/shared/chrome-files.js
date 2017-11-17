@@ -127,6 +127,18 @@ export function ChromeFiles() {
     });
   }
 
+  function clear(callback){
+    readDirectory(function(results){
+      for (var i = 0, len = results.length; i < len; i++) {
+        var result = results[i];
+        if(result.isDirectory){
+          result.removeRecursively(function(){}, errorHandler);
+        }
+      }
+      callback();
+    });
+  }
+
   return {
     saveBlob: writeFile,
     saveBase64AsImage: function(filename, contents, callback){
@@ -151,6 +163,7 @@ export function ChromeFiles() {
     getFileAsDataURL: getFileAsDataURL,
     getFileAsText: getFileAsText,
     getFile: getFile,
-    getFileEntry: getFileEntry
+    getFileEntry: getFileEntry,
+    clear: clear
   }
 }

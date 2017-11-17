@@ -1,5 +1,4 @@
 window.tabSnapshot = {}
-window.trackChangesOptions = {};
 
 import { Snapshot } from '../shared/snapshot';
 import { TrackChangesOptions } from '../shared/track-changes-options';
