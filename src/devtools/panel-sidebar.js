@@ -102,4 +102,10 @@ clearSnapshots.addEventListener('click', function(e){
   document.querySelector(".snapshot-preview").style = "display: none;";
 }, false);
 
+var snapshotsTitle = document.querySelector('.files-title');
+snapshotsTitle.addEventListener('click', function(e){
+  window.location.replace('?');
+});
+
+
 renderSnapshotList();

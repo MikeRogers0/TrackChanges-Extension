@@ -34,7 +34,7 @@
   }
 
   > .file-list {
-    height: calc(100vh - 6rem);
+    height: calc(100vh - 5.5em);
     overflow: scroll;
   }
 }
@@ -65,11 +65,11 @@
   }
 
   > a  {
-    padding: 0.6rem 1.2rem 0.2rem 1.2rem;
+    padding: 0.9rem 1rem 0.2rem 0.9rem;
     text-align: center;
     text-decoration: none;
     opacity: 0.75;
-    font-size: 1rem;
+    font-size: 0.9rem;
     filter: grayscale(100%);
 
     &:hover {
@@ -157,5 +157,10 @@
   .actions {
     margin-top: 2rem;
     margin-bottom: 2rem;
+
+  }
+
+  .options {
+    max-width: 23rem;
   }
 }

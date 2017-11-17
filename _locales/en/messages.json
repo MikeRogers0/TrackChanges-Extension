@@ -93,7 +93,7 @@
   },
 
   "@popup_how_it_works_html": {
-    "message": "<ol><li>Open the Chrome DevTools Elements panel on a page you'd like the edit, by right clicking and selecting 'Inspect'</li><li>Make changes to the page</li><li>Visit the TrackChanges panel</li><li>Click 'Create Snapshot', to create a summary of what you just changed</li><li>You'll receive a developer friendly set of files summarising what was just changed</li></ol>"
+    "message": "<ol><li>Open the Chrome DevTools Elements panel on a page you'd like the edit, by right clicking and selecting 'Inspect'</li><li>Make changes to the page</li><li>Visit the TrackChanges panel</li><li>Click 'Create Snapshot', to create a summary of what you just changed</li><li>You'll receive a developer friendly summary of what was just changed</li></ol>"
   },
 
   "@popup_help_me_html": {
