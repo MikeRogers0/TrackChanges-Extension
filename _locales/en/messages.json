@@ -53,7 +53,7 @@
   },
 
   "@options_summary_html": {
-    "message": "<p>Thank you for downloading <a href='https://trackchanges.mikerogers.io' target='_blank'>TrackChanges</a>, I still need to work on the options page.</p>"
+    "message": "<p>Thank you for installing <a href='https://trackchanges.mikerogers.io' target='_blank'>TrackChanges</a>, I still need to work on the options page.</p>"
   },
 
   "@options_snapshots": {
@@ -89,10 +89,14 @@
   },
 
   "@popup_thanks_html": {
-    "message": "<p>Thank you for for installing <a href='https://trackchanges.mikerogers.io' target='_blank'>TrackChanges</a>! To get started:</p>"
+    "message": "<p>Thank you for for installing TrackChanges! To get started:</p>"
   },
 
   "@popup_how_it_works_html": {
-    "message": "<ol><li>Open the Chrome DevTools Elements panel, by right clicking and selecting 'Inspect'</li><li>Make changes to the page</li><li>Visit the TrackChanges panel</li><li>Click Create Snapshot, to create a summary of what you just changed</li></ol>"
+    "message": "<ol><li>Open the Chrome DevTools Elements panel on a page you'd like the edit, by right clicking and selecting 'Inspect'</li><li>Make changes to the page</li><li>Visit the TrackChanges panel</li><li>Click 'Create Snapshot', to create a summary of what you just changed</li><li>You'll receive a developer friendly set of files summarising what was just changed</li></ol>"
+  },
+
+  "@popup_help_me_html": {
+    "message": "<p>Currently TrackChanges is in Beta, so I'm super excited to know your thoughts, be sure to <a href='mailto:me+trackchanges@mikerogers.io?subject=TrackChanges%Beta' tabindex='-1'>drop me an email</a> 🤘</p>"
   }
 }
