@@ -1,20 +1,92 @@
-@import 'colours';
+@import 'variables';
+@import '../../node_modules/normalize-scss/sass/normalize';
+@include normalize();
 
-h1, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6 {
   color: $text-colour-accent;
 }
 
-html {
-  font-size: 12px;
-}
-
-body {
-  margin: 0;
-  color: $text-colour;
-  font-family: system-ui, sans-serif;
-  font-size: 12px;
+.help-block {
+  color: $text-colour-accent;
+  font-size: 0.9rem;
 }
 
 .hide {
   display: none;
+}
+
+.btn {
+  padding: 0.75rem 1rem;
+  background: $btn-colour;
+  border: 1px solid darken($btn-colour, 5%);
+  border-width: 0;
+  color: #fff;
+  border-radius: 3px;
+
+  &.disabled {
+    background: rgba($btn-colour, 0.5);
+    &:hover {
+      background: rgba($btn-colour, 0.5);
+    }
+    
+    & + .btn {
+      background: rgba($btn-colour, 0.5);
+      border-color: rgba($btn-colour, 0.1);
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:hover, &:focus {
+    background: darken($btn-colour, 10%);
+  }
+
+  &:active {
+    background: darken($btn-colour, 15%);
+  }
+}
+
+.btn-options {
+  &:before {
+    content: '▼';
+  }
+
+  &.active {
+    &:before {
+      content: '▲';
+    }
+  }
+}
+
+.disabled {
+  cursor: not-allowed;
+
+  &:hover, &:focus {
+    cursor: not-allowed;
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+
+  .btn {
+    &:first-child {
+      border-radius: 3px 0 0 3px;
+    }
+
+    &:last-child {
+      border-left-width: 1px;
+      border-radius: 0 3px 3px 0;
+    }
+  }
+}
+
+form {
+  label.checkbox {
+    display: block;
+    margin-bottom: 1rem;
+  }
 }

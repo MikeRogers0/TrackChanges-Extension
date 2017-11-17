@@ -1,42 +1,64 @@
-
 <!DOCTYPE html>
 <html>
 <head>
   <title>TrackChanges - Options</title>
+  <link rel="stylesheet" href="styles/base.css">
+  <link rel="stylesheet" href="styles/options.css">
 </head>
 <body>
+  <div class="container">
 
-<h1>Options</h1>
+    <h1>Options</h1>
 
-<h2>Snapshots</h2>
+    <p>These power user options will give you flexibility on how TrackChanges operates.</p>
 
-<div class="options hide">
-  <label class="checkbox">
-    <input type="checkbox" checked="checked" name="ignoreDynamicElements" value="1" class="option" />
-    <span data-i18n="option_ignore_dynamic_elements">
-      Ignore Dynamic Elements
-    </span>
-  </label>
+    <h2>Snapshots</h2>
 
-  <label class="checkbox">
-    <input type="checkbox" checked="checked" name="downloadSnapshotImmediately" value="1" class="option" />
-    <span data-i18n="option_download_snapshot_immediately">
-      Download Snapshot Immediately
-    </span>
-  </label>
-</div>
+    <form id="update-snapshot-data">
+      <div class="options">
+        <label class="checkbox">
+          <input type="checkbox" checked="checked" name="ignoreDynamicElements" value="1" class="option" />
+          <span data-i18n="option_ignore_dynamic_elements">
+            Ignore Dynamic Elements
+          </span>
+        </label>
 
-<h2>Ignore Dynamic Elements</h2>
+        <label class="checkbox">
+          <input type="checkbox" checked="checked" name="downloadSnapshotImmediately" value="1" class="option" />
+          <span data-i18n="option_download_snapshot_immediately">
+            Download Snapshot Immediately
+          </span>
+        </label>
+      </div>
+    </form>
 
-<h3>ignoreHtmlSelectors</h3>
+    <h2>Ignore Dynamic Elements - Advanced Configuration</h2>
 
-<h3>ignoreInlineStyles</h3>
+    <p>These configurations help TrackChanges determine if an element should be considered dynamic, and if changes to some parts of its markup can be safely ignored.</p>
 
-<h3>ignoreAttributes</h3>
+    <h3>ignoreHtmlSelectors</h3>
 
-<h3>ignoreClassNames</h3>
+    <table>
+      <thead>
+        <tr>
+          <td>Selector</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>iframe</td>
+        </tr>
+      </tbody>
+    </table>
 
-<script src="options/run.js"></script>
+    <h3>ignoreInlineStyles</h3>
+
+    <h3>ignoreAttributes</h3>
+
+    <h3>ignoreClassNames</h3>
+
+  </div>
+  <script src="options/run.js"></script>
 
 </body>
 </html>
