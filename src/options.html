@@ -1,64 +1,55 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>TrackChanges - Options</title>
-  <link rel="stylesheet" href="styles/base.css">
-  <link rel="stylesheet" href="styles/options.css">
-</head>
-<body>
-  <div class="container">
+  <head>
+    <title>TrackChanges - Options</title>
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/options.css">
+  </head>
+  <body>
+    <div class="container">
 
-    <h1>Options</h1>
+      <p>Thank you for downloading <a href="https://trackchanges.mikerogers.io" target="_blank">TrackChanges</a>, I still need to work on the options page.</p>
 
-    <p>These power user options will give you flexibility on how TrackChanges operates.</p>
+      <h2>Snapshots</h2>
 
-    <h2>Snapshots</h2>
+      <form id="update-snapshot-data">
+        <div class="options">
+          <label class="checkbox">
+            <input type="checkbox" checked="checked" name="ignoreDynamicElements" value="1" class="option" />
+            <div>
+              <div class="title" data-i18n="option_ignore_dynamic_elements">
+                Ignore Dynamic Elements
+              </div>
+              <div data-i18n="option_ignore_dynamic_longer">
+                TrackChanges will ignore parts of the DOM it knows are commonly changed by JavaScript, such as carousels.
+              </div>
+            </div>
+          </label>
 
-    <form id="update-snapshot-data">
-      <div class="options">
-        <label class="checkbox">
-          <input type="checkbox" checked="checked" name="ignoreDynamicElements" value="1" class="option" />
-          <span data-i18n="option_ignore_dynamic_elements">
-            Ignore Dynamic Elements
-          </span>
-        </label>
+          <label class="checkbox">
+            <input type="checkbox" checked="checked" name="downloadSnapshotImmediately" value="1" class="option" />
+            <div>
+              <div class="title" data-i18n="option_download_snapshot_immediately">
+                Download Snapshot Immediately
+              </div>
+              <div data-i18n="option_download_snapshot_immediately_longer">
+                After a snapshot is created, download it.
+              </div>
+            </div>
+          </label>
+        </div>
+      </form>
 
-        <label class="checkbox">
-          <input type="checkbox" checked="checked" name="downloadSnapshotImmediately" value="1" class="option" />
-          <span data-i18n="option_download_snapshot_immediately">
-            Download Snapshot Immediately
-          </span>
-        </label>
-      </div>
-    </form>
+      <h2>Reset TrackChanges</h2>
+      <p>If you're experiencing errors, resetting everything back to a clean slate might fix everything.</p>
 
-    <h2>Ignore Dynamic Elements - Advanced Configuration</h2>
+      <form>
+        <button class="btn reset-everything" data-i18n="reset_trackchanges">Reset Everything</button>
+      </form>
 
-    <p>These configurations help TrackChanges determine if an element should be considered dynamic, and if changes to some parts of its markup can be safely ignored.</p>
 
-    <h3>ignoreHtmlSelectors</h3>
+    </div>
+    <script src="options/run.js"></script>
 
-    <table>
-      <thead>
-        <tr>
-          <td>Selector</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>iframe</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h3>ignoreInlineStyles</h3>
-
-    <h3>ignoreAttributes</h3>
-
-    <h3>ignoreClassNames</h3>
-
-  </div>
-  <script src="options/run.js"></script>
-
-</body>
+  </body>
 </html>

@@ -22,6 +22,8 @@ h1, h2, h3, h4, h5, h6 {
   border-width: 0;
   color: #fff;
   border-radius: 3px;
+  text-shadow: none;
+  box-shadow: none;
 
   &.disabled {
     background: rgba($btn-colour, 0.5);
@@ -86,7 +88,20 @@ h1, h2, h3, h4, h5, h6 {
 
 form {
   label.checkbox {
-    display: block;
+    display: flex;
     margin-bottom: 1rem;
+
+    [type=checkbox] {
+      margin-top: 0.2rem;
+      margin-right: 0.5rem;
+      flex: 0 0 auto;
+    }
+
+    .title {
+      font-weight: bold;
+      color: $text-colour-accent;
+      margin-bottom: 0.25rem;
+      font-size: 0.83rem;
+    }
   }
 }
