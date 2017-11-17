@@ -30,7 +30,7 @@ export function HTMLCleaner(html, options) {
       var attributes = options.ignoreAttributes[selector];
       dom.querySelectorAll(selector).forEach(function(element) {
         attributes.split(' ').forEach(function(attribute) {
-          element.removeAttribute(className.trim());
+          element.removeAttribute(attribute.trim());
         });
       });
     });
@@ -50,12 +50,12 @@ export function HTMLCleaner(html, options) {
 
   function clean() {
     var parser = new DOMParser();
-    var dom = parser.parseFromString(html, "text/html");
+    dom = parser.parseFromString(html, "text/html");
 
     if(options.ignoreDynamicElements){
       ignoreHtmlSelector();
-      ignoreInlineStyles();
       ignoreAttributes();
+      ignoreInlineStyles();
       ignoreClassNames();
     }
 

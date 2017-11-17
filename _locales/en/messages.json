@@ -85,7 +85,7 @@
   },
 
   "@options_reset_trackchanges_done": {
-    "message": "TrackChanges has been reset 🤘 🚀"
+    "message": "TrackChanges has been reset, now reload the extension 🤘 🚀"
   },
 
   "@popup_thanks_html": {

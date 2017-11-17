@@ -4,22 +4,28 @@ export function TrackChangesOptions() {
       'iframe',
       '.client-card > a',
       '#intercom-stylesheet',
-      '#intercom-container'
+      '#intercom-container',
+      'svg > *',
+      '.maps-wrapper',
+      'head > link',
+      'head > style',
+      'script'
     ],
     ignoreInlineStyles: {
       '*': 'transform',
-      'svg *': 'matrix',
-      '.modal': 'display'
+      '.modal': 'display',
+      'h1.page-title': 'opacity'
     },
     ignoreAttributes: {
-      '.lazyloaded, .lazyload': 'src',
-      '.lazyloaded, .lazyload': 'data-src'
+      '.lazyloaded, .lazyload, .img-responsive': 'src data-src data-srcset sizes width height',
+      '.client-card img': 'alt width height'
     },
     ignoreClassNames: {
-      '*': 'front-visible',
+      '*': 'front-visible animation-ended lazyloaded lazyload',
       '.carousel-inner .item': 'active',
       '.animate': 'animate-in',
-      '.modal': 'in'
+      '.modal': 'in',
+      '.arrow-wrapper': 'show-label'
     },
     ignoreDynamicElements: true,
     downloadSnapshotImmediately: true
@@ -32,7 +38,11 @@ export function TrackChangesOptions() {
   }
 
   function getAll(){
-    userOptions = Object.assign(defaultOptions, (JSON.parse(localStorage['userOptions'] || '{}')));
+    userOptions = defaultOptions;
+    var localOptions = (JSON.parse(localStorage['userOptions'] || '{}'))
+
+    userOptions['ignoreDynamicElements'] = localOptions['ignoreDynamicElements'] || true
+    userOptions['downloadSnapshotImmediately'] = localOptions['downloadSnapshotImmediately'] || true
     return userOptions;
   }
 
@@ -48,4 +58,3 @@ export function TrackChangesOptions() {
     set: set
   };
 }
-
