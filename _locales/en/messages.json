@@ -12,7 +12,6 @@
     "message": "Open inspector, make a change and save the summary."
   },
 
-
   "@snapshots": {
     "message": "Snapshots"
   },
@@ -58,6 +57,14 @@
 
   "@options_snapshots": {
     "message": "Snapshots"
+  },
+
+  "@option_ignore_commonly_injected_elements": {
+    "message": "Ignore Commonly Injected Elements"
+  },
+
+  "@option_ignore_commonly_injected_elements_description": {
+    "message": "Scripts like Intercom and Google Maps in the DOM."
   },
 
   "@option_ignore_dynamic_elements": {

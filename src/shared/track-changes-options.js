@@ -1,15 +1,19 @@
 export function TrackChangesOptions() {
   var defaultOptions = {
-    ignoreHtmlSelectors: [
-      'iframe',
-      '.client-card > a',
+    ignoreCommonlyInjectedSelectors: [
       '#intercom-stylesheet',
       '#intercom-container',
-      'svg > *',
-      '.maps-wrapper',
+      '#drift-widget-container',
+      'script',
       'head > link',
       'head > style',
-      'script'
+      '#nprogress',
+      '.maps-wrapper',
+      'iframe'
+    ],
+    ignoreHtmlSelectors: [
+      '.client-card > a',
+      'svg > *'
     ],
     ignoreInlineStyles: {
       '*': 'transform',
@@ -17,16 +21,17 @@ export function TrackChangesOptions() {
       'h1.page-title': 'opacity'
     },
     ignoreAttributes: {
-      '.lazyloaded, .lazyload, .img-responsive': 'src data-src data-srcset sizes width height',
+      '.lazyloaded, .lazyload, .img-responsive, .lazy-load .lazy-loaded': 'src data-src data-srcset sizes width height',
       '.client-card img': 'alt width height'
     },
     ignoreClassNames: {
-      '*': 'front-visible animation-ended lazyloaded lazyload',
+      '*': 'front-visible animation-ended lazyloaded lazyload lazy-load lazy-loaded nprogress-busy',
       '.carousel-inner .item': 'active',
       '.animate': 'animate-in',
       '.modal': 'in',
       '.arrow-wrapper': 'show-label'
     },
+    ignoreCommonlyInjectedElements: true,
     ignoreDynamicElements: true,
     downloadSnapshotImmediately: true
   };
@@ -40,6 +45,8 @@ export function TrackChangesOptions() {
   function getAll(){
     userOptions = defaultOptions;
     var localOptions = (JSON.parse(localStorage['userOptions'] || '{}'))
+
+    // In the future use Object.extend across each options for a better merge.
 
     userOptions['ignoreDynamicElements'] = localOptions['ignoreDynamicElements'] || true
     userOptions['downloadSnapshotImmediately'] = localOptions['downloadSnapshotImmediately'] || true

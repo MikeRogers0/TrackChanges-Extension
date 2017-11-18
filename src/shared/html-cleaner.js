@@ -1,6 +1,12 @@
 export function HTMLCleaner(html, options) {
   var dom = null;
 
+  function ignoreCommonlyInjectedElements(){
+    dom.querySelectorAll(options.ignoreCommonlyInjectedSelectors.join(', ')).forEach(function(element) {
+      element.remove();
+    });
+  }
+
   function ignoreHtmlSelector(){
     dom.querySelectorAll(options.ignoreHtmlSelectors.join(', ')).forEach(function(element) {
       element.remove();
@@ -51,6 +57,10 @@ export function HTMLCleaner(html, options) {
   function clean() {
     var parser = new DOMParser();
     dom = parser.parseFromString(html, "text/html");
+
+    if(options.ignoreCommonlyInjectedElements){
+      ignoreCommonlyInjectedElements();
+    }
 
     if(options.ignoreDynamicElements){
       ignoreHtmlSelector();
