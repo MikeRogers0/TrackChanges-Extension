@@ -95,9 +95,10 @@ form {
   label.checkbox {
     display: flex;
     margin-bottom: 1rem;
+    text-align: left;
 
     [type=checkbox] {
-      margin-top: 0.2rem;
+      margin-top: 0.4rem;
       margin-right: 0.75rem;
       flex: 0 0 auto;
     }

@@ -80,7 +80,7 @@
   },
 
   "@option_download_snapshot_immediately_description": {
-    "message": "After a snapshot is created, download it."
+    "message": "After a snapshot is created, download the summary as a Zip file."
   },
 
   "@options_reset_trackchanges": {
