@@ -88,6 +88,20 @@
       }
     }
   }
+
+  .create-snapshot {
+    &:before {
+      display: block;
+      content: '➕'
+    }
+
+    &.disabled {
+      &:before {
+        content: '↻';
+        animation: spin 1s infinite linear;
+      }
+    }
+  }
 }
 
 .panel-link {

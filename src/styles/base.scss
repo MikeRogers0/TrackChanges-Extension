@@ -2,6 +2,11 @@
 @import '../../node_modules/normalize-scss/sass/normalize';
 @include normalize();
 
+@keyframes spin {
+  from {transform:rotate(0deg);}
+  to {transform:rotate(360deg);}
+}
+
 h1, h2, h3, h4, h5, h6 {
   color: $text-colour-accent;
 }
@@ -58,11 +63,19 @@ html, body {
 .btn-options {
   &:before {
     content: '▼';
+    display: block;
   }
 
   &.active {
     &:before {
       content: '▲';
+    }
+  }
+
+  .disabled ~ & {
+    &:before {
+      content: '↻';
+      animation: spin 1s infinite linear;
     }
   }
 }
