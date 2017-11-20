@@ -21,7 +21,7 @@ export function HTMLCleaner(html, options) {
       // Google Maps
       '.maps-wrapper',
       // Nickelled
-      '.nickelled__branding, [data-nickelled-styling], [data-nickelled-component]',
+      '.nickelled__branding, [data-nickelled-styling], [data-nickelled-component], [data-nickelled-private]',
       // Stripe
       '.__PrivateStripeElement',
       // Zendesk,
