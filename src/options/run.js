@@ -26,6 +26,10 @@ resetButton.addEventListener('click', function(e){
   ChromeFiles().clear(function(){
     resetButton.className += ' hide'
     resetDone.className = resetDone.className.replace('hide', '').trim();
-  });
 
+    window.trackChangesOptions = TrackChangesOptions();
+    document.querySelectorAll('.option').forEach(function(option) {
+      option.checked = window.trackChangesOptions.get(option.name);
+    });
+  });
 });

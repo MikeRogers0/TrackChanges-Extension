@@ -47,3 +47,15 @@ Setup the environment
 Or if your want to watch
 
     npm run watch
+
+### Building the release
+
+Want to get all the files working for the Chrome Store? Nice! 
+
+First off bump the version and tag it:
+
+    git tag VERSION
+
+Then run:
+
+    release.sh release
