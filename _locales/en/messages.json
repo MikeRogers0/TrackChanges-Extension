@@ -48,7 +48,7 @@
   },
 
   "@no_diff_html": {
-    "message": "<p>Unable to find any differences.</p>"
+    "message": "<p>Unable to find any differences 😲.</p>"
   },
 
   "@options_summary_html": {
@@ -104,6 +104,6 @@
   },
 
   "@popup_help_me_html": {
-    "message": "<p>Currently TrackChanges is in Beta, so I'm super excited to know your thoughts, be sure to <a href='mailto:me+trackchanges@mikerogers.io?subject=TrackChanges%Beta' tabindex='-1'>drop me an email</a> 🤘</p>"
+    "message": "<p>Currently TrackChanges is in Beta, so I'm super excited to know your thoughts, be sure to <a href='mailto:me+trackchanges@mikerogers.io?subject=TrackChanges%20Beta' tabindex='-1' target='_blank'>drop me an email</a> 🤘</p>"
   }
 }
