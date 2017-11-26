@@ -4,32 +4,40 @@ See the differences made to a page.
 
 ## TODO
 
-  - https://yarnpkg.com/en/docs/usage - Use Yarn for dependencies. 
-  - Landing page - use https://developer.chrome.com/webstore/branding
-  - Promo Material
-      - https://www.canvasflip.com/visual-inspector/
   - Handle max storage limits.
-  - After install, make the button in the browser do something.
-    - Popup should contains link to download current page & options.
-  - http://embedhunt.com/
-  - Ignore dynamic elements Checkbox - TY Sarah
-      - https://bleech.de/
-      - List some common elements to ignore 
-        - Some have inline styles ignore
-        - Some have other attributes ignored.
+  - Dynamic Elements "Machine Learning"
+    - Needs more magic.
   - Figure out better UTF-8
+  - Analytics on Marketing Site
+
+  - Write "OMG life is hard" blog post
+
+  ### Submit to (Monday!)
+
+  - http://embedhunt.com/
+  - Product Hunt
+  - HackerNews
+
+### Sites to test against:
+
+These are the sites that are likely to just fuck my shit up.
+
+ - http://www.right-staff.com/ - Wix mess, the settings
+ - https://bleech.de/
+ - http://smart-magazine.com/
+ - https://www.buddyguard.io
+ - http://partswholesale.mercedes-benz.com/ru/
+ - Also the ruler extension
+ - Bootstrap 4/3 & Foundation.
 
 ## Future Stuff
 
-  - Screenshots - https://github.com/mrcoles/full-page-screen-capture-chrome-extension/
   - Slack Integration?
-  - Fix weird scrollbars - It's nice when he had a mouse...
+  - Fix weird scrollbars - It happens when the user had a mouse...
   - Diff Summary at top of file.
   - Keyboard Shortcut
-  - Save and Download button
   - Delete single snapshot
   - Translate more.
-  - Full page screenshots - http://html2canvas.hertzen.com/documentation.html#getting-started could be the way to do this.
   - Drag and drop as Markdown 
     -- https://stackoverflow.com/questions/25657626/how-to-copy-html-formatted-text-on-to-clipboard-from-google-chrome-extension#25662380
     -- https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
