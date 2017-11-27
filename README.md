@@ -5,7 +5,6 @@ See the differences made to a page.
 ## TODO
 
   - Handle max storage limits.
-  - Figure out better UTF-8
   - Analytics on Marketing Site
   - Write "OMG life is hard" blog post
 
@@ -17,11 +16,11 @@ See the differences made to a page.
 
 ## Future Stuff
 
+  - Diff Summary at top of file.
+  - Delete single snapshot
   - Slack Integration?
   - Fix weird scrollbars - It happens when the user had a mouse...
-  - Diff Summary at top of file.
   - Keyboard Shortcut
-  - Delete single snapshot
   - Translate more.
   - Drag and drop as Markdown 
     -- https://stackoverflow.com/questions/25657626/how-to-copy-html-formatted-text-on-to-clipboard-from-google-chrome-extension#25662380
