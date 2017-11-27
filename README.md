@@ -50,4 +50,4 @@ First off bump the version and tag it:
 
 Then run:
 
-    release.sh release
+    bash release.sh
