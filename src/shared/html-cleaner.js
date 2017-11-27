@@ -25,11 +25,15 @@ export function HTMLCleaner(html, options) {
       // Stripe
       '.__PrivateStripeElement',
       // Zendesk,
-      '#contact-widget-launcher, #contact-widget'
+      '#contact-widget-launcher, #contact-widget',
+      // ZopIM
+      '.zopim'
     ],
     ignoreHtmlSelectors: [
       '.client-card > a',
-      'svg > *'
+      //'svg > *',
+      '[aria-live]',
+      '.vjs-play-progress, .vjs-seek-handle, .vjs-load-progress'
     ],
     ignoreInlineStyles: {
       '*': 'transform',
@@ -40,15 +44,17 @@ export function HTMLCleaner(html, options) {
       '.lazyloaded, .lazyload, .img-responsive, .lazy-load .lazy-loaded .lazy': 'src data-src data-srcset sizes width height data-original',
       '.client-card img': 'alt width height',
       '[data-scene]': 'data-arrival-index data-departure-index',
-      '.is_stuck, [class*="360View"], [class*="360View"], [class*="Animated"], [class*="animated"]' : 'style'
+      '.is_stuck, [class*="360View"], [class*="360View"], [class*="Animated"], [class*="animated"]' : 'style',
+      '[aria-valuenow], [aria-valuetext]': 'aria-valuenow aria-valuetext'
     },
     ignoreClassNames: {
-      '*': 'front-visible animation-ended lazyloaded lazyload lazy-load lazy-loaded nprogress-busy is-scrolling',
+      '*': 'front-visible animation-ended lazyloaded lazyload lazy-load lazy-loaded nprogress-busy is-scrolling vjs-user-inactive',
       '.carousel-inner .item': 'active',
       '.animate': 'animate-in',
       '.modal': 'in',
       '.arrow-wrapper': 'show-label',
-      '.cookie-hint': 'active'
+      '.cookie-hint': 'active',
+      '.menu-item': 'current_page_item'
     }
   }
 
@@ -63,7 +69,7 @@ export function HTMLCleaner(html, options) {
   // <div style="matrix: 1010; display: none; transform: none;" />
   function ignoreInlineStyles(){
     Object.keys( defaults.ignoreInlineStyles ).forEach(function(selector, index){
-      var styles = defaults.ignoreInlineStyles[selector];
+      var styles = defaults.ignoreInlineStyles[selector].trim();
       dom.querySelectorAll(selector).forEach(function(element) {
         styles.split(' ').forEach(function(style) {
           element.style.removeProperty(style.trim());
@@ -79,7 +85,7 @@ export function HTMLCleaner(html, options) {
   // If an element has attributes like 'data-src', we can safely ignore those also.
   function ignoreAttributes(){
     Object.keys( defaults.ignoreAttributes ).forEach(function(selector, index){
-      var attributes = defaults.ignoreAttributes[selector];
+      var attributes = defaults.ignoreAttributes[selector].trim();
       dom.querySelectorAll(selector).forEach(function(element) {
         attributes.split(' ').forEach(function(attribute) {
           element.removeAttribute(attribute.trim());
@@ -91,7 +97,7 @@ export function HTMLCleaner(html, options) {
   // Remoce classnames like in/animate-in
   function ignoreClassNames(){
     Object.keys( defaults.ignoreClassNames ).forEach(function(selector, index){
-      var classNames = defaults.ignoreClassNames[selector];
+      var classNames = defaults.ignoreClassNames[selector].trim();
       dom.querySelectorAll(selector).forEach(function(element) {
         classNames.split(' ').forEach(function(className) {
           element.classList.remove(className.trim());

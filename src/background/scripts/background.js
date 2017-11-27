@@ -29,7 +29,7 @@ function tabIsActive(tabId, callback) {
       active: true
     }, function(tabs) {
       tabs.forEach(function(tab){
-        if(tab.id == tabID){
+        if(tab.id == tabId){
           callback();
         }
       });

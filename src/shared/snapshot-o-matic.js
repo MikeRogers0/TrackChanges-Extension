@@ -85,6 +85,16 @@ export function SnapshotOMatic(tabId) {
 
     console.log("SnapshotOMatic.broadcast: " + tabId);
     buildTabSnapshot().then(({tab, result}) => {
+
+      // If no initial snapshot was made, fallback to the current snapshot.
+      if( typeof(window.tabSnapshots[tabId]) == 'undefined') {
+        window.tabSnapshots[tabId] = {};
+        window.tabSnapshots[tabId]["data"] = {
+          "mhtml": result,
+          "files": MHTMLParser().parseString(result)
+        };
+      }
+
       window.connections[tabId].postMessage({
         action: "snapshots-data",
         tabId: tabId,
