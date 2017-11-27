@@ -1,5 +1,6 @@
 // Parses HTML and turns it into individual files.
 var quotedPrintable = require('quoted-printable');
+var utf8 = require('utf8');
 var jsbeautifier = require("js-beautify").html;
 
 export function MHTMLParser() {
@@ -87,7 +88,7 @@ export function MHTMLParser() {
     fileData.data = MHTMLFileLines.slice(line, MHTMLFileLines.length).join("\n");
 
     if( fileData["Content-Transfer-Encoding"] === "quoted-printable" ) {
-      fileData.data = quotedPrintable.decode(fileData.data)
+      fileData.data = utf8.decode(quotedPrintable.decode(fileData.data));
     }
 
     // Remove "cid:frame-1007-078dc205-110a-4a99-8c03-53a3a256e7ef@mhtml.blink" Kind of stuff from the HTML source

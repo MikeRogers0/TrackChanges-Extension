@@ -34,6 +34,7 @@ export function HTMLCleaner(html, options) {
     ignoreHtmlSelectors: [
       '.client-card > a',
       '[aria-live]',
+      'svg > *',
       '.vjs-play-progress, .vjs-seek-handle, .vjs-load-progress',
       'input[type="hidden"]'
     ],

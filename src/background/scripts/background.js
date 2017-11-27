@@ -1,5 +1,3 @@
-// Set the charset
-
 import { SnapshotOMatic } from '../../shared/snapshot-o-matic';
 import { DelayTask } from '../../shared/delay-task';
 
