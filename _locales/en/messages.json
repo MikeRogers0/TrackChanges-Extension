@@ -48,7 +48,7 @@
   },
 
   "@no_diff_html": {
-    "message": "<p>Unable to find any differences 😲.</p>"
+    "message": "<p>Unable to find any differences 😲 Consider unchecking 'Ignore Dynamic Elements' and 'Ignore Commonly Injected Elements' for a more complete comparison.</p>"
   },
 
   "@options_summary_html": {

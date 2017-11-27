@@ -9,7 +9,6 @@ See the differences made to a page.
     - Needs more magic.
   - Figure out better UTF-8
   - Analytics on Marketing Site
-  - Note "No changes? Try disabling ignoring dynamic elements"
   - Write "OMG life is hard" blog post
 
   ### Submit to (Wednesday!)
