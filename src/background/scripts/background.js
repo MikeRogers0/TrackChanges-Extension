@@ -1,3 +1,5 @@
+// Set the charset
+
 import { SnapshotOMatic } from '../../shared/snapshot-o-matic';
 import { DelayTask } from '../../shared/delay-task';
 
@@ -42,10 +44,10 @@ window.namedActions = {
     SnapshotOMatic(tabId).broadcast();
   },
   "first-startup": function(tabId){ // Send the initial capture and out current capture down the pipe,
-    SnapshotOMatic(tabId).trackTab();
-    DelayTask(tabId).add(() => {
-      SnapshotOMatic(tabId).insert();
-    });
+    //SnapshotOMatic(tabId).trackTab();
+    //DelayTask(tabId).add(() => {
+      //SnapshotOMatic(tabId).insert();
+    //});
   },
   "devtools-opened": function(tabId){ // Insert our initial capture, unless it's already active. Then mark as being edited.
     SnapshotOMatic(tabId).trackTab();

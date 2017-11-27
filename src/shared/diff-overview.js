@@ -25,7 +25,7 @@ export function DiffOverview() {
 
         compareFiles(callback);
       };
-      reader.readAsText(mhtmlData, 'UTF-8');
+      reader.readAsText(mhtmlData);
     });
   }
 

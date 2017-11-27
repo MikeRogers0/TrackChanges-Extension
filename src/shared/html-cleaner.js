@@ -27,13 +27,15 @@ export function HTMLCleaner(html, options) {
       // Zendesk,
       '#contact-widget-launcher, #contact-widget',
       // ZopIM
-      '.zopim'
+      '.zopim',
+      // Grid Ruler Extension
+      '#grid-ruler-extension'
     ],
     ignoreHtmlSelectors: [
       '.client-card > a',
-      //'svg > *',
       '[aria-live]',
-      '.vjs-play-progress, .vjs-seek-handle, .vjs-load-progress'
+      '.vjs-play-progress, .vjs-seek-handle, .vjs-load-progress',
+      'input[type="hidden"]'
     ],
     ignoreInlineStyles: {
       '*': 'transform',
@@ -44,17 +46,23 @@ export function HTMLCleaner(html, options) {
       '.lazyloaded, .lazyload, .img-responsive, .lazy-load .lazy-loaded .lazy': 'src data-src data-srcset sizes width height data-original',
       '.client-card img': 'alt width height',
       '[data-scene]': 'data-arrival-index data-departure-index',
-      '.is_stuck, [class*="360View"], [class*="360View"], [class*="Animated"], [class*="animated"]' : 'style',
-      '[aria-valuenow], [aria-valuetext]': 'aria-valuenow aria-valuetext'
+      '.is_stuck, [class*="360View"], [class*="360View"], [class*="Animated"], [class*="animated"], .vjs-slider-handle, .vjs-load-progress, svg > *' : 'style',
+      '[aria-valuenow], [aria-valuetext]': 'aria-valuenow aria-valuetext',
+      '[aria-valuenow]': 'aria-valuenow',
+      '.slider-fill, .slick-slide': 'style',
+      '[aria-hidden], [tabindex], [aria-selected]': 'aria-hidden tabindex aria-selected'
     },
     ignoreClassNames: {
-      '*': 'front-visible animation-ended lazyloaded lazyload lazy-load lazy-loaded nprogress-busy is-scrolling vjs-user-inactive',
-      '.carousel-inner .item': 'active',
+      '*': 'front-visible animation-ended lazyloaded lazyload lazy-load lazy-loaded nprogress-busy is-scrolling vjs-user-inactive fix animate fixed affix',
+      '.carousel-inner .item, .carousel-item': 'active carousel-item-left',
+      '.carousel-indicators li.active, .nav-link.active': 'active',
       '.animate': 'animate-in',
       '.modal': 'in',
       '.arrow-wrapper': 'show-label',
       '.cookie-hint': 'active',
-      '.menu-item': 'current_page_item'
+      '.menu-item': 'current_page_item',
+      '.slick-slide': 'slick-current',
+      '.slick-active': 'slick-active'
     }
   }
 
@@ -102,6 +110,10 @@ export function HTMLCleaner(html, options) {
         classNames.split(' ').forEach(function(className) {
           element.classList.remove(className.trim());
         });
+
+        if( ( element.getAttribute('class') || '' ).trim() == '' ){
+          element.removeAttribute('class');
+        }
       });
     });
   }

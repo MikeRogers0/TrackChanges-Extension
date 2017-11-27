@@ -1,4 +1,4 @@
-export function DelayTask(taskName, delayTime=350) {
+export function DelayTask(taskName, delayTime=150) {
 
   // Clear the last task with this name, queue up this instead.
   function add(callback){

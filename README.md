@@ -5,8 +5,6 @@ See the differences made to a page.
 ## TODO
 
   - Handle max storage limits.
-  - Dynamic Elements "Machine Learning"
-    - Needs more magic.
   - Figure out better UTF-8
   - Analytics on Marketing Site
   - Write "OMG life is hard" blog post
@@ -16,18 +14,6 @@ See the differences made to a page.
   - http://embedhunt.com/
   - Product Hunt
   - HackerNews
-
-### Sites to test against:
-
-These are the sites that are likely to just fuck my shit up.
-
- - http://www.right-staff.com/ - Wix mess, the settings
- - https://bleech.de/
- - http://smart-magazine.com/
- - https://www.buddyguard.io
- - http://partswholesale.mercedes-benz.com/ru/
- - Also the ruler extension
- - Bootstrap 4/3 & Foundation.
 
 ## Future Stuff
 
