@@ -1,16 +1,15 @@
 @import 'variables';
 
 body {
-  background: #F9F9F9;
+  background: lighten(#F9F9F9, 30%);
 }
 
 .diff-inner {}
 
 .diff-header {
-  padding: 2rem;
+  padding: 1.5rem 2rem;
   display: flex;
   border-bottom: 1px solid #e1e4e8;
-  background: lighten(#F9F9F9, 30%);
 
   > div {
     line-height: 1.5;
@@ -26,8 +25,9 @@ body {
   .diff-mhtml-files, .diff-save {
     margin-left: auto;
     a {
+      display: inline-block;
       border: 1px solid #e1e4e8;
-      padding: 1rem;
+      padding: 0.7rem 1rem;
       margin-right: 1rem;
 
       &:last-child {
@@ -45,7 +45,9 @@ body {
 }
 
 .diff-footer {
-  padding: 0 2rem;
+  padding: 0.5rem 2rem;
+  border-top: 1px solid #e1e4e8;
+  text-align: center;
 }
 
 .diff-table {
@@ -55,6 +57,10 @@ body {
   border: 1px solid #e1e4e8;
   border-radius: 3px;
   margin-bottom: 2rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 
   thead {
     tr {
