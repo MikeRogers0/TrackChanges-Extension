@@ -52,7 +52,7 @@
   },
 
   "@options_summary_html": {
-    "message": "<p>Thank you for installing <a href='https://trackchanges.mikerogers.io' target='_blank'>TrackChanges</a>, it's currently in Beta.</p>"
+    "message": "<h2>Feedback</h2><p>Thank you for installing <a href='https://trackchanges.mikerogers.io' target='_blank'>TrackChanges</a>! I would love to hear your feedback, please <a href='mailto:me+trackchanges@mikerogers.io?subject=TrackChanges%20Feedback' tabindex='-1' target='_blank'>send me an email</a>.</p>"
   },
 
   "@options_snapshots": {
@@ -104,6 +104,6 @@
   },
 
   "@popup_help_me_html": {
-    "message": "<p>Currently TrackChanges is in Beta, so I'm super excited to know your thoughts, be sure to <a href='mailto:me+trackchanges@mikerogers.io?subject=TrackChanges%20Beta' tabindex='-1' target='_blank'>drop me an email</a> 🤘</p>"
+    "message": "<p>I'm super excited to know your thoughts, be sure to <a href='mailto:me+trackchanges@mikerogers.io?subject=TrackChanges%20Feedback' tabindex='-1' target='_blank'>send me an email</a>.</p>"
   }
 }
