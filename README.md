@@ -7,7 +7,6 @@ See the differences made to a page.
   - Handle max storage limits.
   - Analytics on Marketing Site
   - Write "OMG life is hard" blog post
-  - Options - Hide/Show
 
   ### Submit to (Wednesday!)
 

@@ -5,6 +5,15 @@ import { TrackChangesOptions } from '../shared/track-changes-options';
 
 window.trackChangesOptions = TrackChangesOptions();
 
+var moreOptionsBtn = document.querySelector('#create-snapshot-form .btn-options');
+var optionsWrapper = document.querySelector('#create-snapshot-form .options');
+
+// Show the options box if required
+if( window.trackChangesOptions.get('showOptionsBox') ){
+  moreOptionsBtn.className += ' active';
+  optionsWrapper.className = optionsWrapper.className.replace('hide', '').trim();
+}
+
 function setupOptions(){
   document.querySelectorAll('.option').forEach(function(option) {
     option.checked = window.trackChangesOptions.get(option.name);
@@ -60,8 +69,6 @@ function enableCreateSnapshot(){
     });
   });
 
-  var moreOptionsBtn = document.querySelector('#create-snapshot-form .btn-options');
-  var optionsWrapper = document.querySelector('#create-snapshot-form .options');
   moreOptionsBtn.addEventListener('click', function(e){
     e.preventDefault();
 
@@ -73,6 +80,8 @@ function enableCreateSnapshot(){
       moreOptionsBtn.className += ' active';
       optionsWrapper.className = optionsWrapper.className.replace('hide', '').trim();
     }
+
+    window.trackChangesOptions.set('showOptionsBox', moreOptionsBtn.className.includes('active'));
   });
 }
 

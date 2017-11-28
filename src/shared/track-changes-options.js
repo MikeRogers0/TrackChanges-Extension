@@ -1,5 +1,6 @@
 export function TrackChangesOptions() {
   var defaultOptions = {
+    showOptionsBox: true,
     ignoreCommonlyInjectedElements: true,
     ignoreDynamicElements: true,
     downloadSnapshotImmediately: true
