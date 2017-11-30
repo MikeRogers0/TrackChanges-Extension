@@ -104,6 +104,6 @@
   },
 
   "@popup_help_me_html": {
-    "message": "<p>I'm super excited to know your thoughts, be sure to <a href='mailto:me+trackchanges@mikerogers.io?subject=TrackChanges%20Feedback' tabindex='-1' target='_blank'>send me an email</a>.</p>"
+    "message": "<p>I'm super excited to know your thoughts, be sure to <a href='mailto:me+trackchanges@mikerogers.io?subject=TrackChanges%20Feedback' tabindex='-1' target='_blank'>send me an email</a> or <a href='https://chrome.google.com/webstore/detail/trackchanges/apjhnklilfgkagjmiklcffnaggponkdc/reviews' tabindex='-1' target='_blank'>leave a review in the Chrome Store</a>.</p>"
   }
 }
