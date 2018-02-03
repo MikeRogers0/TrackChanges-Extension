@@ -1,18 +1,17 @@
 // When a page has loaded & the onready JS has run, we tell the extension (which will take a snapshot of the page).
 chrome.runtime.sendMessage( { action: "page-loaded" } );
 
-function postReadyChangesListner(){
-  // Removed, it's triggered way to often and kills the page performance.
-  //document.querySelector('body').addEventListener('DOMSubtreeModified', function(){
-    //chrome.runtime.sendMessage( { action: "page-updated" } );
-  //}, false);
+// Make sure we remove the now run message, otherwise aws.amazon.com blows up
+function imageWasLazyLoaded(e){
+  chrome.runtime.sendMessage( { action: "page-updated" } );
+  e.target.removeEventListener('load', imageWasLazyLoaded);
+}
 
+function postReadyChangesListner(){
   // Listen for lazy loaded images
   var imagesOnPage = document.querySelectorAll('img');
   for (var i = 0, len = imagesOnPage.length; i < len; i++) {
-    imagesOnPage[i].addEventListener('load', function(){
-      chrome.runtime.sendMessage( { action: "page-updated" } );
-    }, false);
+    imagesOnPage[i].addEventListener('load', imageWasLazyLoaded, false);
   }
 }
 
