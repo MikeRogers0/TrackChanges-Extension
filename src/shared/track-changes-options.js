@@ -3,10 +3,15 @@ export function TrackChangesOptions() {
     showOptionsBox: true,
     ignoreCommonlyInjectedElements: true,
     ignoreDynamicElements: true,
-    downloadSnapshotImmediately: true
+    downloadSnapshotImmediately: true,
+    ableToGetPermissions: true
   };
 
   var userOptions = {};
+
+  var erroredOptions = {
+    ableToGetPermissions: false
+  }
 
   function get(key){
     return getAll()[key];
@@ -14,7 +19,12 @@ export function TrackChangesOptions() {
 
   function getAll(){
     userOptions = defaultOptions;
-    Object.assign(userOptions, (JSON.parse(localStorage['userOptions'] || '{}')));
+    try {
+      Object.assign(userOptions, (JSON.parse(localStorage['userOptions'] || '{}')));
+    } catch(e) {
+      console.error(e);
+      return erroredOptions;
+    }
     return userOptions;
   }
 

@@ -31,6 +31,10 @@
     "message": "<strong>TrackChanges</strong> will compare what has changed since the page has loaded, then generate a set of developer friendly files that can be easily shared."
   },
 
+  "@enable_3rd_party_cookies_html": {
+    "message": "<strong>TrackChanges</strong> requires 3rd party cookies to be enabled in your browser to work correctly. Please enable them and try again."
+  },
+
   "@results_for": {
     "message": "Results For:"
   },

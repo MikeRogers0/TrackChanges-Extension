@@ -59,6 +59,13 @@ function enableCreateSnapshot(){
     return;
   }
 
+  if( window.trackChangesOptions.get('ableToGetPermissions') == false ){
+    document.querySelector('.get-started .description').className += ' hide';
+    document.querySelector('.get-started .enable-3rd-party-cookies').className = 'enable-3rd-party-cookies';
+    return;
+  }
+
+
   toggleCreateSnapshotButtons();
 
   // When the button is clicked, build a new diff
