@@ -15,7 +15,7 @@ export function DiffOverview() {
   }
 
   function loadLatestMHTMLFile(callback){
-    console.log("Loading Latest MHTML File");
+    console.info("Loading Latest MHTML File");
 
     chrome.pageCapture.saveAsMHTML({tabId: tabId()}, function(mhtmlData){
       var reader = new window.FileReader();
@@ -30,7 +30,7 @@ export function DiffOverview() {
   }
 
   function compareFiles(callback){
-    console.log("Comparing files");
+    console.info("Comparing files");
     for(var file in originalFiles){
       compareVersionsOfFile(file);
     }
@@ -39,7 +39,7 @@ export function DiffOverview() {
   }
 
   function compareVersionsOfFile(file){
-    console.log("Comparing file: " + file);
+    console.info("Comparing file: " + file);
 
     if(file == "") {
       return;

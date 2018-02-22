@@ -41,7 +41,7 @@ function toggleDisabled(element){
 }
 
 function createSnapshot(){
-  console.log('Snapshot(chrome.devtools.inspectedWindow.tabId).save()');
+  console.info('Snapshot(chrome.devtools.inspectedWindow.tabId).save()');
 
   toggleCreateSnapshotButtons();
 
@@ -89,7 +89,7 @@ var backgroundPageConnection = chrome.runtime.connect({ name: "panel" });
 
 backgroundPageConnection.onMessage.addListener(function(message, sender, sendResponse){
   if(message.action === "snapshots-data" && message.tabId === chrome.devtools.inspectedWindow.tabId){
-    console.log('backgroundPageConnection.onMessage: snapshots-data');
+    console.info('backgroundPageConnection.onMessage: snapshots-data');
     window.tabSnapshot["title"] = message.title;
     window.tabSnapshot["url"] = message.url;
     window.tabSnapshot["initial"] = message.initial;

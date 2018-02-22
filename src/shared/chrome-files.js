@@ -6,7 +6,7 @@ export function ChromeFiles() {
   var BIG_FILE = 30 * 1024 * 1024;
 
   function errorHandler(e){
-    console.log(e);
+    console.error(e);
   }
 
   function initFileSystem(callback){
@@ -92,7 +92,7 @@ export function ChromeFiles() {
           };
 
           fileWriter.onerror = function(e) {
-            console.log('Write failed: ' + e.toString());
+            console.error('Write failed: ' + e.toString());
           };
 
           fileWriter.write(contents);
@@ -114,7 +114,7 @@ export function ChromeFiles() {
     initFileSystem(function(fs){
       fs.root.getDirectory(folderName, {}, function(dirEntry) {
         dirEntry.removeRecursively(function(){
-          console.log("Directory Removed:" + folderName);
+          console.info("Directory Removed:" + folderName);
         }, errorHandler);
       }, errorHandler);
     });

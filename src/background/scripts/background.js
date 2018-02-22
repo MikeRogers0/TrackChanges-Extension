@@ -81,7 +81,7 @@ window.namedActions = {
 
 function chromeMessageHandler(request, sender={}, sendResponse={}){
   var tabId = request.tabId || sender.tab.id;
-  console.log("onMessage: " + request.action + " ("+ tabId +")");
+  console.info("onMessage: " + request.action + " ("+ tabId +")");
 
   if( tabId <= 0 ) { return; }
 

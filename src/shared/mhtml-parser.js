@@ -20,12 +20,12 @@ export function MHTMLParser() {
   var setMultipartBoundary = function(){
     var MultipartBoundaryToken =  MHTMLString.match('boundary="(.*)"')[1]
     MultipartBoundary = "--" + MultipartBoundaryToken;
-    console.log("MHTMLParser().MultipartBoundary: " + MultipartBoundary);
+    console.info("MHTMLParser().MultipartBoundary: " + MultipartBoundary);
   }
 
   var splitMHTMLStringIntoFiles = function(){
     MHTMLFiles = MHTMLString.replace(MultipartBoundary + "--", "").split(MultipartBoundary);
-    console.log("MHTMLParser().MHTMLFiles: " + MHTMLFiles.length);
+    console.info("MHTMLParser().MHTMLFiles: " + MHTMLFiles.length);
   }
 
   var parseFiles = function(){

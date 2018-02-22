@@ -13,7 +13,7 @@ export function Snapshot(tabId, options) {
 
   function touchTimestampDirectory(){
     return new Promise(function(resolve, reject) {
-      console.log("Creating Directory: " + timestamp);
+      console.info("Creating Directory: " + timestamp);
       ChromeFiles().createDirectory(timestamp, function(){
         resolve();
       });
@@ -22,7 +22,7 @@ export function Snapshot(tabId, options) {
 
   function saveMHTMLFile(version){
     return new Promise(function(resolve, reject) {
-      console.log("saveMHTMLFile(" + version + ")")
+      console.info("saveMHTMLFile(" + version + ")")
       zip.file(version + ".mhtml", window.tabSnapshot[version]["mhtml"]);
       ChromeFiles().saveMHTMLFile(timestamp + "/" + version + ".mhtml", window.tabSnapshot[version]["mhtml"], function(){
         resolve();
@@ -32,7 +32,7 @@ export function Snapshot(tabId, options) {
 
   function saveDiffFile(){
     return new Promise(function(resolve, reject) {
-      console.log("saveDiffFile()")
+      console.info("saveDiffFile()")
       DiffAsHTML(window.tabSnapshot["initial"]["files"], window.tabSnapshot["updated"]["files"], window.tabSnapshot["title"], window.tabSnapshot["url"]).buildHTML(function(html){
         zip.file("diff.html", html);
         ChromeFiles().saveHTMLFile(timestamp + "/diff.html", html, function(){
@@ -49,7 +49,7 @@ export function Snapshot(tabId, options) {
 
   function saveZipFile(){
     return new Promise(function(resolve, reject) {
-      console.log("saveZipFile()")
+      console.info("saveZipFile()")
       zip.generateAsync({type:"blob"}).then(function (blob) {
         if(options.downloadSnapshotImmediately){
           FileSaver.saveAs(blob, localStorage[timestamp + "filename"]);

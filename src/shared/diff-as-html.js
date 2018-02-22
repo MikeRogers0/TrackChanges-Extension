@@ -37,7 +37,7 @@ export function DiffAsHTML(initialFiles, updatedFiles, tabTitle, tabUrl) {
   }
 
   function compareFiles(){
-    console.log("Comparing files");
+    console.info("Comparing files");
     return new Promise(function(resolve, reject) {
       for(var file in initialFiles){
         compareVersionsOfFile(file);
@@ -122,7 +122,7 @@ export function DiffAsHTML(initialFiles, updatedFiles, tabTitle, tabUrl) {
   }
 
   function compareVersionsOfFile(file){
-    console.log("Comparing file: " + file);
+    console.info("Comparing file: " + file);
 
     if(file == "") { return; }
     if(updatedFiles[file] == undefined) { return; }
@@ -166,7 +166,6 @@ export function DiffAsHTML(initialFiles, updatedFiles, tabTitle, tabUrl) {
 
       for(var i in linesOfCode){
         lineNumber = calcLineNumber(part);
-        console.log(linesOfCode[i]);
         rowsHTML += buildDiffRow(rowType, linesOfCode[i], lineNumber);
       }
     }

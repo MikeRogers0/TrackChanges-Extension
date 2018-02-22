@@ -3,7 +3,7 @@ import { MHTMLParser } from '../shared/mhtml-parser';
 export function SnapshotOMatic(tabId) {
 
   function buildTabSnapshot(){
-    console.log("SnapshotOMatic.buildTabSnapshot: " + tabId);
+    console.info("SnapshotOMatic.buildTabSnapshot: " + tabId);
     return new Promise(function(resolve, reject) {
       chrome.tabs.get(tabId, function(tab){
         chrome.pageCapture.saveAsMHTML({tabId: tabId}, function(mhtmlData){
@@ -18,7 +18,7 @@ export function SnapshotOMatic(tabId) {
   }
 
   function saveSnapshot(tab, result){
-    console.log("SnapshotOMatic.saveSnapshot: " + tabId);
+    console.info("SnapshotOMatic.saveSnapshot: " + tabId);
     window.tabSnapshots[tabId] = {
       "user_interacted": window.tabSnapshots[tabId]["user_interacted"],
       "title": tab.title,
@@ -36,12 +36,12 @@ export function SnapshotOMatic(tabId) {
   }
 
   function trackTab(){
-    console.log("SnapshotOMatic.trackTab: " + tabId);
+    console.info("SnapshotOMatic.trackTab: " + tabId);
     window.trackingTabs[tabId] = true
   }
 
   function untrackTab(){
-    console.log("SnapshotOMatic.untrackTab: " + tabId);
+    console.info("SnapshotOMatic.untrackTab: " + tabId);
     window.trackingTabs[tabId] = false
   }
 
@@ -50,7 +50,7 @@ export function SnapshotOMatic(tabId) {
       return;
     }
 
-    console.log("SnapshotOMatic.insert: " + tabId);
+    console.info("SnapshotOMatic.insert: " + tabId);
     setDefaultTabSnapshotData();
 
     buildTabSnapshot().then(({tab, result}) => {
@@ -62,7 +62,7 @@ export function SnapshotOMatic(tabId) {
     if( !window.trackingTabs[tabId] ){
       return;
     }
-    console.log("SnapshotOMatic.update: " + tabId);
+    console.info("SnapshotOMatic.update: " + tabId);
     setDefaultTabSnapshotData();
 
     // If the user has interacted with the tab, don't insert a new initial version.
@@ -73,7 +73,7 @@ export function SnapshotOMatic(tabId) {
 
   function userInteracted(){
     if( typeof(window.tabSnapshots[tabId]) != 'undefined' ){
-      console.log("SnapshotOMatic.userInteracted: " + tabId);
+      console.info("SnapshotOMatic.userInteracted: " + tabId);
       window.tabSnapshots[tabId]["user_interacted"] = true;
     }
   }
@@ -83,7 +83,7 @@ export function SnapshotOMatic(tabId) {
       return;
     }
 
-    console.log("SnapshotOMatic.broadcast: " + tabId);
+    console.info("SnapshotOMatic.broadcast: " + tabId);
     buildTabSnapshot().then(({tab, result}) => {
 
       // If no initial snapshot was made, fallback to the current snapshot.
@@ -110,7 +110,7 @@ export function SnapshotOMatic(tabId) {
   }
 
   function clear(){
-    console.log("SnapshotOMatic.clear: " + tabId);
+    console.info("SnapshotOMatic.clear: " + tabId);
     delete window.tabSnapshots[tabId];
   }
 
